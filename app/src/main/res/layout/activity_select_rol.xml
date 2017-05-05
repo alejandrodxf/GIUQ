@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_select_rol"
+    android:background="@drawable/background_app"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="@dimen/vertical_margin_activity"
+    android:paddingBottom="@dimen/vertical_margin_activity"
+    tools:context="co.edu.uniquindio.android.electiva.giuq.activities.SelectRolActivity">
+
+    <Button
+        android:id="@+id/buttonBackSignIn"
+        android:textSize="@dimen/font_size_button"
+        android:drawableLeft="@drawable/ic_action_back"
+        android:background="?android:attr/selectableItemBackground"
+        android:textAllCaps="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/sign_up" />
+
+    <TextView
+        android:id="@+id/textViewTitle"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="81dp"
+        android:text="@string/tell_us_more"
+        android:textSize="@dimen/font_size_textview"
+        android:layout_below="@+id/buttonBackSignIn"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/imageViewResearcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_action_researcher"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/textViewTitle"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:id="@+id/textViewImResearcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:text="@string/im_researcher"
+        android:textSize="@dimen/font_size_edittext"
+        android:layout_below="@+id/imageViewResearcher"
+        android:layout_alignStart="@+id/imageViewResearcher"
+        android:layout_alignEnd="@+id/imageViewResearcher" />
+
+    <ImageView
+        android:id="@+id/imageLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_action_line"
+        android:layout_alignBottom="@+id/imageViewResearchGroup"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/imageViewResearchGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_action_research_group"
+        android:layout_alignTop="@+id/imageViewResearcher"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textViewWereAResearchGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewImResearcher"
+        android:layout_alignBottom="@+id/textViewImResearcher"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/imageViewResearchGroup"
+        android:gravity="center"
+        android:text="@string/we_are_a_research_group"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_size_edittext" />
+</RelativeLayout>

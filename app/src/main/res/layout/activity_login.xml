@@ -6,7 +6,7 @@
     android:id="@+id/activity_login"
     android:paddingLeft="@dimen/horizontal_margin_activity"
     android:paddingRight="@dimen/horizontal_margin_activity"
-    android:paddingBottom="@dimen/vertical_margin_activity"
+    android:paddingBottom="0dp"
     android:paddingTop="@dimen/vertical_margin_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -42,7 +42,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/textInputLayoutEmail"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
+        app:errorTextAppearance="@style/ErrorTextInputLayout"
         app:hintTextAppearance="@style/TextViewInputLayout"
         android:id="@+id/textInputLayoutPassword">
 

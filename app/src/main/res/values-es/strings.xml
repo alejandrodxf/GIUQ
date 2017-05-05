@@ -11,4 +11,9 @@
     <string name="recover">Recuperar</string>
     <string name="recover_password">Recuperar contraseña</string>
     <string name="recover_password_help">Podemos ayudarte a cambiar tu contraseña mediante tu dirección de correo electrónico enlazada a la cuenta.</string>
+    <string name="error_password_or_email">Email o contraseña incorrecta</string>
+    <string name="sign_up">Regístrate</string>
+    <string name="tell_us_more">Cuéntanos más</string>
+    <string name="im_researcher">Soy un Investigador</string>
+    <string name="we_are_a_research_group">Somos un Grupo de Investigación</string>
 </resources>

@@ -10,4 +10,9 @@
     <string name="recover">Recover</string>
     <string name="recover_password">Recover Password</string>
     <string name="recover_password_help">We can help you recover your password using the email address linked to the account.</string>
+    <string name="error_password_or_email">Email or password incorrect</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="tell_us_more">Tell us more</string>
+    <string name="im_researcher">I\'m researcher</string>
+    <string name="we_are_a_research_group">We\' re a research group</string>
 </resources>

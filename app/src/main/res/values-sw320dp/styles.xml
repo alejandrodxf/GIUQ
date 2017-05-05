@@ -15,4 +15,10 @@
         <item name="android:textSize">@dimen/font_size_edittext</item>
         <item name="colorAccent">@color/colorPrimary</item>
     </style>
+
+    <!-- Estilo error TextInputLayout -->
+    <style name="ErrorTextInputLayout" parent="TextAppearance.AppCompat.Caption">
+        <item name="android:textColor">@android:color/darker_gray</item>
+        <item name="android:textSize">@dimen/font_size_error</item>
+    </style>
 </resources>
