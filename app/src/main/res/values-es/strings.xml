@@ -6,6 +6,9 @@
     <string name="sign_in">Iniciar sesión</string>
     <string name="email">Correo electrónico</string>
     <string name="password">Contraseña</string>
-    <string name="dont_have_account">Crear cuenta</string>
+    <string name="dont_have_account">¿No tienes una cuenta? Regístrate</string>
     <string name="forgot_password">¿Olvidaste la contraseña?</string>
+    <string name="recover">Recuperar</string>
+    <string name="recover_password">Recuperar contraseña</string>
+    <string name="recover_password_help">Podemos ayudarte a cambiar tu contraseña mediante tu dirección de correo electrónico enlazada a la cuenta.</string>
 </resources>

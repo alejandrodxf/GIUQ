@@ -3,13 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:background="@drawable/background_app"
+    android:id="@+id/activity_login"
     android:paddingLeft="@dimen/horizontal_margin_activity"
     android:paddingRight="@dimen/horizontal_margin_activity"
     android:paddingBottom="@dimen/vertical_margin_activity"
     android:paddingTop="@dimen/vertical_margin_activity"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="co.edu.uniquindio.android.electiva.giuq.LoginActivity">
+    tools:context="co.edu.uniquindio.android.electiva.giuq.activities.LoginActivity">
 
     <ImageView
         android:id="@+id/imageViewLogo"
@@ -71,28 +72,26 @@
     <Button
         android:id="@+id/buttonSignUp"
         android:textSize="@dimen/font_size_button_transparent"
-        android:background="@android:color/transparent"
+        android:background="?android:attr/selectableItemBackground"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/height_button_transparent"
         android:layout_marginTop="20dp"
         android:textAllCaps="false"
         android:text="@string/dont_have_account"
         android:layout_below="@+id/buttonSignIn"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_centerHorizontal="true" />
 
     <Button
         android:id="@+id/buttonForgotPassword"
         android:textSize="@dimen/font_size_button_transparent"
         android:textAllCaps="false"
-        android:background="@android:color/transparent"
+        android:background="?android:attr/selectableItemBackground"
         android:layout_width="wrap_content"
         android:layout_height="@dimen/height_button_transparent"
         android:layout_marginTop="10dp"
-        android:layout_below="@+id/buttonSignUp"
         android:text="@string/forgot_password"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/buttonSignUp"
+        android:layout_centerHorizontal="true" />
 
 
 </RelativeLayout>

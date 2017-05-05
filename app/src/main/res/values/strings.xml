@@ -7,4 +7,7 @@
     <string name="password">Password</string>
     <string name="dont_have_account">Don\'t have an account? Sign Up!</string>
     <string name="forgot_password">Forgot password?</string>
+    <string name="recover">Recover</string>
+    <string name="recover_password">Recover Password</string>
+    <string name="recover_password_help">We can help you recover your password using the email address linked to the account.</string>
 </resources>

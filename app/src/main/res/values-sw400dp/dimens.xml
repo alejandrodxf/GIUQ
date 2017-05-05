@@ -4,6 +4,7 @@
     <dimen name="vertical_margin_activity">80dp</dimen>
     <dimen name="padding_right_button">36dp</dimen>
     <dimen name="padding_left_button">36dp</dimen>
+    <dimen name="font_size_body">16sp</dimen>
     <dimen name="font_size_edittext">18sp</dimen>
     <dimen name="font_size_textview">22sp</dimen>
     <dimen name="font_size_button">18sp</dimen>
@@ -11,4 +12,5 @@
     <dimen name="height_button_transparent">27sp</dimen>
     <dimen name="height_button">40dp</dimen>
     <dimen name="margin_top_button_sign_in">50dp</dimen>
+    <dimen name="margin_top_button_recover">50dp</dimen>
 </resources>

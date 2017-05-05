@@ -1,12 +1,16 @@
-package co.edu.uniquindio.android.electiva.giuq;
+package co.edu.uniquindio.android.electiva.giuq.activities;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
+import co.edu.uniquindio.android.electiva.giuq.R;
+import co.edu.uniquindio.android.electiva.giuq.fragments.ForgotPasswordFragment;
 
 /**
  * Clase utilizada para el ingreso de los usuarios a la aplicación
@@ -55,6 +59,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        ButterKnife.bind(this);
+        buttonForgotPassword.setOnClickListener(this);
 
     }
 
@@ -65,7 +71,21 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     @Override
     public void onClick(View v) {
+        switch(v.getId()){
+            case R.id.buttonForgotPassword:{
+                showDialogRecoverPassword();
+            }
+        }
 
+    }
+
+    /**
+     * Método encargado de mostrar el diálogo para recuperar la contraseña
+     */
+    public void showDialogRecoverPassword() {
+        FragmentManager fm = getSupportFragmentManager();
+        ForgotPasswordFragment dialogFragmentForgotPassword = new ForgotPasswordFragment();
+        dialogFragmentForgotPassword.show(fm, "fragment_forgot_password");
 
     }
 }
