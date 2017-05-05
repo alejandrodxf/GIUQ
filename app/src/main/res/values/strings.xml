@@ -1,3 +1,10 @@
 <resources>
+    <item name="visible" type="id" />
+    <item name="masked" type="id" />
     <string name="app_name">GIUQ</string>
+    <string name="sign_in">Sign in</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="dont_have_account">Don\'t have an account? Sign Up!</string>
+    <string name="forgot_password">Forgot password?</string>
 </resources>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="horizontal_margin_activity">90dp</dimen>
+    <dimen name="vertical_margin_activity">100dp</dimen>
+    <dimen name="padding_right_button">40dp</dimen>
+    <dimen name="padding_left_button">40dp</dimen>
+    <dimen name="font_size_edittext">20sp</dimen>
+    <dimen name="font_size_textview">24sp</dimen>
+    <dimen name="font_size_button">20sp</dimen>
+    <dimen name="font_size_button_transparent">18sp</dimen>
+    <dimen name="height_button_transparent">29sp</dimen>
+    <dimen name="height_button">48dp</dimen>
+    <dimen name="margin_top_button_sign_in">60dp</dimen>
+</resources>

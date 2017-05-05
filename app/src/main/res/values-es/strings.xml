@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="visible" type="id" />
+    <item name="masked" type="id" />
+    <string name="app_name">GIUQ</string>
+    <string name="sign_in">Iniciar sesión</string>
+    <string name="email">Correo electrónico</string>
+    <string name="password">Contraseña</string>
+    <string name="dont_have_account">Crear cuenta</string>
+    <string name="forgot_password">¿Olvidaste la contraseña?</string>
+</resources>

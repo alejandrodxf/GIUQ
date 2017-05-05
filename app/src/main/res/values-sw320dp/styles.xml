@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Estilo TextInputLayout -->
+    <style name="TextViewInputLayout" parent="TextAppearance.Design.Hint">
+        <item name="android:textSize">@dimen/font_size_edittext</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+    </style>
+</resources>
