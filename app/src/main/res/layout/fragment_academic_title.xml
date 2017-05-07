@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/academic_title_fragment"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    tools:context="co.edu.uniquindio.android.electiva.giuq.fragments.AcademicTitleFragment">
+
+    <TextView
+        android:id="@+id/textViewAcademicBackground"
+
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size_edittext"
+        android:layout_marginTop="20dp"
+        android:text="@string/academic_background"
+        />
+
+    <ImageView
+        android:id="@+id/imageViewAddAcademicTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageViewRemoveAcademicTitle"
+        android:layout_marginEnd="23dp"
+        android:layout_toStartOf="@+id/imageViewRemoveAcademicTitle"
+        app:srcCompat="@drawable/ic_action_add" />
+
+    <ImageView
+        android:id="@+id/imageViewRemoveAcademicTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/recyclerViewAcademicTitle"
+        android:layout_alignParentEnd="true"
+        app:srcCompat="@drawable/ic_action_remove" />
+
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewAcademicTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_below="@id/textViewAcademicBackground"
+        android:padding="3dp"
+        android:scrollbars="vertical" />
+
+
+</RelativeLayout>

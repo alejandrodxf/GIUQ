@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/new_researcher_activity"
+    android:background="@drawable/background_app"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingTop="40dp"
+    tools:context="co.edu.uniquindio.android.electiva.giuq.activities.NewResearcherActivity">
+
+    <Button
+        android:id="@+id/buttonBackSelectRolNewResearcher"
+        android:textSize="@dimen/font_size_button"
+        android:drawableStart="@drawable/ic_action_back"
+        android:background="?android:attr/selectableItemBackground"
+        android:textAllCaps="false"
+        android:layout_marginLeft="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/new_researcher" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/circleImageResearcher"
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/buttonBackSelectRolNewResearcher"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ic_action_researcher"
+        />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabMenuResearcher"
+        app:tabMaxWidth="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/circleImageResearcher"
+        android:layout_marginTop="40dp"
+        app:tabTextAppearance="@style/TabText"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerResearcher"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tabMenuResearcher"
+        android:layout_above="@+id/buttonSignUpResearcher" />
+
+    <Button
+        android:id="@+id/buttonSignUpResearcher"
+        android:textSize="@dimen/font_size_button"
+        android:background="@drawable/buttonshape"
+        android:textColor="@color/colorPrimary"
+        android:fontFamily="@string/font_family_medium"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_button"
+        android:layout_alignParentBottom="true"
+        android:text="@string/sign_up"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

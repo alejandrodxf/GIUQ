@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/about_researcher"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    tools:context="co.edu.uniquindio.android.electiva.giuq.fragments.AboutResearcherFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp">
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="26dp"
+            app:errorTextAppearance="@style/ErrorTextInputLayout"
+            app:hintTextAppearance="@style/TextViewInputLayout"
+            android:id="@+id/textInputLayoutFullNameResearcher">
+
+            <EditText
+                android:id="@+id/editTextFullNameResearcher"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/font_size_edittext"
+                android:layout_height="wrap_content"
+                android:hint="@string/full_name"
+                android:inputType="textPersonName"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textViewGenreResearcher"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/font_size_edittext"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/genre"
+            android:layout_below="@id/textInputLayoutFullNameResearcher"
+             />
+
+        <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/radioGroupGenre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_alignTop="@+id/textViewGenreResearcher"
+            android:layout_toEndOf="@+id/textViewGenreResearcher"
+            android:layout_marginStart="20dp">
+
+            <RadioButton
+                android:id="@+id/radioButtonMale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="20dp"
+                android:textSize="@dimen/font_size_edittext"
+                android:checked="true"
+                android:text="@string/male" />
+
+            <RadioButton
+                android:id="@+id/radioButtonFemale"
+                android:textSize="@dimen/font_size_edittext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                android:text="@string/female" />
+        </RadioGroup>
+
+
+    <TextView
+        android:id="@+id/textViewNationalityResearcher"
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/font_size_edittext"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/nationality"
+        android:layout_below="@id/textViewGenreResearcher"
+         />
+
+    <Spinner android:id="@+id/spinnerNationalityResearcher"
+        android:spinnerMode="dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewNationalityResearcher"
+        />
+
+    <TextView
+        android:id="@+id/textViewCategoryResearcher"
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/font_size_edittext"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/category"
+        android:layout_below="@id/spinnerNationalityResearcher"
+         />
+
+    <Spinner android:id="@+id/spinnerCategoryResearcher"
+        android:spinnerMode="dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewCategoryResearcher"
+        />
+
+
+    <android.support.design.widget.TextInputLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinnerCategoryResearcher"
+        android:layout_marginTop="20dp"
+        app:errorTextAppearance="@style/ErrorTextInputLayout"
+        app:hintTextAppearance="@style/TextViewInputLayout"
+        android:id="@+id/textInputLayoutResearchGroupResearcher">
+
+        <EditText
+            android:id="@+id/editTextResearcherGroupResearcher"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/font_size_edittext"
+            android:layout_height="wrap_content"
+            android:hint="@string/research_group"
+            android:inputType="text"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textInputLayoutResearchGroupResearcher"
+        android:layout_marginTop="20dp"
+        app:errorTextAppearance="@style/ErrorTextInputLayout"
+        app:hintTextAppearance="@style/TextViewInputLayout"
+        android:id="@+id/textInputLayoutUrlCvlacResearcher">
+
+        <EditText
+            android:id="@+id/editTextUrlCvlacResearcher"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/font_size_edittext"
+            android:layout_height="wrap_content"
+            android:hint="@string/url_cvlac"
+            android:inputType="textUri"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textInputLayoutUrlCvlacResearcher"
+        android:layout_marginTop="20dp"
+        app:errorTextAppearance="@style/ErrorTextInputLayout"
+        app:hintTextAppearance="@style/TextViewInputLayout"
+        android:id="@+id/textInputLayoutEmailResearcher">
+
+        <EditText
+            android:id="@+id/editTextEmailResearcher"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/font_size_edittext"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textInputLayoutEmailResearcher"
+        android:layout_marginTop="20dp"
+        app:errorTextAppearance="@style/ErrorTextInputLayout"
+        app:hintTextAppearance="@style/TextViewInputLayout"
+        android:id="@+id/textInputLayoutPasswordResearcher">
+
+        <EditText
+            android:id="@+id/editTextPasswordResearcher"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/font_size_edittext"
+            android:layout_height="wrap_content"
+            android:hint="@string/password"
+            android:inputType="textPassword"/>
+    </android.support.design.widget.TextInputLayout>
+    </RelativeLayout>
+    </ScrollView>

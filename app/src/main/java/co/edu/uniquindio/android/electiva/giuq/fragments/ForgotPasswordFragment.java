@@ -23,12 +23,23 @@ public class ForgotPasswordFragment extends DialogFragment {
     public ForgotPasswordFragment() {
 
     }
-
+    
+    /**
+     * Método encargado de crear el fragmento
+     * @param savedInstanceState infomación a ser recepcionada
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
 
+    /**
+     * Método encargado de cargar la vista asociada al fragmento
+     * @param inflater
+     * @param container
+     * @param savedInstanceState información a ser recepcionada
+     * @return la vista del fragmento
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -36,6 +47,11 @@ public class ForgotPasswordFragment extends DialogFragment {
         return inflater.inflate(R.layout.fragment_forgot_password, container, false);
     }
 
+    /**
+     * Método llamado después de que se ha completado el onCreate
+     * Se utiliza para inicializaciones finales y para modificar elementos de la interfaz
+     * @param savedInstanceState información a ser recepcionada
+     */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);

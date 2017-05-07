@@ -8,8 +8,7 @@
     android:layout_height="match_parent"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
-    android:paddingTop="@dimen/vertical_margin_activity"
-    android:paddingBottom="@dimen/vertical_margin_activity"
+    android:paddingTop="40dp"
     tools:context="co.edu.uniquindio.android.electiva.giuq.activities.SelectRolActivity">
 
     <Button

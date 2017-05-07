@@ -16,4 +16,27 @@
     <string name="tell_us_more">Cuéntanos más</string>
     <string name="im_researcher">Soy un Investigador</string>
     <string name="we_are_a_research_group">Somos un Grupo de Investigación</string>
+    <string name="new_researcher">Nuevo Investigador</string>
+    <string name="add_a_profile_photo">Añadir una foto de perfil</string>
+    <string name="about">Información básica</string>
+    <string name="academic">Formación académica</string>
+    <string name="Research">Investigacion</string>
+    <string name="new_research_group">Nuevo Grupo de Investigación</string>
+    <string name="lines_of_research">Lineas de investigación</string>
+    <string name="active">Activo</string>
+    <string name="inactive">Inactivo</string>
+    <string name="lines">Líneas</string>
+    <string name="academic_title">Título academico</string>
+    <string name="institution">Institución</string>
+    <string name="graduation_date">Fecha graduación</string>
+    <string name="academic_background">Formación académica</string>
+    <string name="full_name">Nombre completo</string>
+    <string name="genre">Género</string>
+    <string name="male">Masculino</string>
+    <string name="female">Femenino</string>
+    <string name="nationality">Nacionalidad</string>
+    <string name="category">Categoría</string>
+    <string name="research_group">Grupo de investigación</string>
+    <string name="url_cvlac">URL CVLAC</string>
+    <string name="choose_your_nationality">Elija su nacionalida</string>
 </resources>

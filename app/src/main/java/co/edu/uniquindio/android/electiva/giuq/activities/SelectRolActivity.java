@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
@@ -16,7 +17,7 @@ import co.edu.uniquindio.android.electiva.giuq.R;
  * @author Francisco Alejandro Hoyos Rojas
  * @version 1.0
  */
-public class SelectRolActivity extends AppCompatActivity  implements View.OnClickListener{
+public class SelectRolActivity extends AppCompatActivity implements View.OnClickListener {
 
     /**
      * Atributo que representa el bóton Back Login de la vista
@@ -47,6 +48,8 @@ public class SelectRolActivity extends AppCompatActivity  implements View.OnClic
         setContentView(R.layout.activity_select_rol);
         ButterKnife.bind(this);
         buttonBackSignIn.setOnClickListener(this);
+        imageViewResearcher.setOnClickListener(this);
+        imageViewResearchGroup.setOnClickListener(this);
     }
 
     /**
@@ -57,9 +60,17 @@ public class SelectRolActivity extends AppCompatActivity  implements View.OnClic
      */
     @Override
     public void onClick(View v) {
-        switch(v.getId()){
-            case R.id.buttonBackSignIn:{
+        switch (v.getId()) {
+            case R.id.buttonBackSignIn: {
                 goToLoginActivity(v);
+                break;
+            }
+            case R.id.imageViewResearcher: {
+                goToNewResearcherActivity(v);
+                break;
+            }
+            case R.id.imageViewResearchGroup:{
+                goToNewResearchGroupActivity(v);
                 break;
             }
         }
@@ -70,8 +81,28 @@ public class SelectRolActivity extends AppCompatActivity  implements View.OnClic
      *
      * @param v View que gestiona el evento
      */
-    public void goToLoginActivity(View v){
-        Intent intent = new Intent(this,LoginActivity.class);
+    public void goToLoginActivity(View v) {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Método que se encarga de ir de la actividad SelectRolActivity a la actividad NewResearcherActivity
+     *
+     * @param v View que gestiona el evento
+     */
+    public void goToNewResearcherActivity(View v) {
+        Intent intent = new Intent(this, NewResearcherActivity.class);
+        startActivity(intent);
+    }
+
+    /**
+     * Método que se encarga de ir de la actividad SelectRolActivity a la actividad NewResearchGroupActivity
+     *
+     * @param v View que gestiona el evento
+     */
+    public void goToNewResearchGroupActivity(View v) {
+        Intent intent = new Intent(this, NewResearchGroupActivity.class);
         startActivity(intent);
     }
 }
