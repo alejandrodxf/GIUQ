@@ -9,17 +9,18 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
+
         android:theme="@style/AppTheme">
-        <activity android:name=".activities.LoginActivity">
+        <activity android:name=".activities.LoginActivity" android:configChanges="screenSize|orientation">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.SelectRolActivity" />
-        <activity android:name=".activities.NewResearcherActivity" />
-        <activity android:name=".activities.NewResearchGroupActivity"></activity>
+        <activity android:name=".activities.SelectRolActivity" android:configChanges="screenSize|orientation" />
+        <activity android:name=".activities.NewResearcherActivity" android:configChanges="screenSize|orientation" />
+        <activity android:name=".activities.NewResearchGroupActivity" android:configChanges="screenSize|orientation"/>
     </application>
 
 </manifest>

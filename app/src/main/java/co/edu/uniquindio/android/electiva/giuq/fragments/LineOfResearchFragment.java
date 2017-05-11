@@ -35,13 +35,13 @@ public class LineOfResearchFragment extends Fragment implements AdapterRecyclerV
      * Atributo que representa la lista de líneas de investigación de un investigador
      */
     @BindView(R.id.recyclerViewLineOfResearch)
-    RecyclerView recyclerViewLineOfResearch;
+    protected RecyclerView recyclerViewLineOfResearch;
 
     /**
      * Atributo que representa la imagen para agregar líneas de investigación
      */
     @BindView(R.id.imageViewAddLineOfResearch)
-    ImageView imageViewAddLineOfResearch;
+    protected ImageView imageViewAddLineOfResearch;
 
     /**
      * Atributo que representa las lineas de investigación de un investigador

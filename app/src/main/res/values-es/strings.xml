@@ -39,4 +39,8 @@
     <string name="research_group">Grupo de investigación</string>
     <string name="url_cvlac">URL CVLAC</string>
     <string name="choose_your_nationality">Elija su nacionalida</string>
+    <string name="add_academic_title">Agregar título académico</string>
+    <string name="agree">Agregar</string>
+    <string name="cancelar">Cancelar</string>
+
 </resources>

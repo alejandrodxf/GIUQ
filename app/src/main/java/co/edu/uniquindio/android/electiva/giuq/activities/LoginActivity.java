@@ -27,37 +27,37 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * Atributo que representa el campo de texto email
      */
     @BindView(R.id.editTextEmailLogin)
-    EditText editTextEmail;
+    protected EditText editTextEmail;
 
     /**
      * Atributo que representa el campo de texto password
      */
     @BindView(R.id.editTextPassword)
-    EditText editTextPassword;
+    protected EditText editTextPassword;
 
     /**
      * Atributo que representa el botón Sign Up
      */
     @BindView(R.id.buttonSignUp)
-    Button buttonSignUp;
+    protected Button buttonSignUp;
 
     /**
      * Atributo que representa el botón Sign In
      */
     @BindView(R.id.buttonSignIn)
-    Button buttonSignIn;
+    protected Button buttonSignIn;
 
     /**
      * Atributo que representa el botón Forgot Password
      */
     @BindView(R.id.buttonForgotPassword)
-    Button buttonForgotPassword;
+    protected Button buttonForgotPassword;
 
     /**
      * Atributo que representa el campo password
      */
     @BindView(R.id.textInputLayoutPassword)
-    TextInputLayout textInputLayoutPassword;
+    protected TextInputLayout textInputLayoutPassword;
     /**
      * Método que se encarga de realizar la conexión con la parte lógica
      *

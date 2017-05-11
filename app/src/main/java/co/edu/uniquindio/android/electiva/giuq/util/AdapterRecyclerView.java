@@ -84,8 +84,8 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
     }
 
     public static class AdapterRecyclerViewViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        // Campos respectivos de un item
 
+        // Campos respectivos de un item
         public TextView textViewLineOfResearch;
         public TextView textViewactive;
         public TextView textViewAcademicTitle;

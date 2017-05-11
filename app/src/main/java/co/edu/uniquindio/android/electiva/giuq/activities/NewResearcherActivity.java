@@ -3,23 +3,22 @@ package co.edu.uniquindio.android.electiva.giuq.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-
 import java.util.ArrayList;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
 import co.edu.uniquindio.android.electiva.giuq.fragments.AboutResearcherFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.AcademicTitleFragment;
+import co.edu.uniquindio.android.electiva.giuq.fragments.AddAcademicTitleFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.LineOfResearchFragment;
 import co.edu.uniquindio.android.electiva.giuq.util.AdapterPagerFragment;
 import co.edu.uniquindio.android.electiva.giuq.vo.AcademicTitle;
 import co.edu.uniquindio.android.electiva.giuq.vo.LineOfResearch;
-
 import static co.edu.uniquindio.android.electiva.giuq.R.id.tabMenuResearcher;
 import static co.edu.uniquindio.android.electiva.giuq.R.id.viewPagerResearcher;
 
@@ -28,26 +27,25 @@ import static co.edu.uniquindio.android.electiva.giuq.R.id.viewPagerResearcher;
  *
  * @author Francisco Alejandro Hoyos Rojas
  */
-public class NewResearcherActivity extends AppCompatActivity implements View.OnClickListener,LineOfResearchFragment.OnSelectedLineOfResearchListener,AcademicTitleFragment.OnSelectedAcademicTitleListener{
-
+public class NewResearcherActivity extends AppCompatActivity implements View.OnClickListener,LineOfResearchFragment.OnSelectedLineOfResearchListener,AcademicTitleFragment.OnSelectedAcademicTitleListener,AddAcademicTitleFragment.AcademicTitleListener{
 
     /**
      * Atributo que representa el bóton Back Select Rol de la vista
      */
     @BindView(R.id.buttonBackSelectRolNewResearcher)
-    Button buttonBackSelectRol;
+    protected Button buttonBackSelectRol;
 
     /**
      * Atributo que representa el contenedor de los fragmentos about,academic y research de la vista
      */
     @BindView(viewPagerResearcher)
-    ViewPager viewPager;
+    protected ViewPager viewPager;
 
     /**
      * Atributo que representa el contenedor de los títulos de la tabs de la vista
      */
     @BindView(tabMenuResearcher)
-    TabLayout tabMenu;
+    protected TabLayout tabMenu;
 
 
     /**
@@ -105,6 +103,19 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
         tabMenu.setupWithViewPager(viewPager);
     }
 
+
+    /**
+     * Método utilizado para mostrar el DialogFragment AddDegreeTitle
+     * @param className nombre usado para el manejo de la transacción
+     */
+    public void showAddAcademicTitleDialog(String className) {
+        AcademicTitleFragment fm = (AcademicTitleFragment) getSupportFragmentManager().findFragmentById(R.id.academic_title_fragment);
+        AddAcademicTitleFragment dialogFragment = new AddAcademicTitleFragment();
+        dialogFragment.setTargetFragment(fm,0);
+        dialogFragment.show(getSupportFragmentManager(), className);
+    }
+
+
     @Override
     public void onSelectedLineOfResearchListener(int position, ArrayList<LineOfResearch> lineOfResearch) {
 
@@ -113,5 +124,16 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
     @Override
     public void onSelectedAcademicTitleListener(int position, ArrayList<AcademicTitle> academicTitles) {
 
+    }
+
+    /**
+     * Método utilizado para agregar los títulos académicos
+     * @param academicTitle título académico a agregar
+     */
+    @Override
+    public void sendAcademicTitle(AcademicTitle academicTitle) {
+        FragmentPagerAdapter fragmentPagerAdapter =(FragmentPagerAdapter) viewPager.getAdapter();
+        AcademicTitleFragment academicTitleFragment = (AcademicTitleFragment) fragmentPagerAdapter.getItem(1);
+        academicTitleFragment.addAcademicTitle(academicTitle);
     }
 }

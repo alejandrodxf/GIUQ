@@ -23,19 +23,19 @@ public class SelectRolActivity extends AppCompatActivity implements View.OnClick
      * Atributo que representa el bóton Back Login de la vista
      */
     @BindView(R.id.buttonBackSignIn)
-    Button buttonBackSignIn;
+    protected Button buttonBackSignIn;
 
     /**
      * Atributo que representa el imageView researcher de la vista
      */
     @BindView(R.id.imageViewResearcher)
-    ImageView imageViewResearcher;
+    protected ImageView imageViewResearcher;
 
     /**
      * Atributo que representa el imageView researchGroup de la vista
      */
     @BindView(R.id.imageViewResearchGroup)
-    ImageView imageViewResearchGroup;
+    protected ImageView imageViewResearchGroup;
 
     /**
      * Método que se encarga de realizar la conexión con la parte lógica

@@ -22,10 +22,10 @@ import co.edu.uniquindio.android.electiva.giuq.R;
 public class AboutResearcherFragment extends Fragment {
 
     @BindView(R.id.spinnerCategoryResearcher)
-    Spinner spinnerCategory;
+    protected Spinner spinnerCategory;
 
     @BindView(R.id.spinnerNationalityResearcher)
-    Spinner spinnerNationality;
+    protected Spinner spinnerNationality;
 
     /**
      * Es obligatorio un constructor vacío para instanciar el fragmento

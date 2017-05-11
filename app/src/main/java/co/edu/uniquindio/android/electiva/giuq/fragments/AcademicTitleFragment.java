@@ -1,6 +1,5 @@
 package co.edu.uniquindio.android.electiva.giuq.fragments;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -14,11 +13,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
+import co.edu.uniquindio.android.electiva.giuq.activities.NewResearcherActivity;
 import co.edu.uniquindio.android.electiva.giuq.util.AdapterRecyclerView;
 import co.edu.uniquindio.android.electiva.giuq.vo.AcademicTitle;
 
@@ -30,13 +29,16 @@ import co.edu.uniquindio.android.electiva.giuq.vo.AcademicTitle;
  */
 public class AcademicTitleFragment extends Fragment implements AdapterRecyclerView.OnClickAdapterRecyclerView {
 
+    /**
+     * Atributo que representa una llave String
+     */
     public static final String ACADEMIC_TITLE="ACADEMIC_TITLE";
 
     /**
      * Atributo que representa la lista de títulos académicos de un investigador
      */
     @BindView(R.id.recyclerViewAcademicTitle)
-    RecyclerView recyclerViewAcademicTitle;
+    protected RecyclerView recyclerViewAcademicTitle;
 
     /**
      * Atributo que representa la imagen para títlos académicos
@@ -48,7 +50,11 @@ public class AcademicTitleFragment extends Fragment implements AdapterRecyclerVi
      * Atributo que representa los títulos de un investigador
      */
     private ArrayList<AcademicTitle>academicTitles;
+
     private AdapterRecyclerView adapterAcademicTitle;
+    /**
+     * Atributo que representa el oyente del diálogo
+     */
     private OnSelectedAcademicTitleListener listener;
 
 
@@ -108,8 +114,7 @@ public class AcademicTitleFragment extends Fragment implements AdapterRecyclerVi
         imageViewAddAcademicTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                academicTitles.add(new AcademicTitle("Ingeniero de Sistemas y Computación","Universidad del Quindío",new Date(System.currentTimeMillis())));
-                adapterAcademicTitle.notifyItemInserted(1);
+                ((NewResearcherActivity) getActivity()).showAddAcademicTitleDialog(AcademicTitleFragment.class.getName());
             }
         });
         adapterAcademicTitle = new AdapterRecyclerView(academicTitles,this,ACADEMIC_TITLE);
@@ -154,5 +159,13 @@ public class AcademicTitleFragment extends Fragment implements AdapterRecyclerVi
         }
     }
 
+    /**
+     * Método utilizado para agregar los títulos de un investigador
+     * @param academicTitle título académico
+     */
+    public void addAcademicTitle(AcademicTitle academicTitle){
+        academicTitles.add(academicTitle);
+        adapterAcademicTitle.notifyItemInserted(1);
+    }
 
 }

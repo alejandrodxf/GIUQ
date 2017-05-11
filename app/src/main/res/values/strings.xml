@@ -38,7 +38,9 @@
     <string name="research_group">Research group</string>
     <string name="url_cvlac">URL CVLAC</string>
     <string name="choose_your_nationality">Choose your nationality</string>
-
+    <string name="add_academic_title">Add academic title</string>
+    <string name="agree">Agree</string>
+    <string name="cancel">Cancel</string>
 
 
     <string-array name="nationality_array">
@@ -158,5 +160,7 @@
         <item>Master student</item>
         <item>Pregrade student</item>
     </string-array>
+
+
 
 </resources>

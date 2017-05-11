@@ -21,19 +21,19 @@ public class NewResearchGroupActivity extends AppCompatActivity implements View.
      * Atributo que representa el bóton Back Select Rol de la vista
      */
     @BindView(R.id.buttonBackSelectRolNewResearchGroup)
-    Button buttonBackSelectRol;
+    protected Button buttonBackSelectRol;
 
     /**
      * Atributo que representa el contenedor de los fragmentos about,academic y research de la vista
      */
     @BindView(viewPagerResearchGroup)
-    ViewPager viewPager;
+    protected ViewPager viewPager;
 
     /**
      * Atributo que representa el contenedor de los títulos de la tabs de la vista
      */
     @BindView(tabMenuResearchGroup)
-    TabLayout tabMenu;
+    protected TabLayout tabMenu;
 
 
     /**
