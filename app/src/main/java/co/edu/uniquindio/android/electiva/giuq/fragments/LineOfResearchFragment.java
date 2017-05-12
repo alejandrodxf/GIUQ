@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
+import co.edu.uniquindio.android.electiva.giuq.activities.NewResearcherActivity;
 import co.edu.uniquindio.android.electiva.giuq.util.AdapterRecyclerView;
 import co.edu.uniquindio.android.electiva.giuq.vo.LineOfResearch;
 
@@ -104,8 +105,8 @@ public class LineOfResearchFragment extends Fragment implements AdapterRecyclerV
         imageViewAddLineOfResearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                linesOfResearch.add(new LineOfResearch("Desarollo de Software Móvil", true));
-                adapterLineOfResearch.notifyItemInserted(1);
+                ((NewResearcherActivity) getActivity()).showLineOfResearchDialog(LineOfResearchFragment.class.getName());
+
             }
         });
         adapterLineOfResearch = new AdapterRecyclerView(linesOfResearch,this,LINE_OF_RESEARCH);
@@ -149,6 +150,14 @@ public class LineOfResearchFragment extends Fragment implements AdapterRecyclerV
         }
     }
 
+    /**
+     * Método utilizado para agregar las líneas de investigación
+     * @param lineOfResearch título académico
+     */
+    public void addLineOfResearch(LineOfResearch lineOfResearch){
+        linesOfResearch.add(lineOfResearch);
+        adapterLineOfResearch.notifyDataSetChanged();
+    }
 
 
 }

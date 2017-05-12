@@ -22,7 +22,8 @@
     <string name="academic">Formación académica</string>
     <string name="Research">Investigacion</string>
     <string name="new_research_group">Nuevo Grupo de Investigación</string>
-    <string name="lines_of_research">Lineas de investigación</string>
+    <string name="lines_of_research">Líneas de investigación</string>
+    <string name="line_of_research">Línea de investigación</string>
     <string name="active">Activo</string>
     <string name="inactive">Inactivo</string>
     <string name="lines">Líneas</string>
@@ -40,7 +41,9 @@
     <string name="url_cvlac">URL CVLAC</string>
     <string name="choose_your_nationality">Elija su nacionalida</string>
     <string name="add_academic_title">Agregar título académico</string>
+    <string name="add_line_of_research">Agregar línea de investigación</string>
     <string name="agree">Agregar</string>
     <string name="cancelar">Cancelar</string>
+    <string name="status">Estado</string>
 
 </resources>

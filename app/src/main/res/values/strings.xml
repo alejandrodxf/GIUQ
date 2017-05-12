@@ -22,6 +22,7 @@
     <string name="research">Research</string>
     <string name="new_research_group">New Research Group</string>
     <string name="lines_of_research">Lines of research</string>
+    <string name="line_of_research">Line of research</string>
     <string name="active">Active</string>
     <string name="inactive">Inactive</string>
     <string name="lines">Lines</string>
@@ -38,9 +39,11 @@
     <string name="research_group">Research group</string>
     <string name="url_cvlac">URL CVLAC</string>
     <string name="choose_your_nationality">Choose your nationality</string>
-    <string name="add_academic_title">Add academic title</string>
+    <string name="add_academic_title">Add Academic Title</string>
+    <string name="add_line_of_research">Add Line of Research</string>
     <string name="agree">Agree</string>
     <string name="cancel">Cancel</string>
+    <string name="status">Status</string>
 
 
     <string-array name="nationality_array">
@@ -160,7 +163,6 @@
         <item>Master student</item>
         <item>Pregrade student</item>
     </string-array>
-
 
 
 </resources>

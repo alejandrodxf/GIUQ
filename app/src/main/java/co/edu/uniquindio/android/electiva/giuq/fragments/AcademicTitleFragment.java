@@ -165,7 +165,7 @@ public class AcademicTitleFragment extends Fragment implements AdapterRecyclerVi
      */
     public void addAcademicTitle(AcademicTitle academicTitle){
         academicTitles.add(academicTitle);
-        adapterAcademicTitle.notifyItemInserted(1);
+        adapterAcademicTitle.notifyDataSetChanged();
     }
 
 }

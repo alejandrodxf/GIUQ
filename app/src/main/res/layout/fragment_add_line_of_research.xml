@@ -1,25 +1,24 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/background_app"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingTop="10dp"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingBottom="20dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="co.edu.uniquindio.android.electiva.giuq.fragments.AddAcademicTitleFragment">
-
+    android:background="@drawable/background_app"
+    tools:context="co.edu.uniquindio.android.electiva.giuq.fragments.AddLineOfResearchFragment">
 
     <TextView
-        android:id="@+id/textViewAddAcademicTitle"
+        android:id="@+id/textViewAddLineOfResearchTitle"
         android:textColor="@android:color/white"
         android:gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="24dp"
         android:textSize="@dimen/font_size_textview"
-        android:text="@string/add_academic_title"
+        android:text="@string/add_line_of_research"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
@@ -29,82 +28,84 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_marginTop="30dp"
-        android:layout_below="@id/textViewAddAcademicTitle"
+        android:layout_below="@id/textViewAddLineOfResearchTitle"
         app:errorTextAppearance="@style/ErrorTextInputLayout"
         app:hintTextAppearance="@style/TextViewInputLayout"
-        android:id="@+id/textInputLayoutAcademicTitle">
+        android:id="@+id/textInputLayoutAddLineOfResearch">
 
         <EditText
-            android:id="@+id/editTextAcademicTitle"
+            android:id="@+id/editTextAddLineOfResearch"
             android:layout_width="match_parent"
             android:textSize="@dimen/font_size_edittext"
             android:layout_height="wrap_content"
-            android:hint="@string/academic_title"
+            android:hint="@string/line_of_research"
             android:inputType="text"/>
     </android.support.design.widget.TextInputLayout>
 
-    <android.support.design.widget.TextInputLayout
+    <TextView
+        android:id="@+id/textViewStatusLineOfResearch"
+        android:layout_width="wrap_content"
+        android:textSize="@dimen/font_size_edittext"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/status"
+        android:layout_below="@id/textInputLayoutAddLineOfResearch"
+        />
 
+    <RadioGroup xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/radioGroupStatusLineOfResearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
-        android:layout_below="@id/textInputLayoutAcademicTitle"
-        app:errorTextAppearance="@style/ErrorTextInputLayout"
-        app:hintTextAppearance="@style/TextViewInputLayout"
-        android:id="@+id/textInputLayoutInstitution">
+        android:orientation="horizontal"
+        android:layout_alignTop="@+id/textViewStatusLineOfResearch"
+        android:layout_toEndOf="@+id/textViewStatusLineOfResearch"
+        android:layout_marginStart="20dp">
 
-        <EditText
-            android:id="@+id/editTextInstitution"
-            android:layout_width="match_parent"
-            android:textSize="@dimen/font_size_edittext"
+        <RadioButton
+            android:id="@+id/radioButtonActive"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/institution"
-            android:inputType="text"/>
-    </android.support.design.widget.TextInputLayout>
+            android:layout_marginEnd="10dp"
+            android:textSize="@dimen/font_size_edittext"
+            android:checked="true"
+            android:text="@string/active" />
+
+        <RadioButton
+            android:id="@+id/radioButtonInactive"
+            android:textSize="@dimen/font_size_edittext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="false"
+            android:text="@string/inactive" />
+    </RadioGroup>
 
     <Button
-        android:id="@+id/buttonAddDateGraduation"
-        android:textSize="@dimen/font_size_button"
-        android:text="@string/graduation_date"
-        android:textAllCaps="false"
-        android:drawableLeft="@drawable/ic_action_calendar"
-        android:background="?android:attr/selectableItemBackground"
-        android:fontFamily="@string/font_family_medium"
-        android:textColor="@android:color/white"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/height_button"
-        android:layout_marginTop="30dp"
-        android:layout_below="@+id/textInputLayoutInstitution"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
-
-    <Button
-        android:id="@+id/buttonAddAcademicTitle"
+        android:id="@+id/buttonAddLineOfResearch"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:textColor="@android:color/white"
         android:layout_marginTop="40dp"
-        android:layout_below="@id/buttonAddDateGraduation"
+        android:layout_below="@id/textViewStatusLineOfResearch"
         android:textSize="@dimen/font_size_button"
         android:text="@string/agree"
         android:layout_alignParentEnd="true"
-         />
+        />
 
     <Button
-        android:id="@+id/buttonCancelAddAcademicTitle"
+        android:id="@+id/buttonCancelLineOfResearch"
         android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="?android:attr/selectableItemBackground"
         android:textColor="@android:color/white"
-        android:layout_alignTop="@+id/buttonAddAcademicTitle"
+        android:layout_alignTop="@+id/buttonAddLineOfResearch"
         android:layout_marginEnd="20dp"
         android:textSize="@dimen/font_size_button"
-        android:layout_toStartOf="@+id/buttonAddAcademicTitle"
+        android:layout_toStartOf="@+id/buttonAddLineOfResearch"
         android:text="@string/cancel" />
+
 
 
 </RelativeLayout>

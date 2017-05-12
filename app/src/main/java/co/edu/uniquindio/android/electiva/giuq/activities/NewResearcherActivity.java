@@ -8,17 +8,21 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+
 import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
 import co.edu.uniquindio.android.electiva.giuq.fragments.AboutResearcherFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.AcademicTitleFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.AddAcademicTitleFragment;
+import co.edu.uniquindio.android.electiva.giuq.fragments.AddLineOfResearchFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.LineOfResearchFragment;
 import co.edu.uniquindio.android.electiva.giuq.util.AdapterPagerFragment;
 import co.edu.uniquindio.android.electiva.giuq.vo.AcademicTitle;
 import co.edu.uniquindio.android.electiva.giuq.vo.LineOfResearch;
+
 import static co.edu.uniquindio.android.electiva.giuq.R.id.tabMenuResearcher;
 import static co.edu.uniquindio.android.electiva.giuq.R.id.viewPagerResearcher;
 
@@ -27,7 +31,7 @@ import static co.edu.uniquindio.android.electiva.giuq.R.id.viewPagerResearcher;
  *
  * @author Francisco Alejandro Hoyos Rojas
  */
-public class NewResearcherActivity extends AppCompatActivity implements View.OnClickListener,LineOfResearchFragment.OnSelectedLineOfResearchListener,AcademicTitleFragment.OnSelectedAcademicTitleListener,AddAcademicTitleFragment.AcademicTitleListener{
+public class NewResearcherActivity extends AppCompatActivity implements View.OnClickListener,LineOfResearchFragment.OnSelectedLineOfResearchListener,AcademicTitleFragment.OnSelectedAcademicTitleListener,AddAcademicTitleFragment.AcademicTitleListener,AddLineOfResearchFragment.LineOfResearchListener{
 
     /**
      * Atributo que representa el bóton Back Select Rol de la vista
@@ -115,6 +119,17 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
         dialogFragment.show(getSupportFragmentManager(), className);
     }
 
+    /**
+     * Método utilizado para mostrar el DialogFragment AddLineOfResearch
+     * @param className nombre usado para el manejo de la transacción
+     */
+    public void showLineOfResearchDialog(String className) {
+        LineOfResearchFragment fm = (LineOfResearchFragment) getSupportFragmentManager().findFragmentById(R.id.line_of_research_fragment);
+        AddLineOfResearchFragment dialogFragment = new AddLineOfResearchFragment();
+        dialogFragment.setTargetFragment(fm,2);
+        dialogFragment.show(getSupportFragmentManager(), className);
+    }
+
 
     @Override
     public void onSelectedLineOfResearchListener(int position, ArrayList<LineOfResearch> lineOfResearch) {
@@ -135,5 +150,16 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
         FragmentPagerAdapter fragmentPagerAdapter =(FragmentPagerAdapter) viewPager.getAdapter();
         AcademicTitleFragment academicTitleFragment = (AcademicTitleFragment) fragmentPagerAdapter.getItem(1);
         academicTitleFragment.addAcademicTitle(academicTitle);
+    }
+
+    /**
+     * Método utilizado para agregar las líneas de investigación
+     * @param lineOfResearch línea de investigación a ser agregada
+     */
+    @Override
+    public void sendLineOfResearch(LineOfResearch lineOfResearch) {
+        FragmentPagerAdapter fragmentPagerAdapter =(FragmentPagerAdapter) viewPager.getAdapter();
+        LineOfResearchFragment lineOfResearchFragment = (LineOfResearchFragment) fragmentPagerAdapter.getItem(2);
+        lineOfResearchFragment.addLineOfResearch(lineOfResearch);
     }
 }
