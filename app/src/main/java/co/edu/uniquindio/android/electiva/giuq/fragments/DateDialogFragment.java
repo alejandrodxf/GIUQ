@@ -13,7 +13,6 @@ import android.support.v4.app.DialogFragment;
  */
 public class DateDialogFragment extends DialogFragment {
 
-
     DatePickerDialog.OnDateSetListener ondateSet;
     /**
      * Atributo que representa el día

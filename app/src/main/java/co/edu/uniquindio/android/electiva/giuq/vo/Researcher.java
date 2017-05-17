@@ -30,6 +30,12 @@ public class Researcher  extends User {
     private boolean state;
 
     /**
+     * Atributo que representa el género de un investigador
+     * true masculino
+     * false femenino
+     */
+    private boolean genre;
+    /**
      * Método constructor de la clase
      * @param name nombre del investigador
      * @param email email del investigador
@@ -42,12 +48,13 @@ public class Researcher  extends User {
      * @param researchGroup grupo de investigación del investigador
      * @param academicTitles titulos obtenidos por el investigador
      */
-    public Researcher(String name, String email, String password, String urlCVLAC, String category, Image photo, ArrayList<LineOfResearch> linesOfResearch, String nationality, String researchGroup, ArrayList<AcademicTitle> academicTitles, boolean state) {
+    public Researcher(String name, String email, String password, String urlCVLAC, String category, Image photo, ArrayList<LineOfResearch> linesOfResearch, String nationality, String researchGroup, ArrayList<AcademicTitle> academicTitles, boolean state,boolean genre) {
         super(name, email, password, urlCVLAC, category, photo, linesOfResearch);
         this.nationality = nationality;
         this.researchGroup = researchGroup;
         this.academicTitles = academicTitles;
         this.state=state;
+        this.genre=genre;
     }
 
 
@@ -141,4 +148,21 @@ public class Researcher  extends User {
         this.state = state;
     }
 
+    /**
+     * Método que permite obtener el valor del atributo genre
+     *
+     * @return El valor del atributo genre
+     */
+    public boolean isGenre() {
+        return genre;
+    }
+
+    /**
+     * Método que permite asignar un valor al atributo genre
+     *
+     * @param genre Valor a ser asignado al atributo genre
+     */
+    public void setGenre(boolean genre) {
+        this.genre = genre;
+    }
 }

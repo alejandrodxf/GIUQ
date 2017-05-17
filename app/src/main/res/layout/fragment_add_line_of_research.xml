@@ -59,7 +59,7 @@
         android:orientation="horizontal"
         android:layout_alignTop="@+id/textViewStatusLineOfResearch"
         android:layout_toEndOf="@+id/textViewStatusLineOfResearch"
-        android:layout_marginStart="20dp">
+        android:layout_marginStart="10dp">
 
         <RadioButton
             android:id="@+id/radioButtonActive"

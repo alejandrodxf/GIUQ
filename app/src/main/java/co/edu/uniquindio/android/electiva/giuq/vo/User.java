@@ -1,7 +1,5 @@
 package co.edu.uniquindio.android.electiva.giuq.vo;
 
-import android.media.Image;
-
 import java.util.ArrayList;
 
 /**
@@ -35,7 +33,7 @@ public abstract class User {
     /**
      * Atributo que representa la foto de un usuario
      */
-    private Image photo;
+    private String photo;
     /**
      * Atributo que representa las líneas de investigación de un usuario
      */
@@ -51,7 +49,7 @@ public abstract class User {
      * @param photo   imagen de perfil del usuario
      * @param linesOfResearch lineas de investigación del usuario
      */
-    public User(String name, String email, String password, String urlCVLAC, String category, Image photo, ArrayList<LineOfResearch> linesOfResearch) {
+    public User(String name, String email, String password, String urlCVLAC, String category, String photo, ArrayList<LineOfResearch> linesOfResearch) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -186,7 +184,7 @@ public abstract class User {
      *
      * @return El valor del atributo photo
      */
-    public Image getPhoto() {
+    public String getPhoto() {
         return photo;
     }
 
@@ -195,7 +193,7 @@ public abstract class User {
      *
      * @param photo Valor a ser asignado al atributo photo
      */
-    public void setPhoto(Image photo) {
+    public void setPhoto(String photo) {
         this.photo = photo;
     }
 }

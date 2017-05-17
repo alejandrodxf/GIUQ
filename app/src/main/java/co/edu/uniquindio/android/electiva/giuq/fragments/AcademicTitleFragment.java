@@ -120,6 +120,7 @@ public class AcademicTitleFragment extends Fragment implements AdapterRecyclerVi
         adapterAcademicTitle = new AdapterRecyclerView(academicTitles,this,ACADEMIC_TITLE);
         recyclerViewAcademicTitle.setAdapter(adapterAcademicTitle);
         recyclerViewAcademicTitle.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        listener.sendListAcademicTitles(academicTitles);
     }
 
     /**
@@ -139,6 +140,7 @@ public class AcademicTitleFragment extends Fragment implements AdapterRecyclerVi
     public interface OnSelectedAcademicTitleListener {
 
         void onSelectedAcademicTitleListener(int position, ArrayList<AcademicTitle> academicTitles);
+        void sendListAcademicTitles(ArrayList<AcademicTitle>academicTitles);
     }
 
     /**

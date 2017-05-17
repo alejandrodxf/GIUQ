@@ -10,12 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
-import co.edu.uniquindio.android.electiva.giuq.vo.LineOfResearch;
 
 /**
  * Diálogo utilizado para agregar las líneas de investigación
@@ -51,7 +50,7 @@ public class AddLineOfResearchFragment extends DialogFragment {
     /**
      * Atributo que representa el oyente del diálogo
      */
-    private LineOfResearchListener listener;
+    private AddLineOfResearchListener listener;
     /**
      * Es obligatorio un constructor vacío para instanciar el fragmento
      */
@@ -108,8 +107,8 @@ public class AddLineOfResearchFragment extends DialogFragment {
     /**
      * Todas las actividades que contengan este fragmento deben implementar la interface.
      */
-    public interface LineOfResearchListener {
-        void sendLineOfResearch(LineOfResearch lineOfResearch);
+    public interface AddLineOfResearchListener {
+        void sendLineOfResearch(String lineOfResearch,Boolean status);
     }
 
 
@@ -117,10 +116,9 @@ public class AddLineOfResearchFragment extends DialogFragment {
      * Método utilizado para enviar la información de la línea de la investigación a la actividad
      */
     public void sendLineOfResearch() {
-        String lineOfResearchT = editTextLineOfResearch.getText().toString();
+        String lineOfResearch = editTextLineOfResearch.getText().toString();
         boolean status=false;
         int selectedId = radioGroupStatus.getCheckedRadioButtonId();
-        RadioButton radioButton = (RadioButton) getView().findViewById(selectedId);
         switch (selectedId){
             case R.id.radioButtonActive:{
                 status=true;
@@ -131,9 +129,8 @@ public class AddLineOfResearchFragment extends DialogFragment {
                 break;
             }
         }
-        if (!lineOfResearchT.isEmpty()) {
-            LineOfResearch lineOfResearch = new LineOfResearch(lineOfResearchT,status);
-            listener.sendLineOfResearch(lineOfResearch);
+        if (!lineOfResearch.isEmpty()) {
+            listener.sendLineOfResearch(lineOfResearch,status);
             editTextLineOfResearch.setText("");
         }
     }
@@ -150,9 +147,9 @@ public class AddLineOfResearchFragment extends DialogFragment {
         if (context instanceof Activity) {
             activity = (Activity) context;
             try {
-                listener = (LineOfResearchListener) activity;
+                listener = (AddLineOfResearchListener) activity;
             } catch (ClassCastException e) {
-                throw new ClassCastException(activity.toString() + " debe implementar la interfaz LineOfResearchListener");
+                throw new ClassCastException(activity.toString() + " debe implementar la interfaz AddLineOfResearchListener");
             }
 
         }

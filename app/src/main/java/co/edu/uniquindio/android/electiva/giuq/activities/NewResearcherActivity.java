@@ -10,9 +10,11 @@ import android.view.View;
 import android.widget.Button;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import co.edu.uniquindio.android.electiva.giuq.ControllerApplication;
 import co.edu.uniquindio.android.electiva.giuq.R;
 import co.edu.uniquindio.android.electiva.giuq.fragments.AboutResearcherFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.AcademicTitleFragment;
@@ -20,8 +22,10 @@ import co.edu.uniquindio.android.electiva.giuq.fragments.AddAcademicTitleFragmen
 import co.edu.uniquindio.android.electiva.giuq.fragments.AddLineOfResearchFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.LineOfResearchFragment;
 import co.edu.uniquindio.android.electiva.giuq.util.AdapterPagerFragment;
+import co.edu.uniquindio.android.electiva.giuq.util.Validations;
 import co.edu.uniquindio.android.electiva.giuq.vo.AcademicTitle;
 import co.edu.uniquindio.android.electiva.giuq.vo.LineOfResearch;
+import co.edu.uniquindio.android.electiva.giuq.vo.Researcher;
 
 import static co.edu.uniquindio.android.electiva.giuq.R.id.tabMenuResearcher;
 import static co.edu.uniquindio.android.electiva.giuq.R.id.viewPagerResearcher;
@@ -31,7 +35,7 @@ import static co.edu.uniquindio.android.electiva.giuq.R.id.viewPagerResearcher;
  *
  * @author Francisco Alejandro Hoyos Rojas
  */
-public class NewResearcherActivity extends AppCompatActivity implements View.OnClickListener,LineOfResearchFragment.OnSelectedLineOfResearchListener,AcademicTitleFragment.OnSelectedAcademicTitleListener,AddAcademicTitleFragment.AcademicTitleListener,AddLineOfResearchFragment.LineOfResearchListener{
+public class NewResearcherActivity extends AppCompatActivity implements View.OnClickListener,LineOfResearchFragment.OnSelectedLineOfResearchListener,AcademicTitleFragment.OnSelectedAcademicTitleListener,AddAcademicTitleFragment.AddAcademicTitleListener,AddLineOfResearchFragment.AddLineOfResearchListener,AboutResearcherFragment.AboutResearcherListener{
 
     /**
      * Atributo que representa el bóton Back Select Rol de la vista
@@ -51,6 +55,64 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
     @BindView(tabMenuResearcher)
     protected TabLayout tabMenu;
 
+    /**
+     * Atributo que representa el botón Sign Up
+     */
+    @BindView(R.id.buttonSignUpResearcher)
+    protected Button buttonSignUp;
+
+    /**
+     * Atributo que representa el nombre de un investigador
+     */
+    private String name;
+    /**
+     * Atributo que representa la nacionalidad de un investigador
+     */
+    private String nationality;
+    /**
+     * Atributo que representa la categoría de un investigador
+     */
+    private String category;
+
+    /**
+     * Atributo que representa el grupo de investigación de un investigador
+     */
+    private String researchGroup;
+
+    /**
+     * Atributo que representa la url del CVLAC de un investigador
+     */
+    private String urlCvlac;
+
+    /**
+     * Atributo que representa la contraseña de un investigador
+     */
+    private String password;
+
+    /**
+     * Atributo que representa el email de un investigador
+     */
+    private String email;
+
+    /**
+     * Atributo que representa el género de un investigador
+     */
+    private boolean genre;
+
+    /**
+     * Atributo que representa las líneas de investigación de un investigador
+     */
+    private ArrayList<LineOfResearch>linesOfResearch;
+
+    /**
+     * Atributo que representa los títulos académicos de un investigador
+     */
+    private ArrayList<AcademicTitle>academicTitles;
+
+    /**
+     * Atributo que representa si la información básica del investigador esta completa y correcta
+     */
+    private boolean validateAbout;
 
     /**
      * Método que se encarga de realizar la conexión con la parte lógica
@@ -63,6 +125,7 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
         setContentView(R.layout.activity_new_researcher);
         ButterKnife.bind(this);
         buttonBackSelectRol.setOnClickListener(this);
+        buttonSignUp.setOnClickListener(this);
         createViewPagerResearcher();
     }
 
@@ -77,6 +140,10 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
         switch(v.getId()){
             case R.id.buttonBackSelectRolNewResearcher:{
                 goToSelectRolActivity(v);
+                break;
+            }
+            case R.id.buttonSignUpResearcher:{
+                sendResearcher();
                 break;
             }
         }
@@ -101,11 +168,32 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
         adapterPagerFragment.addFragment(AboutResearcherFragment.newInstance(),getString(R.string.about));
         adapterPagerFragment.addFragment(AcademicTitleFragment.newInstance(),getString(R.string.academic));
         adapterPagerFragment.addFragment(LineOfResearchFragment.newInstance(),getString(R.string.lines));
+        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            // posición de donde viene el tab
+            private int fromPosition = 0;
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+                fromPosition = position;
+            }
+
+            @Override
+            public void onPageSelected(int position) {
+                if(fromPosition==0){
+                   validateAbout= getAboutResearcher();
+                }
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
         viewPager.setAdapter(adapterPagerFragment);
         tabMenu.setTabMode(TabLayout.MODE_FIXED);
         tabMenu.setTabGravity(TabLayout.GRAVITY_FILL);
         tabMenu.setupWithViewPager(viewPager);
     }
+
 
 
     /**
@@ -136,20 +224,66 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
 
     }
 
+
     @Override
     public void onSelectedAcademicTitleListener(int position, ArrayList<AcademicTitle> academicTitles) {
 
     }
 
     /**
-     * Método utilizado para agregar los títulos académicos
-     * @param academicTitle título académico a agregar
+     * Método utilizado para obtener la información básica de un investigador
+     */
+    public boolean getAboutResearcher(){
+        FragmentPagerAdapter fragmentPagerAdapter =(FragmentPagerAdapter) viewPager.getAdapter();
+        AboutResearcherFragment aboutResearcherFragment= (AboutResearcherFragment) fragmentPagerAdapter.getItem(0);
+        return aboutResearcherFragment.sendAboutResearcher();
+    }
+
+    /**
+     * Método utilizado para obtener las líneas de investigación de un investigador
+     * @param linesOfResearch líneas de investigación de un investigador
      */
     @Override
-    public void sendAcademicTitle(AcademicTitle academicTitle) {
+    public void sendListLineOfResearch(ArrayList<LineOfResearch> linesOfResearch) {
+       this.linesOfResearch=linesOfResearch;
+    }
+
+    /**
+     * Método utilizado para obtener los títulos académicos de un investigador
+     * @param academicTitles títulos académicos de un investigador
+     */
+    @Override
+    public void sendListAcademicTitles(ArrayList<AcademicTitle> academicTitles) {
+        this.academicTitles=academicTitles;
+    }
+
+
+    /**
+     * Método encargado de enviar el investigador al controlador para que sea agregado
+     */
+    public void sendResearcher(){
+
+        if (viewPager.getCurrentItem()==0){
+          validateAbout= getAboutResearcher();
+        }
+        if(validateAbout&&!academicTitles.isEmpty()&&!linesOfResearch.isEmpty()){
+            Researcher researcher = new Researcher(name,email,password,urlCvlac,category,null,linesOfResearch,nationality,researchGroup,academicTitles,false,genre);
+            ((ControllerApplication)getApplication()).addResearcher(researcher);
+        }
+    }
+
+    /**
+     *  Método utilizado para agregar los títulos académicos
+     * @param academicTitle título académico
+     * @param institution institución donde se cursaron los estudios
+     * @param graduationDate fecha de graduación
+     */
+    @Override
+    public void sendAcademicTitle(String academicTitle,String institution,Date graduationDate) {
         FragmentPagerAdapter fragmentPagerAdapter =(FragmentPagerAdapter) viewPager.getAdapter();
         AcademicTitleFragment academicTitleFragment = (AcademicTitleFragment) fragmentPagerAdapter.getItem(1);
-        academicTitleFragment.addAcademicTitle(academicTitle);
+        AcademicTitle academicTitleTem = new AcademicTitle(academicTitle,institution,graduationDate);
+        academicTitleFragment.addAcademicTitle(academicTitleTem);
     }
 
     /**
@@ -157,9 +291,73 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
      * @param lineOfResearch línea de investigación a ser agregada
      */
     @Override
-    public void sendLineOfResearch(LineOfResearch lineOfResearch) {
+    public void sendLineOfResearch(String lineOfResearch,Boolean status) {
         FragmentPagerAdapter fragmentPagerAdapter =(FragmentPagerAdapter) viewPager.getAdapter();
         LineOfResearchFragment lineOfResearchFragment = (LineOfResearchFragment) fragmentPagerAdapter.getItem(2);
-        lineOfResearchFragment.addLineOfResearch(lineOfResearch);
+        LineOfResearch lineOfResearchTem = new LineOfResearch(lineOfResearch,status);
+        lineOfResearchFragment.addLineOfResearch(lineOfResearchTem);
     }
+
+    /**
+     * Método encargado de obtener la información básica de un investigador
+     * @param name nombre investigador
+     * @param genre género investigador
+     * @param nationality nacionalidad investigador
+     * @param category categoría investigador
+     * @param researchGroup grupo de investigación investigador
+     * @param urlCvlac url CVLAC investigador
+     * @param email email investigador
+     * @param password contraseña investigador
+     */
+    @Override
+    public void sendAboutResearcher(String name, boolean genre, String nationality, String category, String researchGroup, String urlCvlac, String email, String password) {
+        this.name=name;
+        this.genre= genre;
+        this.nationality=nationality;
+        this.category=category;
+        this.researchGroup=researchGroup;
+        this.urlCvlac=urlCvlac;
+        this.email=email;
+        this.password=password;
+
+    }
+
+    /**
+     * Método encargado de validar el email
+     * @param email email ingresado por el usuario
+     * @return true si el email es correcto, de lo contrario false
+     */
+    public boolean validateEmail(String email){
+     return Validations.validateEmail(email);
+    }
+
+    /**
+     * Método encargado de validar la url del CVLAC
+     * @param urlCvlac url del CVLAC ingresada por el usuario
+     * @return true si la url es correcta, de lo contrario false
+     */
+    public boolean validateUrlCvlac(String urlCvlac){
+        return Validations.validateUrl(urlCvlac);
+    }
+
+    /**
+     * Método encargado de validar si la contraseña es correcta
+     * @param password contraseña ingresada por el usuario
+     * @return true si la contraseña es correcta, de lo contrario false
+     */
+    public boolean validatePassword(String password){
+        return Validations.validatePassword(password);
+    }
+
+    /**
+     * Método encargado de validar campos en general
+     * @param field campo a validar
+     * @return true si el campo es correcto, de lo contrario false
+     */
+    public boolean validateFields(String field){
+
+        return Validations.validateFields(field);
+    }
+
+
 }

@@ -11,6 +11,10 @@
     <string name="recover_password">Recover Password</string>
     <string name="recover_password_help">We can help you recover your password using the email address linked to the account.</string>
     <string name="error_password_or_email">Email or password incorrect</string>
+    <string name="error_email">Email incorrect</string>
+    <string name="error_password">Password must be at least 6 characters long</string>
+    <string name="error_field">incorrect</string>
+    <string name="error_url_cvlac">Url incorrect</string>
     <string name="sign_up">Sign Up</string>
     <string name="tell_us_more">Tell us more</string>
     <string name="im_researcher">I\'m researcher</string>
@@ -44,6 +48,7 @@
     <string name="agree">Agree</string>
     <string name="cancel">Cancel</string>
     <string name="status">Status</string>
+
 
 
     <string-array name="nationality_array">

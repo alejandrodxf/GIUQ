@@ -120,7 +120,7 @@
         android:id="@+id/textInputLayoutResearchGroupResearcher">
 
         <EditText
-            android:id="@+id/editTextResearcherGroupResearcher"
+            android:id="@+id/editTextResearchGroupResearcher"
             android:layout_width="match_parent"
             android:textSize="@dimen/font_size_edittext"
             android:layout_height="wrap_content"

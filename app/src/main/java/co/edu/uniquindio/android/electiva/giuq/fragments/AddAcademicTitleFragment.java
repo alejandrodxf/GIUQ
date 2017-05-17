@@ -22,7 +22,6 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
-import co.edu.uniquindio.android.electiva.giuq.vo.AcademicTitle;
 
 /**
  * Diálogo utilizado para agregar los títulos obtenidos por un investigador
@@ -65,7 +64,7 @@ public class AddAcademicTitleFragment extends DialogFragment {
     /**
      * Atributo que representa el oyente del diálogo
      */
-    private AcademicTitleListener listener;
+    private AddAcademicTitleListener listener;
 
     /**
      * Atributo que representa una fecha de graduación
@@ -129,6 +128,7 @@ public class AddAcademicTitleFragment extends DialogFragment {
                 dismiss();
             }
         });
+
     }
 
     /**
@@ -167,19 +167,19 @@ public class AddAcademicTitleFragment extends DialogFragment {
     /**
      * Todas las actividades que contengan este fragmento deben implementar la interface.
      */
-    public interface AcademicTitleListener {
-        void sendAcademicTitle(AcademicTitle academicTitle);
+    public interface AddAcademicTitleListener {
+        void sendAcademicTitle(String academicTitle,String institution,Date graduationDate);
+
     }
 
     /**
      * Método utilizado para enviar la información del título académico a la actividad
      */
     public void sendAcademicTitle() {
-        String academicTitleT = editTextAcademicTitle.getText().toString();
+        String academicTitle = editTextAcademicTitle.getText().toString();
         String institution = editTextInstitution.getText().toString();
-        if (!academicTitleT.isEmpty() && !institution.isEmpty() && graduationDate != null) {
-         AcademicTitle academicTitle = new AcademicTitle(academicTitleT, institution, graduationDate);
-            listener.sendAcademicTitle(academicTitle);
+        if (!academicTitle.isEmpty() && !institution.isEmpty() && graduationDate != null) {
+            listener.sendAcademicTitle(academicTitle,institution,graduationDate);
             cleanDialog();
         }
     }
@@ -205,7 +205,7 @@ public class AddAcademicTitleFragment extends DialogFragment {
         if (context instanceof Activity) {
             activity = (Activity) context;
             try {
-                listener = (AcademicTitleListener) activity;
+                listener = (AddAcademicTitleListener) activity;
             } catch (ClassCastException e) {
                 throw new ClassCastException(activity.toString() + " debe implementar la interfaz AcademicTitleListener");
             }

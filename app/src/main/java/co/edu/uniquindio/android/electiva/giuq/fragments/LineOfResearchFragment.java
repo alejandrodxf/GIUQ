@@ -112,6 +112,7 @@ public class LineOfResearchFragment extends Fragment implements AdapterRecyclerV
         adapterLineOfResearch = new AdapterRecyclerView(linesOfResearch,this,LINE_OF_RESEARCH);
         recyclerViewLineOfResearch.setAdapter(adapterLineOfResearch);
         recyclerViewLineOfResearch.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
+        listener.sendListLineOfResearch(linesOfResearch);
     }
 
     /**
@@ -130,6 +131,7 @@ public class LineOfResearchFragment extends Fragment implements AdapterRecyclerV
     public interface OnSelectedLineOfResearchListener {
 
         void onSelectedLineOfResearchListener(int position, ArrayList<LineOfResearch> lineOfResearch);
+        void sendListLineOfResearch(ArrayList<LineOfResearch>linesOfResearch);
     }
 
     /**

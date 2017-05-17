@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "437684593073",
+    "firebase_url": "https://giuq-64c1b.firebaseio.com",
+    "project_id": "giuq-64c1b",
+    "storage_bucket": "giuq-64c1b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437684593073:android:a03543daf0b36025",
+        "android_client_info": {
+          "package_name": "co.edu.uniquindio.android.electiva.giuq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437684593073-7opjdocqtg3g3l92md7aq0j8mooiputl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBy2YiErzC2rM44BUgWLTuX-DyAUlvPgEw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
