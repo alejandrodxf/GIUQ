@@ -10,6 +10,7 @@
     <string name="recover">Recover</string>
     <string name="recover_password">Recover Password</string>
     <string name="recover_password_help">We can help you recover your password using the email address linked to the account.</string>
+    <string name="error_line_or_title">You must add at least one line of research and an academic title</string>
     <string name="error_password_or_email">Email or password incorrect</string>
     <string name="error_email">Email incorrect</string>
     <string name="error_password">Password must be at least 6 characters long</string>
@@ -48,7 +49,24 @@
     <string name="agree">Agree</string>
     <string name="cancel">Cancel</string>
     <string name="status">Status</string>
-
+    <string name="name_group">Name group</string>
+    <string name="acronym">Acronym</string>
+    <string name="leader">Leader</string>
+    <string name="members">Members</string>
+    <string name="researcher">Researcher</string>
+    <string name="add_researcher">Add Researcher</string>
+    <string name="home">Home</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="privacy">Privacy</string>
+    <string name="language">Language</string>
+    <string name="sign_out">Sign out</string>
+    <string name="english">English</string>
+    <string name="spanish">Spanish</string>
+    <string name="done">Done</string>
+    <string name="select_your_language">Select Your Language</string>
+    <string name="invalid_registration">Invalid Registration</string>
+    <string name="successful_registration">Successful Registration</string>
+    <string name="successful_registration_info">Now we will proceed to verify your information. In a few hours we will send you a confirmation email so that you can enter your account.</string>
 
 
     <string-array name="nationality_array">
@@ -168,6 +186,16 @@
         <item>Master student</item>
         <item>Pregrade student</item>
     </string-array>
+
+    <string-array name="category_research_group_array">
+        <item>Category A1</item>
+        <item>Category A</item>
+        <item>Category B</item>
+        <item>Category C</item>
+        <item>Category D</item>
+    </string-array>
+
+
 
 
 </resources>

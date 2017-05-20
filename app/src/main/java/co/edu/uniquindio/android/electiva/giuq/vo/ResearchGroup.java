@@ -1,7 +1,5 @@
 package co.edu.uniquindio.android.electiva.giuq.vo;
 
-import android.media.Image;
-
 import java.util.ArrayList;
 
 /**
@@ -25,7 +23,7 @@ public class ResearchGroup extends User {
      */
     private ArrayList<Researcher> researchers;
 
-    public ResearchGroup(String name, String email, String password, String urlCVLAC, String category, Image photo, ArrayList<LineOfResearch> linesOfResearch, String acronym, Researcher leader, ArrayList<Researcher> researchers) {
+    public ResearchGroup(String name, String email, String password, String urlCVLAC, String category, String photo, ArrayList<LineOfResearch> linesOfResearch, String acronym, Researcher leader, ArrayList<Researcher> researchers) {
         super(name, email, password, urlCVLAC, category, photo, linesOfResearch);
         this.acronym = acronym;
         this.leader = leader;

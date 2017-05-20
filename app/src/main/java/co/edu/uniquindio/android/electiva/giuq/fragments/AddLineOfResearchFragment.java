@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.RadioGroup;
 
 import butterknife.BindView;
@@ -30,12 +31,6 @@ public class AddLineOfResearchFragment extends DialogFragment {
     protected Button buttonAddLineOfResearch;
 
     /**
-     * Atributo que representa el botón cancelar
-     */
-    @BindView(R.id.buttonCancelLineOfResearch)
-    protected Button buttonCancel;
-
-    /**
      * Atributo que representa el campo línea de investigación
      */
     @BindView(R.id.editTextAddLineOfResearch)
@@ -46,6 +41,12 @@ public class AddLineOfResearchFragment extends DialogFragment {
      */
     @BindView(R.id.radioGroupStatusLineOfResearch)
     protected RadioGroup radioGroupStatus;
+
+    /**
+     * Atributo que representa la imagen para cerrar el diálogo
+     */
+    @BindView(R.id.imageViewCloseAddLineOfResearch)
+    protected ImageView imageViewClose;
 
     /**
      * Atributo que representa el oyente del diálogo
@@ -96,7 +97,7 @@ public class AddLineOfResearchFragment extends DialogFragment {
                 sendLineOfResearch();
             }
         });
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
+        imageViewClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
@@ -110,6 +111,7 @@ public class AddLineOfResearchFragment extends DialogFragment {
     public interface AddLineOfResearchListener {
         void sendLineOfResearch(String lineOfResearch,Boolean status);
     }
+
 
 
     /**

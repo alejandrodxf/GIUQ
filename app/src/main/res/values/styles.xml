@@ -10,6 +10,11 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+
+    <style name="customActionBar" >
+        <item name="android:textSize">@dimen/font_size_button</item>
+        <item name="colorAccent">@android:color/white</item>
+    </style>
     <!-- Estilo TextInputLayout -->
     <style name="TextViewInputLayout" parent="TextAppearance.Design.Hint">
         <item name="android:textSize">@dimen/font_size_edittext</item>

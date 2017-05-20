@@ -1,0 +1,43 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/background_app"
+    tools:context="co.edu.uniquindio.android.electiva.giuq.fragments.GeneralDialogFragment">
+
+    <ImageView
+        android:id="@+id/imageViewCloseGeneralDialog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:clickable="true"
+        android:src="@drawable/ic_action_close" />
+
+    <TextView
+        android:id="@+id/textViewTitleGeneralDialog"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="23dp"
+        android:textSize="@dimen/font_size_textview"
+         />
+
+    <TextView
+        android:id="@+id/textViewBodyGeneralDialog"
+        android:textSize="@dimen/font_size_body"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textViewTitleGeneralDialog"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:paddingBottom="40dp"
+         />
+
+
+
+</RelativeLayout>

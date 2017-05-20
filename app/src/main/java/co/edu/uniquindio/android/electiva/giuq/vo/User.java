@@ -39,6 +39,10 @@ public abstract class User {
      */
     private ArrayList<LineOfResearch> linesOfResearch;
 
+    public User(){
+
+    }
+
     /**
      * Método constructor de la clase
      * @param name nombre del usuario

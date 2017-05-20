@@ -1,7 +1,5 @@
 package co.edu.uniquindio.android.electiva.giuq.vo;
 
-import android.media.Image;
-
 import java.util.ArrayList;
 
 /**
@@ -48,7 +46,10 @@ public class Researcher  extends User {
      * @param researchGroup grupo de investigación del investigador
      * @param academicTitles titulos obtenidos por el investigador
      */
-    public Researcher(String name, String email, String password, String urlCVLAC, String category, Image photo, ArrayList<LineOfResearch> linesOfResearch, String nationality, String researchGroup, ArrayList<AcademicTitle> academicTitles, boolean state,boolean genre) {
+
+
+
+    public Researcher(String name, String email, String password, String urlCVLAC, String category, String photo, ArrayList<LineOfResearch> linesOfResearch, String nationality, String researchGroup, ArrayList<AcademicTitle> academicTitles, boolean state,boolean genre) {
         super(name, email, password, urlCVLAC, category, photo, linesOfResearch);
         this.nationality = nationality;
         this.researchGroup = researchGroup;

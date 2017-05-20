@@ -9,11 +9,11 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
 import co.edu.uniquindio.android.electiva.giuq.fragments.ForgotPasswordFragment;
+import co.edu.uniquindio.android.electiva.giuq.util.Language;
 
 /**
  * Clase utilizada para el ingreso de los usuarios a la aplicación
@@ -66,11 +66,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Language.setLanguage(this,Language.getLanguage(this));
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         buttonSignIn.setOnClickListener(this);
         buttonSignUp.setOnClickListener(this);
         buttonForgotPassword.setOnClickListener(this);
+
     }
 
     /**
@@ -86,7 +88,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             }
             case R.id.buttonSignIn:{
-               validate(editTextEmail.getText().toString());
+               goToProfileActivity(v);
                 break;
             }
             case R.id.buttonSignUp:{
@@ -130,6 +132,10 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     public void goToSelectRolActivity(View v){
         Intent intent = new Intent(this,SelectRolActivity.class);
+        startActivity(intent);
+    }
+    public void goToProfileActivity(View v){
+        Intent intent = new Intent(this,ProfileActivity.class);
         startActivity(intent);
     }
 }

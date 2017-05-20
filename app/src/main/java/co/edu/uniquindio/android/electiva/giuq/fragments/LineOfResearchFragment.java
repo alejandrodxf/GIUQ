@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
+import co.edu.uniquindio.android.electiva.giuq.activities.NewResearchGroupActivity;
 import co.edu.uniquindio.android.electiva.giuq.activities.NewResearcherActivity;
 import co.edu.uniquindio.android.electiva.giuq.util.AdapterRecyclerView;
 import co.edu.uniquindio.android.electiva.giuq.vo.LineOfResearch;
@@ -105,7 +106,14 @@ public class LineOfResearchFragment extends Fragment implements AdapterRecyclerV
         imageViewAddLineOfResearch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((NewResearcherActivity) getActivity()).showLineOfResearchDialog(LineOfResearchFragment.class.getName());
+
+                if(getActivity() instanceof NewResearcherActivity){
+                    ((NewResearcherActivity) getActivity()).showLineOfResearchDialog(LineOfResearchFragment.class.getName());
+                }
+
+                if(getActivity() instanceof NewResearchGroupActivity){
+                    ((NewResearchGroupActivity) getActivity()).showLineOfResearchDialog(LineOfResearchFragment.class.getName());
+                }
 
             }
         });

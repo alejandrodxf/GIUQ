@@ -1,0 +1,154 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_fragments"
+    android:id="@+id/about_research_group"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingRight="10dp"
+    android:paddingLeft="10dp"
+    tools:context="co.edu.uniquindio.android.electiva.giuq.fragments.AboutResearchGroupFragment">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp">
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="26dp"
+            app:errorTextAppearance="@style/ErrorTextInputLayout"
+            app:hintTextAppearance="@style/TextViewInputLayout"
+            android:id="@+id/textInputLayoutNameResearchGroup">
+
+            <EditText
+                android:id="@+id/editTextNameResearchGroup"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/font_size_edittext"
+                android:layout_height="wrap_content"
+                android:hint="@string/name_group"
+                android:inputType="text"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textInputLayoutNameResearchGroup"
+            android:layout_marginTop="20dp"
+            app:errorTextAppearance="@style/ErrorTextInputLayout"
+            app:hintTextAppearance="@style/TextViewInputLayout"
+            android:id="@+id/textInputLayoutAcronymResearchGroup">
+
+            <EditText
+                android:id="@+id/editTextAcronymResearchGroup"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/font_size_edittext"
+                android:layout_height="wrap_content"
+                android:hint="@string/acronym"
+                android:inputType="text"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <TextView
+            android:id="@+id/textViewCategoryResearchGroup"
+            android:layout_width="wrap_content"
+            android:textSize="@dimen/font_size_edittext"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/category"
+            android:layout_below="@id/textInputLayoutAcronymResearchGroup"
+            />
+
+        <Spinner android:id="@+id/spinnerCategoryResearchGroup"
+            android:spinnerMode="dialog"
+            android:entries="@array/category_research_group_array"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewCategoryResearchGroup"
+            />
+
+
+        <TextView
+            android:id="@+id/textViewLeaderResearchGroup"
+            android:textSize="@dimen/font_size_edittext"
+            android:layout_width="wrap_content"
+            android:layout_below="@id/spinnerCategoryResearchGroup"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="@string/leader" />
+
+        <AutoCompleteTextView
+            android:id="@+id/autoCompleteTextViewLeaderResearchGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textViewLeaderResearchGroup"
+            android:textSize="@dimen/font_size_edittext"
+            android:layout_marginTop="5dp"
+            android:hint="@string/full_name"
+            android:ems="10"
+            >
+            <requestFocus />
+        </AutoCompleteTextView>
+
+
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/autoCompleteTextViewLeaderResearchGroup"
+            android:layout_marginTop="20dp"
+            app:errorTextAppearance="@style/ErrorTextInputLayout"
+            app:hintTextAppearance="@style/TextViewInputLayout"
+            android:id="@+id/textInputLayoutUrlCvlacResearchGroup">
+
+            <EditText
+                android:id="@+id/editTextUrlCvlacResearchGroup"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/font_size_edittext"
+                android:layout_height="wrap_content"
+                android:hint="@string/url_cvlac"
+                android:inputType="textUri"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textInputLayoutUrlCvlacResearchGroup"
+            android:layout_marginTop="20dp"
+            app:errorTextAppearance="@style/ErrorTextInputLayout"
+            app:hintTextAppearance="@style/TextViewInputLayout"
+            android:id="@+id/textInputLayoutEmailResearchGroup">
+
+            <EditText
+                android:id="@+id/editTextEmailResearchGroup"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/font_size_edittext"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"/>
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textInputLayoutEmailResearchGroup"
+            android:layout_marginTop="20dp"
+            app:errorTextAppearance="@style/ErrorTextInputLayout"
+            app:hintTextAppearance="@style/TextViewInputLayout"
+            android:id="@+id/textInputLayoutPasswordResearchGroup">
+
+            <EditText
+                android:id="@+id/editTextPasswordResearchGroup"
+                android:layout_width="match_parent"
+                android:textSize="@dimen/font_size_edittext"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword"/>
+        </android.support.design.widget.TextInputLayout>
+
+    </RelativeLayout>
+
+</ScrollView>

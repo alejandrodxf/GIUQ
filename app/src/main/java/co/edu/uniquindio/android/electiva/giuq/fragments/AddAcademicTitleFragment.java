@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -55,12 +56,9 @@ public class AddAcademicTitleFragment extends DialogFragment {
     @BindView(R.id.editTextInstitution)
     protected EditText editTextInstitution;
 
-    /**
-     * Atributo que representa el botón cancelar
-     */
-    @BindView(R.id.buttonCancelAddAcademicTitle)
-    protected Button buttonCancel;
 
+    @BindView(R.id.imageViewCloseAddAcademicTitle)
+    protected ImageView imageViewClose;
     /**
      * Atributo que representa el oyente del diálogo
      */
@@ -110,6 +108,12 @@ public class AddAcademicTitleFragment extends DialogFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        imageViewClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
         buttonAddDateGraduation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -122,13 +126,6 @@ public class AddAcademicTitleFragment extends DialogFragment {
                 sendAcademicTitle();
             }
         });
-        buttonCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dismiss();
-            }
-        });
-
     }
 
     /**

@@ -18,6 +18,7 @@ import co.edu.uniquindio.android.electiva.giuq.vo.Researcher;
 import static co.edu.uniquindio.android.electiva.giuq.R.string.active;
 import static co.edu.uniquindio.android.electiva.giuq.fragments.AcademicTitleFragment.ACADEMIC_TITLE;
 import static co.edu.uniquindio.android.electiva.giuq.fragments.LineOfResearchFragment.LINE_OF_RESEARCH;
+import static co.edu.uniquindio.android.electiva.giuq.fragments.MembersResearchGroupFragment.MEMBERS_RESEARCH_GROUP;
 
 
 /**
@@ -54,6 +55,10 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
                 view = LayoutInflater.from(parent.getContext()).inflate(R.layout.academic_title_card, parent, false);
                 break;
             }
+            case MEMBERS_RESEARCH_GROUP:{
+                view = LayoutInflater.from(parent.getContext()).inflate(R.layout.members_research_group_card, parent, false);
+                break;
+            }
         }
         AdapterRecyclerViewViewHolder adapter = new AdapterRecyclerViewViewHolder(view);
         return adapter;
@@ -71,6 +76,11 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
             case ACADEMIC_TITLE:{
                 AcademicTitle academicTitle = (AcademicTitle) items.get(position);
                 holder.binItem(academicTitle);
+                break;
+            }
+            case MEMBERS_RESEARCH_GROUP:{
+                Researcher researcher= (Researcher)items.get(position);
+                holder.binItem(researcher);
                 break;
             }
         }
@@ -91,6 +101,8 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
         public TextView textViewAcademicTitle;
         public TextView textViewInstitution;
         public TextView textViewGraduationDate;
+        public TextView textViewResearcherMember;
+        public TextView textViewCategoryResearcherMember;
         public String stateTrue;
         public String stateFalse;
 
@@ -111,13 +123,19 @@ public class AdapterRecyclerView extends RecyclerView.Adapter<AdapterRecyclerVie
                     textViewGraduationDate=(TextView)v.findViewById(R.id.textViewGraduationDate);
                     break;
                 }
+                case R.id.members_research_group_card:{
+                    textViewResearcherMember=(TextView) v.findViewById(R.id.textViewResearcherMember);
+                    textViewCategoryResearcherMember=(TextView) v.findViewById(R.id.textViewCategoryResearcherMember);
+                    break;
+                }
 
             }
 
         }
 
         public void binItem(Researcher researcher){
-
+            textViewResearcherMember.setText(researcher.getName());
+            textViewCategoryResearcherMember.setText(researcher.getCategory());
         }
 
         public void binItem(ResearchGroup researchGroup){

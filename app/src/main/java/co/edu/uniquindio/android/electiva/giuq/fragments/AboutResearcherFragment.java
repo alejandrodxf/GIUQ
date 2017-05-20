@@ -54,7 +54,7 @@ public class AboutResearcherFragment extends Fragment {
      * Atributo que representa el campo url CVLAC
      */
     @BindView(R.id.textInputLayoutUrlCvlacResearcher)
-    protected TextInputLayout textInputLayouturlCvlac;
+    protected TextInputLayout textInputLayoutUrlCvlac;
 
     /**
      * Atributo que representa el campo de texto name
@@ -170,7 +170,7 @@ public class AboutResearcherFragment extends Fragment {
     }
 
     /**
-     * Método encargado de enviar la información básica del investigador al fragmento
+     * Método encargado de enviar la información básica del investigador a la actividad
      * @return true si los campos están correctos y completos, de lo contrario false
      */
     public boolean sendAboutResearcher(){
@@ -284,10 +284,10 @@ public class AboutResearcherFragment extends Fragment {
     public boolean validateUrlCvlac(String urlCvlac){
         boolean validate = ((NewResearcherActivity)getActivity()).validateUrlCvlac(urlCvlac);
         if(!validate){
-            textInputLayouturlCvlac.setError(getResources().getString(R.string.error_url_cvlac));
+            textInputLayoutUrlCvlac.setError(getResources().getString(R.string.error_url_cvlac));
 
         }else{
-            textInputLayouturlCvlac.setError(null);
+            textInputLayoutUrlCvlac.setError(null);
         }
         return validate;
     }

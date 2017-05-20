@@ -3,13 +3,25 @@
     android:background="@drawable/background_app"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingTop="10dp"
-    android:paddingLeft="20dp"
-    android:paddingRight="20dp"
-    android:paddingBottom="20dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="co.edu.uniquindio.android.electiva.giuq.fragments.AddAcademicTitleFragment">
 
+    <ImageView
+
+        android:id="@+id/imageViewCloseAddAcademicTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|right"
+        android:clickable="true"
+        android:src="@drawable/ic_action_close" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="20dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingBottom="20dp">
 
     <TextView
         android:id="@+id/textViewAddAcademicTitle"
@@ -93,18 +105,6 @@
         android:layout_alignParentEnd="true"
          />
 
-    <Button
-        android:id="@+id/buttonCancelAddAcademicTitle"
-        android:textStyle="bold"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?android:attr/selectableItemBackground"
-        android:textColor="@android:color/white"
-        android:layout_alignTop="@+id/buttonAddAcademicTitle"
-        android:layout_marginEnd="20dp"
-        android:textSize="@dimen/font_size_button"
-        android:layout_toStartOf="@+id/buttonAddAcademicTitle"
-        android:text="@string/cancel" />
 
-
+    </RelativeLayout>
 </RelativeLayout>

@@ -41,7 +41,7 @@ public class AcademicTitleFragment extends Fragment implements AdapterRecyclerVi
     protected RecyclerView recyclerViewAcademicTitle;
 
     /**
-     * Atributo que representa la imagen para títlos académicos
+     * Atributo que representa la imagen para títulos académicos
      */
     @BindView(R.id.imageViewAddAcademicTitle)
     ImageView imageViewAddAcademicTitle;

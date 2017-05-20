@@ -5,6 +5,7 @@ import android.app.Application;
 import java.util.ArrayList;
 
 import co.edu.uniquindio.android.electiva.giuq.util.ManagerFireBase;
+import co.edu.uniquindio.android.electiva.giuq.vo.ResearchGroup;
 import co.edu.uniquindio.android.electiva.giuq.vo.Researcher;
 
 /**
@@ -16,21 +17,33 @@ import co.edu.uniquindio.android.electiva.giuq.vo.Researcher;
 public class ControllerApplication extends Application{
 
 
-    ArrayList<Researcher>pending;
-    ManagerFireBase managerFireBase;
+   private ArrayList<Researcher>pendingResearcher;
+   private ArrayList<ResearchGroup>pendingResearchGroup;
+   private ManagerFireBase managerFireBase;
+
+
 
 
     @Override
     public void onCreate() {
         super.onCreate();
-        pending=new ArrayList<>();
+        pendingResearcher=new ArrayList<>();
+        pendingResearchGroup=new ArrayList<>();
         managerFireBase=ManagerFireBase.instance();
 
     }
 
+
+
     public void  addResearcher(Researcher researcher) {
-        pending.add(researcher);
+        pendingResearcher.add(researcher);
         managerFireBase.addResearcher(researcher);
+    }
+    
+    public void addResearchGroup(ResearchGroup researchGroup){
+        pendingResearchGroup.add(researchGroup);
+        managerFireBase.addResearchGroup(researchGroup);
+
     }
 
 

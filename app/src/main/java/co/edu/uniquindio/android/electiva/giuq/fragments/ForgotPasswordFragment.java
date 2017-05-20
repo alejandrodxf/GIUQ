@@ -7,7 +7,10 @@ import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
 
 /**
@@ -17,6 +20,9 @@ import co.edu.uniquindio.android.electiva.giuq.R;
  */
 public class ForgotPasswordFragment extends DialogFragment {
 
+
+    @BindView(R.id.imageViewCloseForgotPassword)
+    protected ImageView imageViewClose;
     /**
      * Es obligatorio un constructor vacío para instanciar el fragmento
      */
@@ -43,8 +49,9 @@ public class ForgotPasswordFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_forgot_password, container, false);
+        View view =inflater.inflate(R.layout.fragment_forgot_password, container, false);
+        ButterKnife.bind(this,view);
+        return view;
     }
 
     /**
@@ -55,5 +62,11 @@ public class ForgotPasswordFragment extends DialogFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        imageViewClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dismiss();
+            }
+        });
     }
 }

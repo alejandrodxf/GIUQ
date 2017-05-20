@@ -8,10 +8,8 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
-
 import java.util.ArrayList;
 import java.util.Date;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.ControllerApplication;
@@ -20,15 +18,13 @@ import co.edu.uniquindio.android.electiva.giuq.fragments.AboutResearcherFragment
 import co.edu.uniquindio.android.electiva.giuq.fragments.AcademicTitleFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.AddAcademicTitleFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.AddLineOfResearchFragment;
+import co.edu.uniquindio.android.electiva.giuq.fragments.GeneralDialogFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.LineOfResearchFragment;
 import co.edu.uniquindio.android.electiva.giuq.util.AdapterPagerFragment;
 import co.edu.uniquindio.android.electiva.giuq.util.Validations;
 import co.edu.uniquindio.android.electiva.giuq.vo.AcademicTitle;
 import co.edu.uniquindio.android.electiva.giuq.vo.LineOfResearch;
 import co.edu.uniquindio.android.electiva.giuq.vo.Researcher;
-
-import static co.edu.uniquindio.android.electiva.giuq.R.id.tabMenuResearcher;
-import static co.edu.uniquindio.android.electiva.giuq.R.id.viewPagerResearcher;
 
 /**
  * Actividad utilizada para agregar un investigador
@@ -46,13 +42,13 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
     /**
      * Atributo que representa el contenedor de los fragmentos about,academic y research de la vista
      */
-    @BindView(viewPagerResearcher)
+    @BindView(R.id.viewPagerResearcher)
     protected ViewPager viewPager;
 
     /**
      * Atributo que representa el contenedor de los títulos de la tabs de la vista
      */
-    @BindView(tabMenuResearcher)
+    @BindView(R.id.tabMenuResearcher)
     protected TabLayout tabMenu;
 
     /**
@@ -127,26 +123,7 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
         buttonBackSelectRol.setOnClickListener(this);
         buttonSignUp.setOnClickListener(this);
         createViewPagerResearcher();
-    }
 
-    /**
-     * Método encargado de escuchar los eventos del botón Back Select Rol, Add Photo y Sign Up
-     *
-     * @param v control que ejecuta el evento
-     */
-    @Override
-    public void onClick(View v) {
-
-        switch(v.getId()){
-            case R.id.buttonBackSelectRolNewResearcher:{
-                goToSelectRolActivity(v);
-                break;
-            }
-            case R.id.buttonSignUpResearcher:{
-                sendResearcher();
-                break;
-            }
-        }
     }
 
     /**
@@ -218,6 +195,97 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
         dialogFragment.show(getSupportFragmentManager(), className);
     }
 
+    /**
+     * Método utilizado para obtener la información básica de un investigador
+     */
+    public boolean getAboutResearcher(){
+        FragmentPagerAdapter fragmentPagerAdapter =(FragmentPagerAdapter) viewPager.getAdapter();
+        AboutResearcherFragment aboutResearcherFragment= (AboutResearcherFragment) fragmentPagerAdapter.getItem(0);
+        return aboutResearcherFragment.sendAboutResearcher();
+    }
+
+    /**
+     * Método encargado de enviar el investigador al controlador para que sea agregado
+     */
+    public void sendResearcher(){
+
+       GeneralDialogFragment generalDialogFragment;
+        if (viewPager.getCurrentItem()==0){
+          validateAbout= getAboutResearcher();
+        }
+
+            if(!academicTitles.isEmpty()&&!linesOfResearch.isEmpty()) {
+                if(validateAbout){
+                generalDialogFragment= GeneralDialogFragment.newInstance(getResources().getString(R.string.successful_registration), getResources().getString(R.string.successful_registration_info),"DONE");
+                Researcher researcher = new Researcher(name, email, password, urlCvlac, category, null, linesOfResearch, nationality, researchGroup, academicTitles, false, genre);
+                ((ControllerApplication) getApplication()).addResearcher(researcher);
+                    generalDialogFragment.show(getSupportFragmentManager(),"");
+
+                }
+            }else{
+                generalDialogFragment= GeneralDialogFragment.newInstance(getResources().getString(R.string.invalid_registration),getResources().getString(R.string.error_line_or_title),"ERROR");
+                generalDialogFragment.show(getSupportFragmentManager(),"");
+            }
+
+    }
+
+    /**
+     * Método encargado de validar el email
+     * @param email email ingresado por el usuario
+     * @return true si el email es correcto, de lo contrario false
+     */
+    public boolean validateEmail(String email){
+     return Validations.validateEmail(email);
+    }
+
+    /**
+     * Método encargado de validar la url del CVLAC
+     * @param urlCvlac url del CVLAC ingresada por el usuario
+     * @return true si la url es correcta, de lo contrario false
+     */
+    public boolean validateUrlCvlac(String urlCvlac){
+        return Validations.validateUrl(urlCvlac);
+    }
+
+    /**
+     * Método encargado de validar si la contraseña es correcta
+     * @param password contraseña ingresada por el usuario
+     * @return true si la contraseña es correcta, de lo contrario false
+     */
+    public boolean validatePassword(String password){
+        return Validations.validatePassword(password);
+    }
+
+    /**
+     * Método encargado de validar campos en general
+     * @param field campo a validar
+     * @return true si el campo es correcto, de lo contrario false
+     */
+    public boolean validateFields(String field){
+
+        return Validations.validateFields(field);
+    }
+
+    /**
+     * Método encargado de escuchar los eventos del botón Back Select Rol, Add Photo y Sign Up
+     *
+     * @param v control que ejecuta el evento
+     */
+    @Override
+    public void onClick(View v) {
+
+        switch(v.getId()){
+            case R.id.buttonBackSelectRolNewResearcher:{
+                goToSelectRolActivity(v);
+                break;
+            }
+            case R.id.buttonSignUpResearcher:{
+                sendResearcher();
+                break;
+            }
+        }
+    }
+
 
     @Override
     public void onSelectedLineOfResearchListener(int position, ArrayList<LineOfResearch> lineOfResearch) {
@@ -231,21 +299,12 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
     }
 
     /**
-     * Método utilizado para obtener la información básica de un investigador
-     */
-    public boolean getAboutResearcher(){
-        FragmentPagerAdapter fragmentPagerAdapter =(FragmentPagerAdapter) viewPager.getAdapter();
-        AboutResearcherFragment aboutResearcherFragment= (AboutResearcherFragment) fragmentPagerAdapter.getItem(0);
-        return aboutResearcherFragment.sendAboutResearcher();
-    }
-
-    /**
      * Método utilizado para obtener las líneas de investigación de un investigador
      * @param linesOfResearch líneas de investigación de un investigador
      */
     @Override
     public void sendListLineOfResearch(ArrayList<LineOfResearch> linesOfResearch) {
-       this.linesOfResearch=linesOfResearch;
+        this.linesOfResearch=linesOfResearch;
     }
 
     /**
@@ -255,35 +314,6 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
     @Override
     public void sendListAcademicTitles(ArrayList<AcademicTitle> academicTitles) {
         this.academicTitles=academicTitles;
-    }
-
-
-    /**
-     * Método encargado de enviar el investigador al controlador para que sea agregado
-     */
-    public void sendResearcher(){
-
-        if (viewPager.getCurrentItem()==0){
-          validateAbout= getAboutResearcher();
-        }
-        if(validateAbout&&!academicTitles.isEmpty()&&!linesOfResearch.isEmpty()){
-            Researcher researcher = new Researcher(name,email,password,urlCvlac,category,null,linesOfResearch,nationality,researchGroup,academicTitles,false,genre);
-            ((ControllerApplication)getApplication()).addResearcher(researcher);
-        }
-    }
-
-    /**
-     *  Método utilizado para agregar los títulos académicos
-     * @param academicTitle título académico
-     * @param institution institución donde se cursaron los estudios
-     * @param graduationDate fecha de graduación
-     */
-    @Override
-    public void sendAcademicTitle(String academicTitle,String institution,Date graduationDate) {
-        FragmentPagerAdapter fragmentPagerAdapter =(FragmentPagerAdapter) viewPager.getAdapter();
-        AcademicTitleFragment academicTitleFragment = (AcademicTitleFragment) fragmentPagerAdapter.getItem(1);
-        AcademicTitle academicTitleTem = new AcademicTitle(academicTitle,institution,graduationDate);
-        academicTitleFragment.addAcademicTitle(academicTitleTem);
     }
 
     /**
@@ -323,40 +353,17 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
     }
 
     /**
-     * Método encargado de validar el email
-     * @param email email ingresado por el usuario
-     * @return true si el email es correcto, de lo contrario false
+     *  Método utilizado para agregar los títulos académicos
+     * @param academicTitle título académico
+     * @param institution institución donde se cursaron los estudios
+     * @param graduationDate fecha de graduación
      */
-    public boolean validateEmail(String email){
-     return Validations.validateEmail(email);
-    }
-
-    /**
-     * Método encargado de validar la url del CVLAC
-     * @param urlCvlac url del CVLAC ingresada por el usuario
-     * @return true si la url es correcta, de lo contrario false
-     */
-    public boolean validateUrlCvlac(String urlCvlac){
-        return Validations.validateUrl(urlCvlac);
-    }
-
-    /**
-     * Método encargado de validar si la contraseña es correcta
-     * @param password contraseña ingresada por el usuario
-     * @return true si la contraseña es correcta, de lo contrario false
-     */
-    public boolean validatePassword(String password){
-        return Validations.validatePassword(password);
-    }
-
-    /**
-     * Método encargado de validar campos en general
-     * @param field campo a validar
-     * @return true si el campo es correcto, de lo contrario false
-     */
-    public boolean validateFields(String field){
-
-        return Validations.validateFields(field);
+    @Override
+    public void sendAcademicTitle(String academicTitle,String institution,Date graduationDate) {
+        FragmentPagerAdapter fragmentPagerAdapter =(FragmentPagerAdapter) viewPager.getAdapter();
+        AcademicTitleFragment academicTitleFragment = (AcademicTitleFragment) fragmentPagerAdapter.getItem(1);
+        AcademicTitle academicTitleTem = new AcademicTitle(academicTitle,institution,graduationDate);
+        academicTitleFragment.addAcademicTitle(academicTitleTem);
     }
 
 
