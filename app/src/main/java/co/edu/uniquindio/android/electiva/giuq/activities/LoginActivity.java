@@ -9,11 +9,16 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import co.edu.uniquindio.android.electiva.giuq.ControllerApplication;
 import co.edu.uniquindio.android.electiva.giuq.R;
 import co.edu.uniquindio.android.electiva.giuq.fragments.ForgotPasswordFragment;
 import co.edu.uniquindio.android.electiva.giuq.util.Language;
+import co.edu.uniquindio.android.electiva.giuq.util.Validations;
+import co.edu.uniquindio.android.electiva.giuq.vo.ResearchGroup;
+import co.edu.uniquindio.android.electiva.giuq.vo.Researcher;
 
 /**
  * Clase utilizada para el ingreso de los usuarios a la aplicación
@@ -21,7 +26,6 @@ import co.edu.uniquindio.android.electiva.giuq.util.Language;
  * @version 1.0
  */
 public class LoginActivity extends AppCompatActivity implements View.OnClickListener {
-
 
     /**
      * Atributo que representa el campo de texto email
@@ -58,6 +62,12 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      */
     @BindView(R.id.textInputLayoutPassword)
     protected TextInputLayout textInputLayoutPassword;
+
+    /**
+     * Atributo que representa una llave parcelable
+     */
+    public static final String KEY_PARCELABLE="key_parcelable";
+
     /**
      * Método que se encarga de realizar la conexión con la parte lógica
      *
@@ -72,7 +82,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         buttonSignIn.setOnClickListener(this);
         buttonSignUp.setOnClickListener(this);
         buttonForgotPassword.setOnClickListener(this);
-
+        ((ControllerApplication) getApplication()).loadResearchers(this);
     }
 
     /**
@@ -88,7 +98,16 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             }
             case R.id.buttonSignIn:{
-               goToProfileActivity(v);
+               boolean validateConnectionTem= validateConnection();
+                if(!validateConnectionTem){
+                    goToConnectionErrorActivity();
+                }else{
+                    Researcher researcher=((ControllerApplication) getApplication()).login(editTextEmail.getText().toString(),editTextPassword.getText().toString());
+                    if(researcher!=null){
+                        goToProfileActivity(v,researcher,null);
+                    }
+                }
+
                 break;
             }
             case R.id.buttonSignUp:{
@@ -99,6 +118,18 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
 
     }
 
+    /**
+     * Método encargado de verificar si hay conexión a internet o no
+     * @return true si hay conexión de lo contrario false
+     */
+    public boolean validateConnection(){
+        return Validations.isOnline(getApplicationContext());
+    }
+
+    public void goToConnectionErrorActivity(){
+        Intent intent = new Intent(this,ConnectionErrorActivity.class);
+        startActivity(intent);
+    }
     /**
      * Método encargado de mostrar el diálogo para recuperar la contraseña
      */
@@ -134,8 +165,23 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = new Intent(this,SelectRolActivity.class);
         startActivity(intent);
     }
-    public void goToProfileActivity(View v){
+
+    /**
+     * Método que se encarga de ir de la actividad LoginActivity a la actividad ProfileActivity
+     * @param v View que gestiona el evento
+     * @param researcher investigador a ser enviado
+     * @param researchGroup grupo de investigación a ser enviado
+     */
+    public void goToProfileActivity(View v, Researcher researcher, ResearchGroup researchGroup){
         Intent intent = new Intent(this,ProfileActivity.class);
-        startActivity(intent);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        if(researcher!=null) {
+            intent.putExtra(KEY_PARCELABLE,researcher);
+        }else{
+            intent.putExtra(KEY_PARCELABLE,researchGroup);
+        }
+        startActivityForResult(intent,1);
     }
+
+
 }

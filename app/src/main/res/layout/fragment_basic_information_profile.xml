@@ -1,0 +1,106 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@android:color/transparent"
+    tools:context="co.edu.uniquindio.android.electiva.giuq.fragments.BasicInformationProfileFragment">
+
+    <ImageView
+        android:id="@+id/imageViewBasicInformationProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/ic_action_researcher" />
+
+    <TextView
+        android:id="@+id/textViewNameBasicInformationProfile"
+        android:textStyle="bold"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_size_textview"
+        android:layout_below="@+id/imageViewBasicInformationProfile"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginTop="34dp"
+        android:text="@string/full_name" />
+
+    <TextView
+        android:id="@+id/textViewVariousOneInformationProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/font_size_textview"
+        android:gravity="center"
+        android:layout_below="@+id/textViewNameBasicInformationProfile"
+        android:layout_marginTop="5dp"
+        android:text="@string/nationality" />
+
+    <TextView
+        android:id="@+id/textViewVariousTwoInformationProfile"
+        android:layout_width="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/font_size_textview"
+        android:layout_below="@+id/textViewVariousOneInformationProfile"
+        android:layout_marginTop="5dp"
+        android:text="@string/category" />
+
+    <TextView
+        android:id="@+id/textViewEmailBasicInformationProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="@dimen/font_size_textview"
+        android:layout_below="@+id/textViewVariousTwoInformationProfile"
+        android:layout_marginTop="5dp"
+        android:text="@string/email" />
+
+    <ImageView
+        android:id="@+id/imageViewFacebookLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="49dp"
+        app:srcCompat="@drawable/ic_action_facebook"
+        android:layout_below="@+id/textViewEmailBasicInformationProfile"
+        android:layout_toStartOf="@+id/imageViewBasicInformationProfile" />
+
+    <ImageView
+        android:id="@+id/imageViewFacebookShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="49dp"
+        app:srcCompat="@drawable/ic_action_facebook"
+        android:layout_below="@+id/textViewEmailBasicInformationProfile"
+        android:layout_toStartOf="@+id/imageViewBasicInformationProfile" />
+
+    <ImageView
+        android:id="@+id/imageViewTwitterShare"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageViewFacebookLogin"
+        android:layout_toEndOf="@+id/imageViewBasicInformationProfile"
+        app:srcCompat="@drawable/ic_action_twitter" />
+
+
+    <ImageView
+        android:id="@+id/imageViewTwitterLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageViewFacebookLogin"
+        android:layout_toEndOf="@+id/imageViewBasicInformationProfile"
+        app:srcCompat="@drawable/ic_action_twitter" />
+
+
+    <ImageView
+        android:id="@+id/imageViewGooglePlus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@+id/imageViewFacebookLogin"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/ic_action_google_plus" />
+
+</RelativeLayout>

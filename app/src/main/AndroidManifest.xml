@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="co.edu.uniquindio.android.electiva.giuq">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:name=".ControllerApplication"
         android:allowBackup="true"
@@ -10,6 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <uses-permission android:name="android.permission.INTERNET" />
+        <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
         <activity
             android:name=".activities.LoginActivity"
             android:configChanges="locale|screenSize|orientation">
@@ -28,8 +32,24 @@
         <activity
             android:name=".activities.NewResearchGroupActivity"
             android:configChanges="locale|screenSize|orientation" />
-        <activity android:name=".activities.ProfileActivity"
-            android:configChanges="locale|screenSize|orientation"></activity>
+        <activity
+            android:name=".activities.ProfileActivity"
+            android:configChanges="locale|screenSize|orientation" />
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id" />
+
+        <provider
+            android:name="com.facebook.FacebookContentProvider"
+            android:authorities="com.facebook.app.FacebookContentProvider1877846545823772"
+            android:exported="true" />
+
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="7e47d7173f6ab9764a7ba0211c7b21ac869cf96b" />
+
+        <activity android:name=".activities.ConnectionErrorActivity"></activity>
     </application>
 
 </manifest>

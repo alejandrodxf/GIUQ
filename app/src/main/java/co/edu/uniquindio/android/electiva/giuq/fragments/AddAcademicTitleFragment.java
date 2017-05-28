@@ -7,6 +7,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -56,9 +57,12 @@ public class AddAcademicTitleFragment extends DialogFragment {
     @BindView(R.id.editTextInstitution)
     protected EditText editTextInstitution;
 
-
+    /**
+     * Atributo que representa la imagen para cerrar el diálogo
+     */
     @BindView(R.id.imageViewCloseAddAcademicTitle)
     protected ImageView imageViewClose;
+
     /**
      * Atributo que representa el oyente del diálogo
      */
@@ -83,6 +87,7 @@ public class AddAcademicTitleFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(STYLE_NO_TITLE, 0);
     }
 
     /**
@@ -155,7 +160,7 @@ public class AddAcademicTitleFragment extends DialogFragment {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
                 graduationDate = sdf.parse(String.valueOf(dia) + "/" + String.valueOf(mes + 1) + "/" + String.valueOf(año));
             } catch (ParseException e) {
-
+                Log.e("Exception",e.toString());
             }
             buttonAddDateGraduation.setText(String.valueOf(dia) + "/" + String.valueOf(mes + 1) + "/" + String.valueOf(año));
         }

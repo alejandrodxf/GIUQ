@@ -66,6 +66,7 @@ public class AddLineOfResearchFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(STYLE_NO_TITLE, 0);
     }
 
     /**
@@ -76,8 +77,7 @@ public class AddLineOfResearchFragment extends DialogFragment {
      * @return la vista del fragmento
      */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view =inflater.inflate(R.layout.fragment_add_line_of_research, container, false);
         ButterKnife.bind(this,view);
         return view;
@@ -111,8 +111,6 @@ public class AddLineOfResearchFragment extends DialogFragment {
     public interface AddLineOfResearchListener {
         void sendLineOfResearch(String lineOfResearch,Boolean status);
     }
-
-
 
     /**
      * Método utilizado para enviar la información de la línea de la investigación a la actividad

@@ -1,12 +1,18 @@
 package co.edu.uniquindio.android.electiva.giuq.vo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.firebase.database.IgnoreExtraProperties;
+
 /**
  * Clase que representa una linea de investigación
  *
  * @author Francisco Alejandro Hoyos Rojas
  * @version 1.0
  */
-public class LineOfResearch {
+@IgnoreExtraProperties
+public class LineOfResearch implements Parcelable {
 
     /**
      * Atributo que representa una línea de investigación
@@ -27,6 +33,63 @@ public class LineOfResearch {
         this.state = state;
     }
 
+    /**
+     * Constructor vacío requerido para utilizar Firebase
+     */
+    public LineOfResearch(){
+
+    }
+
+    protected LineOfResearch(Parcel in) {
+        lineOfResearch = in.readString();
+        state = in.readByte() != 0;
+    }
+
+    /**
+     * Método encargado de crear la línea de investigación con base al Parcel recibido,
+     * también es necesario para enviar array para la lectura de arrays enviadas
+     * por medio del Parcel
+     */
+    public static final Creator<LineOfResearch> CREATOR = new Creator<LineOfResearch>() {
+        @Override
+        public LineOfResearch createFromParcel(Parcel in) {
+            return new LineOfResearch(in);
+        }
+
+        @Override
+        public LineOfResearch[] newArray(int size) {
+            return new LineOfResearch[size];
+        }
+    };
+
+    /**
+     * Método que se usa cuando existen parcelables hijos
+     *
+     * @return retorna cero al no tener hijos
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * Método que permite escribir un parcel.
+     * @param dest  Parcel donde se va escribir
+     * @param flags Indica como deberia ser escrito el parcel
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(lineOfResearch);
+        dest.writeByte((byte) (state ? 1 : 0));
+    }
+
+    /**
+     * Método que permite obtener el valor del creator
+     * @return El CREATOR
+     */
+    public static Creator<LineOfResearch> getCREATOR() {
+        return CREATOR;
+    }
     /**
      * Método que permite obtener el valor del atributo lineOfResearch
      *

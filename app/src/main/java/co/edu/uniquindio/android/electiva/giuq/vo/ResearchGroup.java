@@ -1,5 +1,10 @@
 package co.edu.uniquindio.android.electiva.giuq.vo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.ArrayList;
 
 /**
@@ -8,7 +13,8 @@ import java.util.ArrayList;
  * @version 1.0
  */
 
-public class ResearchGroup extends User {
+@IgnoreExtraProperties
+public class ResearchGroup extends User implements Parcelable {
 
     /**
      * Atributo que representa las siglas de un grupo de investigación
@@ -28,6 +34,61 @@ public class ResearchGroup extends User {
         this.acronym = acronym;
         this.leader = leader;
         this.researchers = researchers;
+    }
+
+    /**
+     * Constructor vacío requerido para utilizar Firebase
+     */
+    public ResearchGroup(){
+
+    }
+
+    protected ResearchGroup(Parcel in) {
+        super(in);
+        this.acronym = in.readString();
+        this.leader = in.readParcelable(Researcher.class.getClassLoader());
+        this.researchers=in.createTypedArrayList(Researcher.CREATOR);
+
+    }
+
+
+    /**
+     * Método encargado de crear el grupo de investigación con base al Parcel recibido,
+     * también es necesario para enviar array para la lectura de arrays enviadas
+     * por medio del Parcel
+     */
+    public static final Creator<ResearchGroup> CREATOR = new Creator<ResearchGroup>() {
+        @Override
+        public ResearchGroup createFromParcel(Parcel in) {
+            return new ResearchGroup(in);
+        }
+
+        @Override
+        public ResearchGroup[] newArray(int size) {
+            return new ResearchGroup[size];
+        }
+    };
+    /**
+     * Método que se usa cuando existen parcelables hijos
+     *
+     * @return retorna cero al no tener hijos
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * Método que permite escribir un parcel.
+     * @param dest  Parcel donde se va escribir
+     * @param flags Indica como deberia ser escrito el parcel
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(acronym);
+        dest.writeParcelable(leader, flags);
+        dest.writeTypedList(researchers);
     }
 
     /**

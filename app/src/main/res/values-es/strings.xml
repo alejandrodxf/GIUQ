@@ -25,7 +25,7 @@
     <string name="add_a_profile_photo">Añadir una foto de perfil</string>
     <string name="about">Acerca de</string>
     <string name="academic">Formación</string>
-    <string name="Research">Investigacion</string>
+    <string name="research">Investigación</string>
     <string name="new_research_group">Nuevo Grupo de Investigación</string>
     <string name="lines_of_research">Líneas de investigación</string>
     <string name="line_of_research">Línea de investigación</string>
@@ -48,7 +48,6 @@
     <string name="add_academic_title">Agregar título académico</string>
     <string name="add_line_of_research">Agregar línea de investigación</string>
     <string name="agree">Agregar</string>
-    <string name="cancelar">Cancelar</string>
     <string name="status">Estado</string>
     <string name="name_group">Nombre grupo</string>
     <string name="acronym">Siglas</string>
@@ -63,10 +62,31 @@
     <string name="sign_out">Cerrar Sesión</string>
     <string name="english">Ingles</string>
     <string name="spanish">Español</string>
+    <string name="connection_error">Error de Conexión</string>
+    <string name="restart_application">Por favor reinicie la aplicación</string>
     <string name="select_your_language">Seleccione su Idioma</string>
     <string name="done">Aceptar</string>
+    <string name="list_by">Listar Por</string>
+    <string name="researchers">Investigadores</string>
+    <string name="research_groups">Grupos de Investigación</string>
     <string name="invalid_registration">Registro Invalido</string>
     <string name="successful_registration">Registro Exitoso</string>
     <string name="successful_registration_info">Ahora procederemos a verificar su información. En pocas horas le enviaremos un correo electrónico de confirmación para que pueda ingresar su cuenta</string>
 
+    <string-array name="category_researcher_array">
+        <item>Investigador sénior</item>
+        <item>Investigador asociado</item>
+        <item>Investigador junior</item>
+        <item>Estudiante de doctorado</item>
+        <item>Estudiante de maestría</item>
+        <item>Estudiante de pregrado</item>
+    </string-array>
+
+    <string-array name="category_research_group_array">
+        <item>Categoría A1</item>
+        <item>Categoría A</item>
+        <item>Categoría B</item>
+        <item>Categoría C</item>
+        <item>Categoría D</item>
+    </string-array>
 </resources>

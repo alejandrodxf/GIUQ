@@ -1,5 +1,10 @@
 package co.edu.uniquindio.android.electiva.giuq.vo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.ArrayList;
 
 /**
@@ -8,7 +13,8 @@ import java.util.ArrayList;
  * @version 1.0
  */
 
-public abstract class User {
+@IgnoreExtraProperties
+public abstract class User implements Parcelable {
 
     /**
      * Atributo que representa el nombre de un usuario
@@ -39,6 +45,9 @@ public abstract class User {
      */
     private ArrayList<LineOfResearch> linesOfResearch;
 
+    /**
+     * Constructor vacío requerido para utilizar Firebase
+     */
     public User(){
 
     }
@@ -62,6 +71,34 @@ public abstract class User {
         this.photo = photo;
         this.linesOfResearch = linesOfResearch;
     }
+
+
+    protected User(Parcel in) {
+        name = in.readString();
+        email=in.readString();
+        password=in.readString();
+        urlCVLAC=in.readString();
+        category=in.readString();
+        photo=in.readString();
+        linesOfResearch=in.createTypedArrayList(LineOfResearch.CREATOR);
+
+    }
+
+    /**
+     * Método que permite escribir un parcel.
+     * @param dest  Parcel donde se va escribir
+     * @param flags Indica como deberia ser escrito el parcel
+     */
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(name);
+        dest.writeString(email);
+        dest.writeString(password);
+        dest.writeString(urlCVLAC);
+        dest.writeString(category);
+        dest.writeString(photo);
+        dest.writeTypedList(linesOfResearch);
+    }
+
 
     /**
      * Método utilizado para gestionar el ingreso de un usuario

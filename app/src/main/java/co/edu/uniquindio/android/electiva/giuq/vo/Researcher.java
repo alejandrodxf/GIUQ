@@ -1,5 +1,10 @@
 package co.edu.uniquindio.android.electiva.giuq.vo;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.ArrayList;
 
 /**
@@ -8,7 +13,9 @@ import java.util.ArrayList;
  * @version 1.0
  */
 
-public class Researcher  extends User {
+@IgnoreExtraProperties
+ public class Researcher  extends User implements Parcelable {
+
 
     /**
      * Atributo que representa la nacionalidad de un investigador
@@ -46,9 +53,6 @@ public class Researcher  extends User {
      * @param researchGroup grupo de investigación del investigador
      * @param academicTitles titulos obtenidos por el investigador
      */
-
-
-
     public Researcher(String name, String email, String password, String urlCVLAC, String category, String photo, ArrayList<LineOfResearch> linesOfResearch, String nationality, String researchGroup, ArrayList<AcademicTitle> academicTitles, boolean state,boolean genre) {
         super(name, email, password, urlCVLAC, category, photo, linesOfResearch);
         this.nationality = nationality;
@@ -58,7 +62,73 @@ public class Researcher  extends User {
         this.genre=genre;
     }
 
+    protected Researcher(Parcel in) {
+        super(in);
+        this.nationality = in.readString();
+        this.researchGroup = in.readString();
+        this.academicTitles=in.createTypedArrayList(AcademicTitle.CREATOR);
+        this.state=in.readByte() != 0;
+        this.genre=in.readByte() != 0;
 
+    }
+
+    /**
+     * Método encargado de crear el investigador con base al Parcel recibido,
+     * también es necesario para enviar array para la lectura de arrays enviadas
+     * por medio del Parcel
+     */
+    public static final Creator<Researcher> CREATOR = new Creator<Researcher>() {
+        @Override
+        public Researcher createFromParcel(Parcel in) {
+            return new Researcher(in);
+        }
+
+        @Override
+        public Researcher[] newArray(int size) {
+            return new Researcher[size];
+        }
+    };
+
+    /**
+     * Método que se usa cuando existen parcelables hijos
+     *
+     * @return retorna cero al no tener hijos
+     */
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    /**
+     * Método que permite escribir un parcel.
+     * @param dest  Parcel donde se va escribir
+     * @param flags Indica como deberia ser escrito el parcel
+     */
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        super.writeToParcel(dest, flags);
+        dest.writeString(nationality);
+        dest.writeString(researchGroup);
+        dest.writeTypedList(academicTitles);
+        dest.writeByte((byte) (state ? 1 : 0));
+        dest.writeByte((byte) (genre ? 1 : 0));
+    }
+
+
+    /**
+     * Método que permite obtener el valor del creator
+     * @return El CREATOR
+     */
+    public static Creator<Researcher> getCREATOR() {
+        return CREATOR;
+    }
+
+    /**
+     * Constructor vacío requerido para utilizar Firebase
+     */
+    public Researcher(){
+
+    }
     /**
      * Método utilizado para gestionar el ingreso de un investigador a la aplicación
      * @return true si el investigador ingreso correctamente

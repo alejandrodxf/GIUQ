@@ -1,6 +1,9 @@
 <resources>
     <item name="visible" type="id" />
     <item name="masked" type="id" />
+    <string name="twitter_key">3hUL6YcIC2LDnSFOEn9iAzPok</string>
+    <string name="twitter_secret">	5VIh3lQsFihrSk0ZdNClfw9zhz60rGcVTouSYt0eNXJX9oRafh</string>
+    <string name="facebook_app_id">1877846545823772</string>
     <string name="app_name">GIUQ</string>
     <string name="sign_in">Sign in</string>
     <string name="email">Email</string>
@@ -47,13 +50,16 @@
     <string name="add_academic_title">Add Academic Title</string>
     <string name="add_line_of_research">Add Line of Research</string>
     <string name="agree">Agree</string>
-    <string name="cancel">Cancel</string>
     <string name="status">Status</string>
     <string name="name_group">Name group</string>
     <string name="acronym">Acronym</string>
     <string name="leader">Leader</string>
     <string name="members">Members</string>
     <string name="researcher">Researcher</string>
+    <string name="researchers">Researchers</string>
+    <string name="research_groups">Research Groups</string>
+    <string name="connection_error">Connection Error</string>
+    <string name="restart_application">Please restart the application</string>
     <string name="add_researcher">Add Researcher</string>
     <string name="home">Home</string>
     <string name="edit_profile">Edit Profile</string>
@@ -63,6 +69,7 @@
     <string name="english">English</string>
     <string name="spanish">Spanish</string>
     <string name="done">Done</string>
+    <string name="list_by">List By</string>
     <string name="select_your_language">Select Your Language</string>
     <string name="invalid_registration">Invalid Registration</string>
     <string name="successful_registration">Successful Registration</string>
@@ -194,8 +201,6 @@
         <item>Category C</item>
         <item>Category D</item>
     </string-array>
-
-
 
 
 </resources>

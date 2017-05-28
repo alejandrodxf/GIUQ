@@ -1,0 +1,73 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/background_app"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp"
+    android:paddingTop="40dp"
+    tools:context="co.edu.uniquindio.android.electiva.giuq.fragments.ListByFragment">
+
+
+    <TextView
+        android:id="@+id/textViewTitleListBy"
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/list_by"
+        android:textSize="@dimen/font_size_textview"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/imageViewResearchers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_action_researcher"
+        android:layout_marginTop="50dp"
+        android:layout_below="@+id/textViewTitleListBy"
+        android:layout_alignParentStart="true" />
+    <TextView
+        android:id="@+id/textViewResearchers"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/white"
+        android:gravity="center"
+        android:text="@string/researchers"
+        android:textSize="@dimen/font_size_edittext"
+        android:layout_below="@+id/imageViewResearchers"
+        android:layout_alignStart="@+id/imageViewResearchers"
+        android:layout_alignEnd="@+id/imageViewResearchers" />
+
+    <ImageView
+        android:id="@+id/imageLineListBy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_action_line"
+        android:layout_alignBottom="@+id/imageViewResearchGroups"
+        android:layout_centerHorizontal="true" />
+
+    <ImageView
+        android:id="@+id/imageViewResearchGroups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_action_research_group"
+        android:layout_alignTop="@+id/imageViewResearchers"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textViewResearchGroups"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textViewResearchers"
+        android:layout_alignBottom="@+id/textViewResearchers"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/imageViewResearchGroups"
+        android:gravity="center"
+        android:text="@string/research_groups"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/font_size_edittext" />
+
+
+</RelativeLayout>

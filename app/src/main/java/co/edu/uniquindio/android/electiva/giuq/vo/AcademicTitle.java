@@ -3,6 +3,8 @@ package co.edu.uniquindio.android.electiva.giuq.vo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.Date;
 
 /**
@@ -11,6 +13,7 @@ import java.util.Date;
  * @version 1.0
  */
 
+@IgnoreExtraProperties
 public class AcademicTitle implements Parcelable {
 
     /**
@@ -38,6 +41,12 @@ public class AcademicTitle implements Parcelable {
         this.dateEnd = dateEnd;
     }
 
+    /**
+     * Constructor vacio utilizado para
+     */
+    public AcademicTitle(){
+
+    }
     protected AcademicTitle(Parcel in) {
         academicTitle = in.readString();
         institution = in.readString();
@@ -45,7 +54,7 @@ public class AcademicTitle implements Parcelable {
     }
 
     /**
-     * Método encargado de crear al titulo con base al Parcel recibido,
+     * Método encargado de crear al título académico con base al Parcel recibido,
      * también es necesario para enviar array para la lectura de arrays enviadas
      * por medio del Parcel
      */

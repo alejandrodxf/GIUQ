@@ -1,6 +1,7 @@
 package co.edu.uniquindio.android.electiva.giuq.fragments;
 
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
@@ -93,6 +95,7 @@ public class GeneralDialogFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setStyle(STYLE_NO_TITLE, 0);
         this.title = (getArguments() != null) ? getArguments().getString(TITLE) : "";
         this.body = (getArguments() != null) ? getArguments().getString(BODY) : "";
         this.type=(getArguments() != null) ? getArguments().getString(TYPE) : "";
@@ -131,17 +134,17 @@ public class GeneralDialogFragment extends DialogFragment {
         });
     }
 
+
     /**
      * Método llamado al cerrar el diálogo
      */
     @Override
-    public void dismiss() {
-        super.dismiss();
+    public void onDismiss(DialogInterface dialog) {
+        super.onDismiss(dialog);
         if(type.equals("DONE")){
             goToLoginActivity(getView());
         }
     }
-
     /**
      * Método que se encarga de ir del diálogo GeneralDialog a la actividad LoginActivity
      *
