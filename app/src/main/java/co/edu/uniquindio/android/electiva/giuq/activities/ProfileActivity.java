@@ -21,18 +21,37 @@ import com.facebook.login.LoginResult;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.TwitterAuthConfig;
 
+import java.util.ArrayList;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import co.edu.uniquindio.android.electiva.giuq.ControllerApplication;
 import co.edu.uniquindio.android.electiva.giuq.R;
-import co.edu.uniquindio.android.electiva.giuq.fragments.BasicInformationProfileFragment;
+import co.edu.uniquindio.android.electiva.giuq.fragments.AcademicTitleFragment;
+import co.edu.uniquindio.android.electiva.giuq.fragments.InformationProfileFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.LanguageDialogFragment;
+import co.edu.uniquindio.android.electiva.giuq.fragments.LineOfResearchFragment;
+import co.edu.uniquindio.android.electiva.giuq.fragments.ListUsersSearchFragment;
+import co.edu.uniquindio.android.electiva.giuq.fragments.MembersResearchGroupFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.ProfileFragment;
+import co.edu.uniquindio.android.electiva.giuq.vo.AcademicTitle;
+import co.edu.uniquindio.android.electiva.giuq.vo.LineOfResearch;
+import co.edu.uniquindio.android.electiva.giuq.vo.ResearchGroup;
 import co.edu.uniquindio.android.electiva.giuq.vo.Researcher;
+import co.edu.uniquindio.android.electiva.giuq.vo.User;
 import io.fabric.sdk.android.Fabric;
 
-import static co.edu.uniquindio.android.electiva.giuq.activities.LoginActivity.KEY_PARCELABLE;
+import static co.edu.uniquindio.android.electiva.giuq.activities.LoginActivity.KEY_PARCELABLERESEARCHER;
+import static co.edu.uniquindio.android.electiva.giuq.activities.LoginActivity.KEY_PARCELABLERESEARCHGROUP;
 
-public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+/**
+ * Actividad utilizada para mostrar el perfil a un usuario que ha iniciado sesión, es decir, se utiliza
+ * tanto para investigadores y grupos de investigación
+ *
+ * @author Francisco Alejandro Hoyos Rojas
+ * @version 1.0
+ */
+public class ProfileActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener,AcademicTitleFragment.OnSelectedAcademicTitleListener,LineOfResearchFragment.OnSelectedLineOfResearchListener,MembersResearchGroupFragment.OnSelectedMembersResearchGroupListener,ListUsersSearchFragment.OnSelectedListUsersSearchListener {
 
     /**
      *Atributo que representa el drawerLayout
@@ -51,9 +70,23 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
     @BindView(R.id.toolbarContentProfile)
     protected Toolbar toolbarContentProfile;
 
-    CallbackManager callbackManager;
+    /**
+     * Atributo que gestiona las devoluciones de llamada en el FacebookSdk
+     */
+    private CallbackManager callbackManager;
 
+    /**
+     * Atributa que representa una lista de usuarios
+     */
+    private ArrayList<User>users;
+    /**
+     * Atributo que representa un investigador
+     */
     private Researcher researcher;
+    /**
+     * Atributo que representa un grupo de investigación
+     */
+    private ResearchGroup researchGroup;
 
     /**
      * Método que se encarga de realizar la conexión con la parte lógica
@@ -65,17 +98,20 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
         ButterKnife.bind(this);
-        researcher = getIntent().getParcelableExtra(KEY_PARCELABLE);
+        researcher = getIntent().getParcelableExtra(KEY_PARCELABLERESEARCHER);
+        researchGroup=getIntent().getParcelableExtra(KEY_PARCELABLERESEARCHGROUP);
+        View header=navigationView.getHeaderView(0);
+        TextView textViewNameHeader = (TextView)header.findViewById(R.id.textViewNameHeader);
+        TextView textViewEmailHeader = (TextView)header.findViewById(R.id.textViewEmailHeader);
         if(researcher!=null) {
-            View header=navigationView.getHeaderView(0);
-            TextView textViewNameHeader = (TextView)header.findViewById(R.id.textViewNameHeader);
-            TextView textViewEmailHeader = (TextView)header.findViewById(R.id.textViewEmailHeader);
             textViewNameHeader.setText(researcher.getName());
             textViewEmailHeader.setText(researcher.getEmail());
+        }else{
+            textViewNameHeader.setText(researchGroup.getName());
+            textViewEmailHeader.setText(researchGroup.getEmail());
         }
         getWindow().getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
         setSupportActionBar(toolbarContentProfile);
-
         navigationView.setItemIconTintList(null);
         navigationView.setNavigationItemSelectedListener(this);
         // Poner ícono del drawer toggle
@@ -84,7 +120,6 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         setTitle("");
         callbackManager = CallbackManager.Factory.create();
         LoginManager.getInstance().registerCallback(callbackManager, new FacebookCallback<LoginResult>() {
-
                     @Override
                     public void onSuccess(LoginResult loginResult) {
 
@@ -98,10 +133,9 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
 
                     }
                 });
-        final TwitterAuthConfig authConfig = new TwitterAuthConfig(getResources().getString(R.string.twitter_key),getResources().getString(R.string.twitter_secret));
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(getResources().getString(R.string.twitter_key),getResources().getString(R.string.twitter_secret));
        Fabric.with(this, new Twitter(authConfig));
        getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment_profile, ProfileFragment.newInstance(0)).commit();
-
     }
 
     /**
@@ -170,11 +204,16 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
         dialogFragment.show(getSupportFragmentManager(), className);
     }
 
+    /**
+     * Método utilizado para obtener resultados de los fragmentos
+     * @param requestCode Código de solicitu
+     * @param resultCode Un código de resultado que puede ser RESULT_OK si la operación se realizó correctamente o RESULT_CANCELED si el usuario canceló la operación o esta falló por algún motivo.
+     * @param data  información del resultado.
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
-        BasicInformationProfileFragment.newInstance("","","","").onActivityResult(requestCode, resultCode, data);
     }
 
     /**
@@ -183,6 +222,101 @@ public class ProfileActivity extends AppCompatActivity implements NavigationView
      */
     public Researcher getResearcher() {
         return researcher;
+    }
+
+    /**
+     * Método encargado de obtener el grupo de investigación que esta ingresando a la aplicación
+     * @return grupo de investigación que esta ingresando a la aplicación
+     */
+    public ResearchGroup getResearchGroup() {
+        return researchGroup;
+    }
+
+    /**
+     * Método encargado de obtener la lista de grupos de investigación activos
+     * @return lista de grupos de investigación activos
+     */
+    public ArrayList<ResearchGroup>getResearchGroups(){
+        return ((ControllerApplication)getApplication()).getActiveResearchGroups();
+    }
+
+    /**
+     * Método encargado de obtener la lista de investigadores activos
+     * @return lista de investigadores activos
+     */
+    public ArrayList<Researcher> getResearchers(){
+        return ((ControllerApplication)getApplication()).getActiveResearchers();
+    }
+
+    /**
+     * Método utilizado para obtener los títulos académicos de un investigador
+     * @param academicTitles títulos académicos de un investigador
+     */
+    @Override
+    public void sendListAcademicTitles(ArrayList<AcademicTitle> academicTitles) {
+
+    }
+
+    /**
+     * Método utilizado para obtener las líneas de investigación de un investigador
+     * @param linesOfResearch líneas de investigación de un investigador
+     */
+    @Override
+    public void sendListLineOfResearch(ArrayList<LineOfResearch> linesOfResearch) {
+
+    }
+
+    /**
+     * Método utilizado para obtener los investigadores de un grupo de investigación
+     * @param researchers investigador de un grupo de investigación
+     */
+    @Override
+    public void sendListResearchers(ArrayList<Researcher> researchers) {
+
+    }
+
+    /**
+     * Método utilizado para buscar por nombre de investigador, nombre grupo de investigación y por línea de investigación
+     * @param nameResearcher nombre investigador
+     * @param nameResearchGroup nombre grupo de investigación
+     * @param lineOfResearch línea de investigación
+     * @return lista de usuarios que coinciden con las variables enviadas por parámetros
+     */
+    public ArrayList<User> search(String nameResearcher, String nameResearchGroup,String lineOfResearch){
+          return users = ((ControllerApplication)getApplication()).search(nameResearcher,nameResearchGroup,lineOfResearch);
+    }
+
+    /**
+     * Método que recibe la posición del item seleccionado
+     * @param position posición del item seleccionado
+     */
+    public void onItemPosition(int position) {
+        if (findViewById(R.id.list_researchers_fragment) != null) {
+            Researcher researcher= getResearchers().get(position);
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment_profile, InformationProfileFragment.newInstance(researcher,null)).commit();
+        }else if(findViewById(R.id.list_research_groups_fragment)!=null){
+            ResearchGroup researchGroup = getResearchGroups().get(position);
+            getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment_profile, InformationProfileFragment.newInstance(null,researchGroup)).commit();
+        }else if(findViewById(R.id.list_user_search_fragment)!=null){
+             if(users.get(position) instanceof Researcher){
+                Researcher researcher = (Researcher) users.get(position);
+                 getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment_profile, InformationProfileFragment.newInstance(researcher,null)).commit();
+             }else{
+                 ResearchGroup researchGroup = (ResearchGroup) users.get(position);
+                 getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment_profile, InformationProfileFragment.newInstance(null,researchGroup)).commit();
+             }
+        }
+
+    }
+
+    /**
+     * Método que permite asignar un valor al atributo users
+     *
+     * @param users Valor a ser asignado al atributo users
+     */
+    @Override
+    public void sendListUsers(ArrayList<User> users) {
+        this.users=users;
     }
 }
 

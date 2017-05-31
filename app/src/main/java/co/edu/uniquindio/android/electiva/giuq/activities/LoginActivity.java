@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +14,7 @@ import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.ControllerApplication;
 import co.edu.uniquindio.android.electiva.giuq.R;
 import co.edu.uniquindio.android.electiva.giuq.fragments.ForgotPasswordFragment;
+import co.edu.uniquindio.android.electiva.giuq.fragments.GeneralDialogFragment;
 import co.edu.uniquindio.android.electiva.giuq.util.Language;
 import co.edu.uniquindio.android.electiva.giuq.util.Validations;
 import co.edu.uniquindio.android.electiva.giuq.vo.ResearchGroup;
@@ -64,9 +64,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected TextInputLayout textInputLayoutPassword;
 
     /**
-     * Atributo que representa una llave parcelable
+     * Atributo que representa una llave parcelable investigador
      */
-    public static final String KEY_PARCELABLE="key_parcelable";
+    public static final String KEY_PARCELABLERESEARCHER="key_parcelable_researcher";
+    /**
+     * Atributo que representa una llave parcelable grupo de investigación
+     */
+    public static final String KEY_PARCELABLERESEARCHGROUP="key_parcelable_researchgroup";
 
     /**
      * Método que se encarga de realizar la conexión con la parte lógica
@@ -77,12 +81,17 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Language.setLanguage(this,Language.getLanguage(this));
+        if(validateConnection()) {
+            ((ControllerApplication) getApplication()).loadUsers(this);
+        }else{
+            goToConnectionErrorDialog();
+        }
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
         buttonSignIn.setOnClickListener(this);
         buttonSignUp.setOnClickListener(this);
         buttonForgotPassword.setOnClickListener(this);
-        ((ControllerApplication) getApplication()).loadResearchers(this);
+
     }
 
     /**
@@ -98,20 +107,41 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                 break;
             }
             case R.id.buttonSignIn:{
-               boolean validateConnectionTem= validateConnection();
-                if(!validateConnectionTem){
-                    goToConnectionErrorActivity();
-                }else{
-                    Researcher researcher=((ControllerApplication) getApplication()).login(editTextEmail.getText().toString(),editTextPassword.getText().toString());
-                    if(researcher!=null){
-                        goToProfileActivity(v,researcher,null);
+                boolean validateConnectionTem = validateConnection();
+                if (!validateConnectionTem) {
+                    goToConnectionErrorDialog();
+                } else {
+                    if(!((ControllerApplication)getApplication()).getLoadDatabase()){
+                        ((ControllerApplication) getApplication()).loadUsers(this);
+                    }else if(((ControllerApplication)getApplication()).getLoadDatabase()){
+                        if (validateEmail(editTextEmail.getText().toString())) {
+                            Researcher researcher = ((ControllerApplication) getApplication()).loginResearcher(editTextEmail.getText().toString(), editTextPassword.getText().toString());
+                            if(researcher!=null){
+                                goToProfileActivity(v, researcher, null);
+                            }else{
+                                ResearchGroup researchGroup = ((ControllerApplication) getApplication()).loginResearchGroup(editTextEmail.getText().toString(), editTextPassword.getText().toString());
+                                if(researchGroup!=null){
+                                    goToProfileActivity(v, null, researchGroup);
+                                }
+                            }
+                        }
+                    }else{
+                        goToConnectionErrorDialog();
                     }
                 }
-
                 break;
             }
             case R.id.buttonSignUp:{
-                goToSelectRolActivity(v);
+                boolean validateConnectionTem = validateConnection();
+                if (!validateConnectionTem) {
+                    goToConnectionErrorDialog();
+                } else {
+                    if (!((ControllerApplication) getApplication()).getLoadDatabase()) {
+                        ((ControllerApplication) getApplication()).loadUsers(this);
+                    } else if (((ControllerApplication) getApplication()).getLoadDatabase()) {
+                        goToSelectRolActivity(v);
+                    }
+                }
                 break;
             }
         }
@@ -126,9 +156,13 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         return Validations.isOnline(getApplicationContext());
     }
 
-    public void goToConnectionErrorActivity(){
-        Intent intent = new Intent(this,ConnectionErrorActivity.class);
-        startActivity(intent);
+
+    /**
+     * Método encargado de mostrar el diálogo cuando no hay conexión a internet
+     */
+    public void goToConnectionErrorDialog(){
+        GeneralDialogFragment generalDialogFragment= GeneralDialogFragment.newInstance(getResources().getString(R.string.connection_error),getResources().getString(R.string.restart_application),"ERROR");
+        generalDialogFragment.show(getSupportFragmentManager(),"");
     }
     /**
      * Método encargado de mostrar el diálogo para recuperar la contraseña
@@ -145,8 +179,8 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
      * @param email email ingresado por el usuario
      * @return true si es el email es correcto, de lo contrario false
      */
-    private boolean validate(String email){
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+    private boolean validateEmail(String email){
+        if(!Validations.validateEmail(email)){
             textInputLayoutPassword.setError(getResources().getString(R.string.error_password_or_email));
             return false;
         }else
@@ -176,9 +210,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         Intent intent = new Intent(this,ProfileActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         if(researcher!=null) {
-            intent.putExtra(KEY_PARCELABLE,researcher);
+            intent.putExtra(KEY_PARCELABLERESEARCHER,researcher);
         }else{
-            intent.putExtra(KEY_PARCELABLE,researchGroup);
+            intent.putExtra(KEY_PARCELABLERESEARCHGROUP,researchGroup);
         }
         startActivityForResult(intent,1);
     }

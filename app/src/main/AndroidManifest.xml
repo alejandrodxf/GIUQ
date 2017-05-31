@@ -49,7 +49,6 @@
             android:name="io.fabric.ApiKey"
             android:value="7e47d7173f6ab9764a7ba0211c7b21ac869cf96b" />
 
-        <activity android:name=".activities.ConnectionErrorActivity"></activity>
     </application>
 
 </manifest>

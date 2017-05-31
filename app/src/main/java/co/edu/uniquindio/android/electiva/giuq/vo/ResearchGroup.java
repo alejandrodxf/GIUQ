@@ -29,8 +29,22 @@ public class ResearchGroup extends User implements Parcelable {
      */
     private ArrayList<Researcher> researchers;
 
-    public ResearchGroup(String name, String email, String password, String urlCVLAC, String category, String photo, ArrayList<LineOfResearch> linesOfResearch, String acronym, Researcher leader, ArrayList<Researcher> researchers) {
-        super(name, email, password, urlCVLAC, category, photo, linesOfResearch);
+    /**
+     * Método constuctor de la clase
+     * @param name nombre grupo de investigación
+     * @param email email grupo de investigación
+     * @param password contraseña grupo de investigación
+     * @param urlCVLAC urlCVLAC grupo de investigación
+     * @param category categoría grupo de investigación
+     * @param photo logo grupo de investigación
+     * @param linesOfResearch líneas de investigación grupo de investigación
+     * @param state estad grupo de investigación
+     * @param acronym siglas grupo de investigación
+     * @param leader lider grupo de investigación
+     * @param researchers integrantes grupo de investigación
+     */
+    public ResearchGroup(String name, String email, String password, String urlCVLAC, int category, String photo, ArrayList<LineOfResearch> linesOfResearch,Boolean state, String acronym, Researcher leader, ArrayList<Researcher> researchers) {
+        super(name, email, password, urlCVLAC, category, photo, linesOfResearch,state);
         this.acronym = acronym;
         this.leader = leader;
         this.researchers = researchers;
@@ -43,6 +57,10 @@ public class ResearchGroup extends User implements Parcelable {
 
     }
 
+    /**
+     * Constructor utilizado para leer el Parcel
+     * @param in parcel a leer
+     */
     protected ResearchGroup(Parcel in) {
         super(in);
         this.acronym = in.readString();

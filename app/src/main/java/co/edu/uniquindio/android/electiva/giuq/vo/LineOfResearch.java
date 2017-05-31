@@ -40,6 +40,10 @@ public class LineOfResearch implements Parcelable {
 
     }
 
+    /**
+     * Constructor utilizado para leer el Parcel
+     * @param in parcel a leer
+     */
     protected LineOfResearch(Parcel in) {
         lineOfResearch = in.readString();
         state = in.readByte() != 0;

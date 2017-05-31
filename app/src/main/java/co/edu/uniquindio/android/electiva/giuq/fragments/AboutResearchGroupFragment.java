@@ -10,11 +10,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.Spinner;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
@@ -100,9 +100,31 @@ public class AboutResearchGroupFragment extends Fragment {
     protected Spinner spinnerCategory;
 
     /**
+     * Atributo que representa los nombres de los investigadores activos
+     */
+    private String []names;
+
+    /**
+     * Atributo que representa el nombre de un investigador seleccionado
+     */
+    private String nameSelection;
+
+    /**
+     * Atributo que representa la posición del lider del grupo de investigación en la base de datos
+     */
+    private int positionLeader;
+
+    /**
+     * Atributo encargado de validar que si se halla seleccionado un lider para el grupo de investigación
+     */
+    private Boolean validateResearcherLeader;
+
+    /**
      * Atributo que representa el oyente del fragmento
      */
     private AboutResearchGroupListener listener;
+
+
 
     /**
      * Es obligatorio un constructor vacío para instanciar el fragmento
@@ -129,6 +151,7 @@ public class AboutResearchGroupFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        validateResearcherLeader=false;
     }
 
     /**
@@ -153,6 +176,16 @@ public class AboutResearchGroupFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        names=namesResearchers();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getContext(),R.layout.spinner_item,names);
+        autoCompleteTextViewLeader.setAdapter(adapter);
+        autoCompleteTextViewLeader.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View arg1, int pos, long id) {
+                nameSelection = (String) parent.getItemAtPosition(pos);
+                validateResearcherLeader=true;
+            }
+        });
         ArrayAdapter<CharSequence> adapterSpinnerCategory = ArrayAdapter.createFromResource(this.getContext(), R.array.category_research_group_array,R.layout.spinner_item);
         spinnerCategory.setAdapter(adapterSpinnerCategory);
     }
@@ -164,8 +197,13 @@ public class AboutResearchGroupFragment extends Fragment {
     public boolean sendAboutResearchGroup(){
         String name= editTextName.getText().toString();
         String acronym = editTextAcronym.getText().toString();
-        String category =spinnerCategory.getSelectedItem().toString();
-        String leader = autoCompleteTextViewLeader.getText().toString();
+        int category =spinnerCategory.getSelectedItemPosition();
+        if(nameSelection!=null||validateResearcherLeader) {
+            searchPosition();
+            validateResearcherLeader=false;
+        }else{
+            return false;
+        }
         String urlCvlac = editTextUrlCvlac.getText().toString();
         String email= editTextEmail.getText().toString();
         String password = editTextPassword.getText().toString();
@@ -174,7 +212,7 @@ public class AboutResearchGroupFragment extends Fragment {
         boolean validateEmail=validateEmail(email);
         boolean validateUrlCvlac=validateUrlCvlac(urlCvlac);
         boolean validatePassword= validatePassword(password);
-       listener.sendAboutResearchGroup(name,acronym,category,leader,urlCvlac,email,password);
+        listener.sendAboutResearchGroup(name,acronym,category,positionLeader,urlCvlac,email,password);
         if(!validateName||!validateAcronym||!validateEmail||!validateUrlCvlac||!validatePassword)
         {
             return false;
@@ -249,7 +287,7 @@ public class AboutResearchGroupFragment extends Fragment {
      * Todas las actividades que contengan este fragmento deben implementar la interface.
      */
     public interface AboutResearchGroupListener {
-        void sendAboutResearchGroup(String name,String acronym,String category,String leader,String urlCvlac,String email,String password);
+        void sendAboutResearchGroup(String name,String acronym,int category,int leader,String urlCvlac,String email,String password);
     }
 
     /**
@@ -272,4 +310,23 @@ public class AboutResearchGroupFragment extends Fragment {
         }
     }
 
+    /**
+     * Método utilizado para obtener la posición del investigador seleccionad
+     */
+    public void searchPosition(){
+        for(int i=0; i<names.length;i++){
+            if(nameSelection.equals(names[i])){
+                positionLeader=i;
+                break;
+            }
+        }
+    }
+
+    /**
+     * Método utilizado para obtener los nombres de los investigadores
+     * @return una lista de nombres de los investigadores
+     */
+    public String [] namesResearchers(){
+        return ((NewResearchGroupActivity)getActivity()).namesResearchers();
+    }
 }

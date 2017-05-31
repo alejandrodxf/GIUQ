@@ -1,0 +1,45 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/transparent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="co.edu.uniquindio.android.electiva.giuq.fragments.InformationProfileFragment">
+    <Button
+        android:id="@+id/buttonBackProfile"
+        android:textSize="@dimen/font_size_button"
+        android:drawableLeft="@drawable/ic_action_back"
+        android:background="?android:attr/selectableItemBackground"
+        android:paddingLeft="20dp"
+        android:textAllCaps="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        />
+
+    <ImageView
+        android:id="@+id/imageViewFullProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        app:srcCompat="@drawable/ic_action_researcher" />
+
+    <android.support.design.widget.TabLayout
+        android:id="@+id/tabMenuFullProfile"
+        app:tabMaxWidth="0dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imageViewFullProfile"
+        android:layout_marginTop="20dp"
+        app:tabTextAppearance="@style/TabText"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/viewPagerFullProfile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/tabMenuFullProfile"
+        />
+
+</RelativeLayout>

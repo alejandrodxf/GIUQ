@@ -1,0 +1,85 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingRight="20dp"
+    android:paddingLeft="20dp"
+    android:background="@android:color/transparent"
+    tools:context="co.edu.uniquindio.android.electiva.giuq.fragments.SearchFragment">
+    <android.support.design.widget.TextInputLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="26dp"
+        app:errorTextAppearance="@style/ErrorTextInputLayout"
+        app:hintTextAppearance="@style/TextViewInputLayout"
+        android:id="@+id/textInputLayoutNameResearcherSearch">
+
+        <EditText
+            android:id="@+id/editTextNameResearcherSearch"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/font_size_edittext"
+            android:layout_height="wrap_content"
+            android:hint="@string/researcher"
+            android:inputType="text"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/textInputLayoutNameResearcherSearch"
+        app:errorTextAppearance="@style/ErrorTextInputLayout"
+        app:hintTextAppearance="@style/TextViewInputLayout"
+        android:id="@+id/textInputLayoutNameResearchGroupSearch">
+
+        <EditText
+            android:id="@+id/editTextNameResearchGroupSearch"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/font_size_edittext"
+            android:layout_height="wrap_content"
+            android:hint="@string/research_group"
+            android:inputType="text"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/textInputLayoutNameResearchGroupSearch"
+        app:errorTextAppearance="@style/ErrorTextInputLayout"
+        app:hintTextAppearance="@style/TextViewInputLayout"
+        android:id="@+id/textInputLayoutLineOfResearchSearch">
+
+        <EditText
+            android:id="@+id/editTextLineOfResearchSearch"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/font_size_edittext"
+            android:layout_height="wrap_content"
+            android:hint="@string/line_of_research"
+            android:inputType="text"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/buttonSearch"
+        android:textSize="@dimen/font_size_button"
+        android:text="@string/search"
+        android:background="@drawable/buttonshape"
+        android:fontFamily="@string/font_family_medium"
+        android:textColor="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/height_button"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/textInputLayoutLineOfResearchSearch"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+
+
+
+
+</RelativeLayout>

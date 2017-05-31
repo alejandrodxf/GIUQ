@@ -16,11 +16,10 @@ import java.util.ArrayList;
 @IgnoreExtraProperties
  public class Researcher  extends User implements Parcelable {
 
-
     /**
      * Atributo que representa la nacionalidad de un investigador
      */
-    private String nationality;
+    private int nationality;
     /**
      * Atributo que representa el grupo de investigación al que pertenece un investigador
      */
@@ -29,10 +28,6 @@ import java.util.ArrayList;
      * Atributo que representa una lista de títulos obtenidos por un investigador
      */
     private ArrayList<AcademicTitle> academicTitles;
-    /**
-     * Atributo que representa si el investigador esta activo o inactivo
-     */
-    private boolean state;
 
     /**
      * Atributo que representa el género de un investigador
@@ -53,23 +48,24 @@ import java.util.ArrayList;
      * @param researchGroup grupo de investigación del investigador
      * @param academicTitles titulos obtenidos por el investigador
      */
-    public Researcher(String name, String email, String password, String urlCVLAC, String category, String photo, ArrayList<LineOfResearch> linesOfResearch, String nationality, String researchGroup, ArrayList<AcademicTitle> academicTitles, boolean state,boolean genre) {
-        super(name, email, password, urlCVLAC, category, photo, linesOfResearch);
+    public Researcher(String name, String email, String password, String urlCVLAC, int category, String photo, ArrayList<LineOfResearch> linesOfResearch, boolean state, int nationality, String researchGroup, ArrayList<AcademicTitle> academicTitles,boolean genre) {
+        super(name, email, password, urlCVLAC, category, photo, linesOfResearch,state);
         this.nationality = nationality;
         this.researchGroup = researchGroup;
         this.academicTitles = academicTitles;
-        this.state=state;
         this.genre=genre;
     }
 
+    /**
+     * Constructor utilizado para leer el Parcel
+     * @param in parcel a leer
+     */
     protected Researcher(Parcel in) {
         super(in);
-        this.nationality = in.readString();
+        this.nationality = in.readInt();
         this.researchGroup = in.readString();
         this.academicTitles=in.createTypedArrayList(AcademicTitle.CREATOR);
-        this.state=in.readByte() != 0;
         this.genre=in.readByte() != 0;
-
     }
 
     /**
@@ -107,10 +103,9 @@ import java.util.ArrayList;
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
-        dest.writeString(nationality);
+        dest.writeInt(nationality);
         dest.writeString(researchGroup);
         dest.writeTypedList(academicTitles);
-        dest.writeByte((byte) (state ? 1 : 0));
         dest.writeByte((byte) (genre ? 1 : 0));
     }
 
@@ -152,7 +147,7 @@ import java.util.ArrayList;
      *
      * @return El valor del atributo nationality
      */
-    public String getNationality() {
+    public int getNationality() {
         return nationality;
     }
 
@@ -161,7 +156,7 @@ import java.util.ArrayList;
      *
      * @param nationality Valor a ser asignado al atributo nationality
      */
-    public void setNationality(String nationality) {
+    public void setNationality(int nationality) {
         this.nationality = nationality;
     }
 
@@ -199,24 +194,6 @@ import java.util.ArrayList;
      */
     public void setAcademicTitles(ArrayList<AcademicTitle> academicTitles) {
         this.academicTitles = academicTitles;
-    }
-
-    /**
-     * Método que permite obtener el valor del atributo state
-     *
-     * @return El valor del atributo state
-     */
-    public boolean isState() {
-        return state;
-    }
-
-    /**
-     * Método que permite asignar un valor al atributo state
-     *
-     * @param state Valor a ser asignado al atributo state
-     */
-    public void setState(boolean state) {
-        this.state = state;
     }
 
     /**

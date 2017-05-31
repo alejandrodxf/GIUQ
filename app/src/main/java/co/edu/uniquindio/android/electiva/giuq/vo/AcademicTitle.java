@@ -42,11 +42,15 @@ public class AcademicTitle implements Parcelable {
     }
 
     /**
-     * Constructor vacio utilizado para
+     * Constructor vacío requerido para utilizar Firebase
      */
     public AcademicTitle(){
 
     }
+    /**
+     * Constructor utilizado para leer el Parcel
+     * @param in parcel a leer
+     */
     protected AcademicTitle(Parcel in) {
         academicTitle = in.readString();
         institution = in.readString();

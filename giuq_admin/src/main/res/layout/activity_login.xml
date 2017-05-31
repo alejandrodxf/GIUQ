@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+
+    android:id="@+id/activity_login"
+    android:paddingLeft="@dimen/horizontal_margin_activity"
+    android:paddingRight="@dimen/horizontal_margin_activity"
+    android:paddingBottom="0dp"
+    android:paddingTop="@dimen/vertical_margin_activity"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="co.edu.uniquindio.android.electiva.giuq_admin.LoginActivity">
+
+    <ImageView
+        android:id="@+id/imageViewLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/ic_action_logo"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/imageViewLogo"
+        app:hintTextAppearance="@style/TextViewInputLayout"
+        android:id="@+id/textInputLayoutEmail"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+        <EditText
+            android:id="@+id/editTextEmailLogin"
+            android:layout_width="match_parent"
+            android:textSize="@dimen/font_size_edittext"
+            android:layout_height="wrap_content"
+            android:hint="@string/email"
+            android:inputType="textEmailAddress"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <android.support.design.widget.TextInputLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textInputLayoutEmail"
+        android:layout_alignParentStart="true"
+        app:errorTextAppearance="@style/ErrorTextInputLayout"
+        app:hintTextAppearance="@style/TextViewInputLayout"
+        android:id="@+id/textInputLayoutPassword"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="8dp">
+
+        <EditText
+            android:id="@+id/editTextPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/font_size_edittext"
+            android:hint="@string/password"
+            android:inputType="textPassword"/>
+    </android.support.design.widget.TextInputLayout>
+
+    <Button
+        android:id="@+id/buttonSignIn"
+        android:textSize="@dimen/font_size_button"
+        android:text="@string/sign_in"
+        android:background="@drawable/buttonshape"
+        android:fontFamily="@string/font_family_medium"
+        android:textColor="@color/colorPrimary"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_below="@+id/textInputLayoutPassword"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        tools:layout_editor_absoluteY="0dp"
+        tools:layout_editor_absoluteX="0dp" />
+
+</RelativeLayout>

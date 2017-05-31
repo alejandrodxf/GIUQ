@@ -7,7 +7,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
 
@@ -17,6 +19,18 @@ import co.edu.uniquindio.android.electiva.giuq.R;
  * @version 1.0
  */
 public class ListByFragment extends Fragment {
+
+    /**
+     * Atributo que representa la imagen para acceder a la lista de investigadores
+     */
+    @BindView(R.id.imageViewResearchers)
+    protected ImageView imageViewResearchers;
+
+    /**
+     * Atributo que representa la imagen para acceder a la lista de grupos de investigación
+     */
+    @BindView(R.id.imageViewResearchGroups)
+    protected ImageView imageViewResearchGroups;
 
     /**
      * Es obligatorio un constructor vacío para instanciar el fragmento
@@ -35,7 +49,6 @@ public class ListByFragment extends Fragment {
         fragment.setArguments(bundle);
         return fragment;
     }
-
 
     /**
      * Método encargado de crear el fragmento
@@ -69,5 +82,19 @@ public class ListByFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        imageViewResearchers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment_profile, ListResearchersFragment.newInstance()).commit();
+
+            }
+        });
+        imageViewResearchGroups.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.content_fragment_profile, ListResearchGroupsFragment.newInstance()).commit();
+
+            }
+        });
     }
 }

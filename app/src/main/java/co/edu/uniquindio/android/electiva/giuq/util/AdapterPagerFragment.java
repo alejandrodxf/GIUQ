@@ -8,6 +8,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import java.util.ArrayList;
 
 /**
+ * Adaptador del contenedor de fragmentos
  * @author Francisco Alejandro Hoyos Rojas
  * @version 1.0
  */

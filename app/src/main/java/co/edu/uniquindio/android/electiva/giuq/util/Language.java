@@ -13,9 +13,24 @@ import java.util.Locale;
  */
 public class Language {
 
+    /**
+     * Atributo que representa una llave String de preferencias
+     */
     public final static String PREFERENCES= "preferences";
+
+    /**
+     * Atributo que representa una llave String de lenguaje de preferencia
+     */
     public final static String LANGUAGE_OF_PREFERENCE = "language_of_preference";
+
+    /**
+     * Atributo que representa una llave String que representa el lenguaje español
+     */
     public final static String LANGUAGE_ES = "es";
+
+    /**
+     * Atributo que representa una llave String que representa el lenguaje ingles
+     */
     public final static String LANGUAGE_EN = "en";
 
     /**

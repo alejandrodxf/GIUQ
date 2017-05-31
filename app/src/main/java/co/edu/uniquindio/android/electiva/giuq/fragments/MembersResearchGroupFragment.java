@@ -19,6 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
 import co.edu.uniquindio.android.electiva.giuq.activities.NewResearchGroupActivity;
+import co.edu.uniquindio.android.electiva.giuq.activities.ProfileActivity;
 import co.edu.uniquindio.android.electiva.giuq.util.AdapterRecyclerView;
 import co.edu.uniquindio.android.electiva.giuq.vo.Researcher;
 
@@ -28,9 +29,17 @@ import co.edu.uniquindio.android.electiva.giuq.vo.Researcher;
  * @author Francisco Alejandro Hoyos Rojas
  * @version 1.0
  */
-public class MembersResearchGroupFragment extends Fragment implements AdapterRecyclerView.OnClickAdapterRecyclerView{
+public class MembersResearchGroupFragment extends Fragment{
 
+    /**
+     * Atributo que representa una llave String que representa al fragmento
+     */
     public static final String MEMBERS_RESEARCH_GROUP="MEMBERS_RESEARCH_GROUP";
+
+    /**
+     * Atributo que representa una llave String que representa la lista de títulos del fragmento
+     */
+    public static final String LIST_MEMBERS_RESEARCH_GROUP="LIST_MEMBERS_RESEARCH_GROUP";
 
     /**
      * Atributo que representa la lista de líneas de investigación de un investigador
@@ -45,10 +54,24 @@ public class MembersResearchGroupFragment extends Fragment implements AdapterRec
     protected ImageView imageViewAddMembers;
 
     /**
-     * Atributo que representa las lineas de investigación de un investigador
+     * Atributo que representa la imagen para remover investigadores
+     */
+    @BindView(R.id.imageViewRemoveMembers)
+    protected   ImageView imageViewRemoveMembers;
+
+    /**
+     * Atributo que representa la lista de investigadores
      */
     private ArrayList<Researcher> researchers;
+
+    /**
+     * Atributo que representa el adaptador de la lista de investigadores
+     */
     private AdapterRecyclerView adapterMembersResearchGroup;
+
+    /**
+     * Atributo que representa el oyente del fragmento
+     */
     private OnSelectedMembersResearchGroupListener listener;
 
 
@@ -63,9 +86,10 @@ public class MembersResearchGroupFragment extends Fragment implements AdapterRec
      * Método que permite crear una nueva instancia del fragmento
      * @return instancia
      */
-    public static MembersResearchGroupFragment newInstance() {
+    public static MembersResearchGroupFragment newInstance(ArrayList<Researcher> researchers) {
         MembersResearchGroupFragment fragment = new MembersResearchGroupFragment();
         Bundle bundle = new Bundle();
+        bundle.putParcelableArrayList(LIST_MEMBERS_RESEARCH_GROUP,researchers);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -77,7 +101,7 @@ public class MembersResearchGroupFragment extends Fragment implements AdapterRec
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        researchers = new ArrayList<>();
+        this.researchers= (getArguments() != null) ? getArguments().<Researcher>getParcelableArrayList(LIST_MEMBERS_RESEARCH_GROUP) : null;
     }
     /**
      * Método encargado de cargar la vista asociada al fragmento
@@ -102,34 +126,36 @@ public class MembersResearchGroupFragment extends Fragment implements AdapterRec
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        imageViewAddMembers.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ((NewResearchGroupActivity) getActivity()).showAddResearcherDialog(MembersResearchGroupFragment.class.getName());
-            }
-        });
-        adapterMembersResearchGroup= new AdapterRecyclerView(researchers,this,MEMBERS_RESEARCH_GROUP);
+        if(getActivity()instanceof ProfileActivity){
+            imageViewAddMembers.setVisibility(View.INVISIBLE);
+            imageViewRemoveMembers.setVisibility(View.INVISIBLE);
+        }else {
+            imageViewAddMembers.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((NewResearchGroupActivity) getActivity()).showAddResearcherDialog(MembersResearchGroupFragment.class.getName());
+                }
+            });
+            imageViewRemoveMembers.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    removeResearcher(((NewResearchGroupActivity) getActivity()).getPositionItem());
+                    ((NewResearchGroupActivity) getActivity()).setPositionItem(-1);
+                }
+            });
+            listener.sendListResearchers(researchers);
+        }
+        adapterMembersResearchGroup = new AdapterRecyclerView(researchers, this, MEMBERS_RESEARCH_GROUP);
         recyclerViewMembers.setAdapter(adapterMembersResearchGroup);
         recyclerViewMembers.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false));
-        listener.sendListResearchers(researchers);
     }
     /**
      * Todas las actividades que contengan este fragmento deben implementar la interface.
      */
     public interface OnSelectedMembersResearchGroupListener {
-        void onSelectedMembersResearchGroupListener(int position, ArrayList<Researcher> researchers);
         void sendListResearchers(ArrayList<Researcher>researchers);
     }
 
-    /**
-     * Método que permite notificar a la actividad, por medio de la interface del callback,
-     * que un elemento ha sido seleccionado
-     * @param pos posición de la línea de investigación seleccionada
-     */
-    @Override
-    public void onClickPosition(int pos) {
-        listener.onSelectedMembersResearchGroupListener(pos,researchers);
-    }
 
     /**
      * Método que adjunta el fragmento en la actividad
@@ -154,8 +180,21 @@ public class MembersResearchGroupFragment extends Fragment implements AdapterRec
      * @param researcher investigador a agregar
      */
     public void addResearcher(Researcher researcher){
-        researchers.add(researcher);
-        adapterMembersResearchGroup.notifyDataSetChanged();
+        if(!researchers.contains(researcher)) {
+            researchers.add(researcher);
+            adapterMembersResearchGroup.notifyDataSetChanged();
+        }
+    }
+
+    /**
+     * Método utilizado para remover investigadores
+     * @param position posición del investigador a eliminar
+     */
+    public void removeResearcher(int position){
+        if(!researchers.isEmpty()&&position<researchers.size()&&position>-1) {
+            researchers.remove(position);
+            adapterMembersResearchGroup.notifyDataSetChanged();
+        }
     }
 
 

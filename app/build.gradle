@@ -61,6 +61,7 @@ dependencies {
     compile 'com.google.firebase:firebase-database:10.2.0'
     compile 'com.firebaseui:firebase-ui-database:1.2.0'
     compile 'com.facebook.android:facebook-android-sdk:4.22.1'
+    compile 'com.github.fafaldo:fab-toolbar:1.2.0'
     testCompile 'junit:junit:4.12'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
 }

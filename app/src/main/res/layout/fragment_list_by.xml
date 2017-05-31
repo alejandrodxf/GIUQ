@@ -1,14 +1,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/background_app"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:paddingTop="40dp"
     tools:context="co.edu.uniquindio.android.electiva.giuq.fragments.ListByFragment">
-
 
     <TextView
         android:id="@+id/textViewTitleListBy"

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/user_image_card"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="2dp"
+    card_view:cardCornerRadius="5dp"
+    card_view:cardBackgroundColor="@android:color/white"
+    card_view:cardUseCompatPadding="false">
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imageViewUserImageCard"
+            android:paddingTop="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/ic_action_research_group" />
+
+        <TextView
+            android:id="@+id/textViewNameUserImageCard"
+            android:layout_marginTop="6dp"
+            android:textStyle="bold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/imageViewUserImageCard"
+            android:text="@string/full_name"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/font_size_textview" />
+
+        <TextView
+            android:id="@+id/textViewLinesOfResearchUserImageCard"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/imageViewUserImageCard"
+            android:layout_below="@+id/textViewNameUserImageCard"
+            android:text="@string/lines_of_research"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/font_size_edittext" />
+
+    </RelativeLayout>
+</android.support.v7.widget.CardView>

@@ -37,20 +37,39 @@ public class LanguageDialogFragment extends DialogFragment implements View.OnCli
     protected Button buttonSelectLanguage;
 
 
+    /**
+     * Atributo que representa la imagen para cerrar el diálogo
+     */
     @BindView(R.id.imageViewCloseLanguage)
     protected ImageView imageViewClose;
 
 
+    /**
+     * Es obligatorio un constructor vacío para instanciar el fragmento
+     */
     public LanguageDialogFragment() {
 
     }
 
+    /**
+     * Método encargado de crear el fragmento
+     *
+     * @param savedInstanceState infomación a ser recepcionada
+     */
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setStyle(STYLE_NO_TITLE, 0);
     }
 
+    /**
+     * Método encargado de cargar la vista asociada al fragmento
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState información a ser recepcionada
+     * @return la vista del fragmento
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -59,6 +78,12 @@ public class LanguageDialogFragment extends DialogFragment implements View.OnCli
         return view;
     }
 
+    /**
+     * Método llamado después de que se ha completado el onCreate
+     * Se utiliza para inicializaciones finales y para modificar elementos de la interfaz
+     *
+     * @param savedInstanceState información a ser recepcionada
+     */
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
@@ -67,6 +92,11 @@ public class LanguageDialogFragment extends DialogFragment implements View.OnCli
 
     }
 
+    /**
+     * Método encargado de escuchar los eventos de los botones
+     *
+     * @param v control que ejecuta el evento
+     */
     @Override
     public void onClick(View v) {
         switch (v.getId()){

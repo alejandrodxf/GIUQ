@@ -5,24 +5,23 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.facebook.login.LoginManager;
 import com.facebook.share.model.ShareHashtag;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
-import com.twitter.sdk.android.Twitter;
-import com.twitter.sdk.android.core.Result;
-import com.twitter.sdk.android.core.TwitterException;
-import com.twitter.sdk.android.core.TwitterSession;
+import com.github.fafaldo.fabtoolbar.widget.FABToolbarLayout;
 import com.twitter.sdk.android.core.identity.TwitterAuthClient;
+
 import java.util.Arrays;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
@@ -47,6 +46,12 @@ public class BasicInformationProfileFragment extends Fragment implements View.On
     protected TextView textViewVariousTwo;
 
     /**
+     * Atributo que representa el TextView variousTwo
+     */
+    @BindView(R.id.textViewVariousThreeInformationProfile)
+    protected TextView textViewVariousThree;
+
+    /**
      * Atributo que representa el TextView  email
      */
     @BindView(R.id.textViewEmailBasicInformationProfile)
@@ -59,32 +64,31 @@ public class BasicInformationProfileFragment extends Fragment implements View.On
     protected TextView textViewName;
 
     /**
-     * Atributo que representa la imagen login de facebook
+     * Atributo que representa la vista para compartir contenido en twitter
      */
-    @BindView(R.id.imageViewFacebookLogin)
-    protected ImageView imageViewFacebookLogin;
+    @BindView(R.id.twitterShare)
+    protected View viewTwitterShare;
 
     /**
-     * Atributo que representa la imagen compartir de facebook
+     * Atributo que representa la vista para compartir contenido en facebook
      */
-    @BindView(R.id.imageViewFacebookShare)
-    protected ImageView imageViewFacebookShare;
+    @BindView(R.id.facebookShare)
+    protected View viewFacebookShare;
 
     /**
-     * Atributo que representa la imagen login de twitter
+     * Atributo que representa el diálogo de facebook
      */
-    @BindView(R.id.imageViewTwitterLogin)
-    protected ImageView imageViewTwitterLogin;
-
-    /**
-     * Atributo que representa la imagen compartir de twitter
-     */
-    @BindView(R.id.imageViewTwitterShare)
-    protected ImageView imageViewTwitterShare;
-
     private ShareDialog shareDialogFacebook;
 
+    /**
+     * Atributo utilizado para autenticar un usuario en twitter
+     */
     private TwitterAuthClient twitterAuthClient;
+
+    /**
+     * Atributo utilizado para validar si el usuario ya esta conectado en facebook
+     */
+    private Boolean validateFacebook;
 
     /**
      * Atributo que representa una llave string nombre
@@ -107,6 +111,11 @@ public class BasicInformationProfileFragment extends Fragment implements View.On
     private static final String EMAIL ="email";
 
     /**
+     * Atributo que representa una llave string nombre
+     */
+    private static final String URLCVLAC ="url_cvlac";
+
+    /**
      * Atributo que representa el nombre de un usuario
      */
     private String name;
@@ -122,9 +131,19 @@ public class BasicInformationProfileFragment extends Fragment implements View.On
     private String variousTwo;
 
     /**
+     * Atributo que representa la urlCVLAC
+     */
+    private String urlCVLAC;
+
+    /**
      * Atributo que representa el email de un usario
      */
     private String email;
+
+    /**
+     * Atributo que representa el menú que se despliega del float action button
+     */
+    private FABToolbarLayout morph;
 
     /**
      * Es obligatorio un constructor vacío para instanciar el fragmento
@@ -141,13 +160,14 @@ public class BasicInformationProfileFragment extends Fragment implements View.On
      * @param email email de un usuario
      * @return instancia
      */
-    public static BasicInformationProfileFragment newInstance(String name, String variousOne,String variousTwo,String email) {
+    public static BasicInformationProfileFragment newInstance(String name, String variousOne,String variousTwo,String email,String urlCVLAC) {
         BasicInformationProfileFragment fragment = new BasicInformationProfileFragment();
         Bundle bundle = new Bundle();
         bundle.putString(NAME, name);
         bundle.putString(VARIOUS_ONE, variousOne);
         bundle.putString(VARIOUS_TWO, variousTwo);
         bundle.putString(EMAIL, email);
+        bundle.putString(URLCVLAC,urlCVLAC);
         fragment.setArguments(bundle);
         return fragment;
     }
@@ -160,10 +180,12 @@ public class BasicInformationProfileFragment extends Fragment implements View.On
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        validateFacebook=false;
         this.name= (getArguments() != null) ? getArguments().getString(NAME) : "";
         this.variousOne= (getArguments() != null) ? getArguments().getString(VARIOUS_ONE) : "";
         this.variousTwo= (getArguments() != null) ? getArguments().getString(VARIOUS_TWO): "";
         this.email= (getArguments() != null) ? getArguments().getString(EMAIL) : "";
+        this.urlCVLAC= (getArguments() != null) ? getArguments().getString(URLCVLAC) : "";
     }
 
 
@@ -196,13 +218,13 @@ public class BasicInformationProfileFragment extends Fragment implements View.On
         textViewEmail.setText(email);
         textViewVariousOne.setText(variousOne);
         textViewVariousTwo.setText(variousTwo);
+        textViewVariousThree.setText(urlCVLAC);
+        FloatingActionButton fab = (FloatingActionButton) getView().findViewById(R.id.fab);
+        morph = (FABToolbarLayout) getView().findViewById(R.id.fabtoolbar);
+        fab.setOnClickListener(this);
+        viewFacebookShare.setOnClickListener(this);
+        viewTwitterShare.setOnClickListener(this);
         shareDialogFacebook = new ShareDialog(getActivity());
-        imageViewFacebookLogin.setOnClickListener(this);
-        imageViewFacebookShare.setOnClickListener(this);
-        imageViewTwitterShare.setOnClickListener(this);
-        imageViewTwitterLogin.setOnClickListener(this);
-        twitterAuthClient = new TwitterAuthClient();
-        disabledTwitterLogin();
     }
 
     /**
@@ -212,82 +234,73 @@ public class BasicInformationProfileFragment extends Fragment implements View.On
      */
     @Override
     public void onClick(View v) {
+        if (v.getId() == R.id.fab) {
+            morph.show();
+        }
+        morph.hide();
         switch (v.getId()) {
-            case R.id.imageViewFacebookLogin: {
-                LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends"));
-                break;
-            }
-            case R.id.imageViewFacebookShare: {
-                if (ShareDialog.canShow(ShareLinkContent.class)) {
-                    ShareLinkContent content = new ShareLinkContent.Builder()
-                            .setContentUrl(Uri.parse("https://www.uniquindio.edu.co/"
-                            )).setQuote("GIUQ")
-                            .setShareHashtag(new ShareHashtag.Builder().setHashtag("#GIUQ").build()).build();
-                    shareDialogFacebook.show(content);
+            case R.id.facebookShare:{
+                if(!validateFacebook){
+                    loginFacebook();
+                }else{
+                    shareFacebook();
                 }
                 break;
             }
-            case R.id.imageViewTwitterLogin:{
 
-                Log.v("Basic","twitter");
-
-                twitterAuthClient.authorize(getActivity(), new com.twitter.sdk.android.core.Callback<TwitterSession>() {
-                    @Override
-                    public void success(Result<TwitterSession> result) {
-                         Twitter.getInstance().core.getSessionManager().getActiveSession();
-
-                        TwitterSession session = result.data;
-                        twitterAuthClient.requestEmail(session, new com.twitter.sdk.android.core.Callback<String>() {
-                            @Override
-                            public void success(Result<String> result) {
-                                Log.e("preuba", "Twitterkit email id get success = " + result.data);
-                            }
-
-                            @Override
-                            public void failure(TwitterException exception) {
-                                Log.e("prueba", "Twitter kit twitter email get failed");
-                                exception.printStackTrace();
-                            }
-                        });
-
-
-                    }
-
-                    @Override
-                    public void failure(TwitterException exception) {
-                        Log.e("prueba", "Twitter kit twitter login failed");
-                        exception.printStackTrace();
-                    }
-                });
+            case R.id.twitterShare: {
                 break;
-            }
-            case R.id.imageViewTwitterShare:{
-                Log.v("entro","entro");
             }
 
         }
-    }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-      /*  if(resultCode == getActivity().RESULT_OK){
-          imageViewFacebookLogin.setVisibility(View.INVISIBLE);
-        }else
-
-        {
-        }*/
-
     }
 
     /**
-     * Método encargado de ocultar el botón de login twitter
+     * Método utilizado para obtener resultados de los fragmentos
+     * @param requestCode Código de solicitu
+     * @param resultCode Un código de resultado que puede ser RESULT_OK si la operación se realizó correctamente o RESULT_CANCELED si el usuario canceló la operación o esta falló por algún motivo.
+     * @param data  información del resultado.
      */
-    public void disabledTwitterLogin(){
-        TwitterSession session = Twitter.getSessionManager().getActiveSession();
-        if( session != null ){
-            imageViewTwitterLogin.setVisibility(View.INVISIBLE);
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == getActivity().RESULT_OK){
+            validateFacebook=true;
+            Bundle bundle = data.getExtras();
+            String fbData = bundle.toString();
+        }else
+        {
+            Log.e("Error","I have no idea what is happening :"+ data.getExtras().toString());
         }
     }
+
+
+    /**
+     * Método utilizado para loguear un usuario de facebook
+     */
+    public void loginFacebook(){
+        LoginManager.getInstance().logInWithReadPermissions(this, Arrays.asList("public_profile", "user_friends"));
+    }
+
+    /**
+     * Método utilizado para compartir información en facebook
+     */
+    public void shareFacebook(){
+        if (ShareDialog.canShow(ShareLinkContent.class)) {
+            ShareLinkContent content = new ShareLinkContent.Builder()
+                    .setContentUrl(Uri.parse(urlCVLAC
+                    ))
+                    .setQuote(name+"\n"+variousOne+"\n"+variousTwo)
+
+                    .setShareHashtag(new ShareHashtag.Builder()
+
+                            .setHashtag("#GIUQ")
+
+                            .build()).build();
+
+            shareDialogFacebook.show(content);
+
+        }
+    }
+
 }

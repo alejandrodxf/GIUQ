@@ -176,8 +176,8 @@ public class AboutResearcherFragment extends Fragment {
     public boolean sendAboutResearcher(){
         String name= editTextName.getText().toString();
         boolean genre=getGenre();
-        String nationality = spinnerNationality.getSelectedItem().toString();
-        String category =spinnerCategory.getSelectedItem().toString();
+        int nationality =spinnerNationality.getSelectedItemPosition();
+        int category = spinnerCategory.getSelectedItemPosition();
         String researchGroup = editTextResearchGroup.getText().toString();
         String urlCvlac = editTextUrlCvlac.getText().toString();
         String email= editTextEmail.getText().toString();
@@ -223,7 +223,7 @@ public class AboutResearcherFragment extends Fragment {
      * Todas las actividades que contengan este fragmento deben implementar la interface.
      */
     public interface AboutResearcherListener {
-        void sendAboutResearcher(String name,boolean genre,String nationality,String category,String researchGroup,String urlCvlac,String email,String password);
+        void sendAboutResearcher(String name,boolean genre,int nationality,int category,String researchGroup,String urlCvlac,String email,String password);
     }
 
     /**
@@ -307,4 +307,6 @@ public class AboutResearcherFragment extends Fragment {
         }
         return validate;
     }
+
+
 }

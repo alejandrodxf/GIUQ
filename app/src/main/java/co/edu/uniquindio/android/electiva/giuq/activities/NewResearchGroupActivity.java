@@ -18,6 +18,7 @@ import co.edu.uniquindio.android.electiva.giuq.R;
 import co.edu.uniquindio.android.electiva.giuq.fragments.AboutResearchGroupFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.AddLineOfResearchFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.AddResearcherFragment;
+import co.edu.uniquindio.android.electiva.giuq.fragments.GeneralDialogFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.LineOfResearchFragment;
 import co.edu.uniquindio.android.electiva.giuq.fragments.MembersResearchGroupFragment;
 import co.edu.uniquindio.android.electiva.giuq.util.AdapterPagerFragment;
@@ -30,8 +31,9 @@ import co.edu.uniquindio.android.electiva.giuq.vo.Researcher;
  * Actividad utilizada para agregar un grupo de investigación
  *
  * @author Francisco Alejandro Hoyos Rojas
+ * @version 1.0
  */
-public class NewResearchGroupActivity extends AppCompatActivity implements View.OnClickListener,LineOfResearchFragment.OnSelectedLineOfResearchListener,AddLineOfResearchFragment.AddLineOfResearchListener,AboutResearchGroupFragment.AboutResearchGroupListener,MembersResearchGroupFragment.OnSelectedMembersResearchGroupListener {
+public class NewResearchGroupActivity extends AppCompatActivity implements View.OnClickListener,LineOfResearchFragment.OnSelectedLineOfResearchListener,AddLineOfResearchFragment.AddLineOfResearchListener,AboutResearchGroupFragment.AboutResearchGroupListener,MembersResearchGroupFragment.OnSelectedMembersResearchGroupListener,AddResearcherFragment.AddResearcherListener {
 
     /**
      * Atributo que representa el bóton Back Select Rol de la vista
@@ -70,12 +72,8 @@ public class NewResearchGroupActivity extends AppCompatActivity implements View.
     /**
      * Atributo que representa la categoría de un grupo de investigación
      */
-    private String category;
+    private int category;
 
-    /**
-     * Atributo que representa el lider de un grupo de investigación
-     */
-    private String leader;
 
     /**
      * Atributo que representa la url del CVLAC de un grupo de investigación
@@ -107,6 +105,12 @@ public class NewResearchGroupActivity extends AppCompatActivity implements View.
      */
     private boolean validateAbout;
 
+
+    private Researcher leaderResearchGroup;
+
+    private int positionItem;
+
+
     /**
      * Método que se encarga de realizar la conexión con la parte lógica
      *
@@ -130,8 +134,8 @@ public class NewResearchGroupActivity extends AppCompatActivity implements View.
         AdapterPagerFragment adapterPagerFragment = new AdapterPagerFragment(getSupportFragmentManager());
         // Se agregan los fragmentos al adaptador
         adapterPagerFragment.addFragment(AboutResearchGroupFragment.newInstance(), getString(R.string.about));
-        adapterPagerFragment.addFragment(MembersResearchGroupFragment.newInstance(), getString(R.string.members));
-        adapterPagerFragment.addFragment(LineOfResearchFragment.newInstance(), getString(R.string.lines));
+        adapterPagerFragment.addFragment(MembersResearchGroupFragment.newInstance(new ArrayList<Researcher>()), getString(R.string.members));
+        adapterPagerFragment.addFragment(LineOfResearchFragment.newInstance(new ArrayList<LineOfResearch>()), getString(R.string.lines));
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             // posición de donde viene el tab
             private int fromPosition = 0;
@@ -184,13 +188,30 @@ public class NewResearchGroupActivity extends AppCompatActivity implements View.
      * Método encargado de enviar el grupo de investigación al controlador para que sea agregado
      */
     public void sendResearchGroup(){
-
+        GeneralDialogFragment generalDialogFragment;
         if (viewPager.getCurrentItem()==0){
             validateAbout= getAboutResearchGroup();
         }
-        if(validateAbout&&!linesOfResearch.isEmpty()){
-            ResearchGroup researchGroup = new ResearchGroup(name,email,password,urlCvlac,category,null,linesOfResearch,acronym,null,null);
-            ((ControllerApplication)getApplication()).addResearchGroup(researchGroup);
+        if(linesOfResearch!=null) {
+          if(!linesOfResearch.isEmpty()) {
+              if (validateAbout) {
+                  if (validateEmailDuplicate(email)) {
+                      generalDialogFragment = GeneralDialogFragment.newInstance(getResources().getString(R.string.invalid_registration), getResources().getString(R.string.error_email_duplicate), "ERROR");
+                      generalDialogFragment.show(getSupportFragmentManager(), "");
+                  } else {
+                      generalDialogFragment = GeneralDialogFragment.newInstance(getResources().getString(R.string.successful_registration), getResources().getString(R.string.successful_registration_info), "DONE");
+                      ResearchGroup researchGroup = new ResearchGroup(name, email, password, urlCvlac, category, null, linesOfResearch, false, acronym, leaderResearchGroup, researchers);
+                      ((ControllerApplication) getApplication()).addResearchGroup(researchGroup);
+                      generalDialogFragment.show(getSupportFragmentManager(), "");
+                  }
+              }
+          }else{
+              generalDialogFragment= GeneralDialogFragment.newInstance(getResources().getString(R.string.invalid_registration),getResources().getString(R.string.error_line),"ERROR");
+              generalDialogFragment.show(getSupportFragmentManager(),"");
+          }
+        }else{
+            generalDialogFragment= GeneralDialogFragment.newInstance(getResources().getString(R.string.invalid_registration),getResources().getString(R.string.error_line),"ERROR");
+            generalDialogFragment.show(getSupportFragmentManager(),"");
         }
     }
 
@@ -264,15 +285,15 @@ public class NewResearchGroupActivity extends AppCompatActivity implements View.
                 break;
             }
             case R.id.buttonSignUpResearchGroup:{
-                sendResearchGroup();
+                boolean validateConnectionTem = validateConnection();
+                if (validateConnectionTem) {
+                    sendResearchGroup();
+                }else{
+                    goToConnectionErrorDialog();
+                }
                 break;
             }
         }
-    }
-
-    @Override
-    public void onSelectedLineOfResearchListener(int position, ArrayList<LineOfResearch> lineOfResearch) {
-
     }
 
     /**
@@ -295,11 +316,11 @@ public class NewResearchGroupActivity extends AppCompatActivity implements View.
      * @param password contraseña grupo investigación
      */
     @Override
-    public void sendAboutResearchGroup(String name, String acronym, String category, String leader, String urlCvlac, String email, String password) {
+    public void sendAboutResearchGroup(String name, String acronym, int category, int leader, String urlCvlac, String email, String password) {
         this.name=name;
         this.acronym= acronym;
         this.category=category;
-        this.leader=leader;
+        this.leaderResearchGroup= ((ControllerApplication)getApplication()).getActiveResearchers().get(leader);
         this.urlCvlac=urlCvlac;
         this.email=email;
         this.password=password;
@@ -317,11 +338,6 @@ public class NewResearchGroupActivity extends AppCompatActivity implements View.
         lineOfResearchFragment.addLineOfResearch(lineOfResearchTem);
     }
 
-    @Override
-    public void onSelectedMembersResearchGroupListener(int position, ArrayList<Researcher> researchers) {
-
-    }
-
 
     /**
      * Método utilizado para obtener los investigadores de un grupo de investigación
@@ -333,4 +349,75 @@ public class NewResearchGroupActivity extends AppCompatActivity implements View.
     }
 
 
+    /**
+     * Método encargado de verficar que no exista un email duplicado en la base de datos
+     * @param email email a verificar
+     * @return true si ya existe el email de lo contrario false
+     */
+    public boolean validateEmailDuplicate(String email){
+        return ((ControllerApplication)getApplication()).searchEmail(email);
+    }
+
+
+    /**
+     * Método encargado de obtener los nombres de los investigadores activos
+     * @return lista de nombres de los investigadores activos
+     */
+    public String[]namesResearchers(){
+       return  ((ControllerApplication)getApplication()).namesResearchers();
+    }
+
+    /**
+     * Método encargado de agregar integrantes al grupo de investigación
+     * @param position posición en la que se encuentra el investigador en la base de datos
+     */
+    @Override
+    public void sendResearcherPosition(int position) {
+        FragmentPagerAdapter fragmentPagerAdapter =(FragmentPagerAdapter) viewPager.getAdapter();
+        MembersResearchGroupFragment membersResearchGroupFragment = (MembersResearchGroupFragment) fragmentPagerAdapter.getItem(1);
+        Researcher researcher = ((ControllerApplication)getApplication()).getActiveResearchers().get(position);
+        membersResearchGroupFragment.addResearcher(researcher);
+    }
+
+    /**
+     * Método encargado de verificar si hay conexión a internet o no
+     * @return true si hay conexión de lo contrario false
+     */
+    public boolean validateConnection(){
+        return Validations.isOnline(getApplicationContext());
+    }
+
+    /**
+     * Método encargado de mostrar el diálogo cuando no hay conexión a internet
+     */
+    public void goToConnectionErrorDialog(){
+        GeneralDialogFragment generalDialogFragment= GeneralDialogFragment.newInstance(getResources().getString(R.string.connection_error),getResources().getString(R.string.restart_application),"ERROR");
+        generalDialogFragment.show(getSupportFragmentManager(),"");
+    }
+
+    /**
+     * Método que recibe la posición del item seleccionado
+     * @param position posición del item seleccionado
+     */
+    public void onItemPosition(int position) {
+        positionItem = position;
+    }
+
+    /**
+     * Método que permite obtener el valor del atributo positionItem
+     *
+     * @return El valor del atributo positionItem
+     */
+    public int getPositionItem() {
+        return positionItem;
+    }
+
+    /**
+     * Método que permite asignar un valor al atributo positionItem
+     *
+     * @param positionItem Valor a ser asignado al atributo positionItem
+     */
+    public void setPositionItem(int positionItem) {
+        this.positionItem = positionItem;
+    }
 }

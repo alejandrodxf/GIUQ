@@ -35,7 +35,7 @@ public abstract class User implements Parcelable {
     /**
      * Atributo que representa la categoría de un usuario
      */
-    private String category;
+    private int category;
     /**
      * Atributo que representa la foto de un usuario
      */
@@ -44,6 +44,11 @@ public abstract class User implements Parcelable {
      * Atributo que representa las líneas de investigación de un usuario
      */
     private ArrayList<LineOfResearch> linesOfResearch;
+    /**
+     * Atributo que representa si el usuario esta activo o inactivo
+     */
+    private boolean state;
+
 
     /**
      * Constructor vacío requerido para utilizar Firebase
@@ -54,6 +59,7 @@ public abstract class User implements Parcelable {
 
     /**
      * Método constructor de la clase
+     *
      * @param name nombre del usuario
      * @param email email del usuario
      * @param password contraseña del usuario
@@ -62,7 +68,7 @@ public abstract class User implements Parcelable {
      * @param photo   imagen de perfil del usuario
      * @param linesOfResearch lineas de investigación del usuario
      */
-    public User(String name, String email, String password, String urlCVLAC, String category, String photo, ArrayList<LineOfResearch> linesOfResearch) {
+    public User(String name, String email, String password, String urlCVLAC, int category, String photo, ArrayList<LineOfResearch> linesOfResearch,boolean state) {
         this.name = name;
         this.email = email;
         this.password = password;
@@ -70,17 +76,23 @@ public abstract class User implements Parcelable {
         this.category = category;
         this.photo = photo;
         this.linesOfResearch = linesOfResearch;
+        this.state=state;
     }
 
 
+    /**
+     * Constructor utilizado para leer el Parcel
+     * @param in parcel a leer
+     */
     protected User(Parcel in) {
         name = in.readString();
         email=in.readString();
         password=in.readString();
         urlCVLAC=in.readString();
-        category=in.readString();
+        category=in.readInt();
         photo=in.readString();
         linesOfResearch=in.createTypedArrayList(LineOfResearch.CREATOR);
+        state=in.readByte() != 0;
 
     }
 
@@ -94,9 +106,10 @@ public abstract class User implements Parcelable {
         dest.writeString(email);
         dest.writeString(password);
         dest.writeString(urlCVLAC);
-        dest.writeString(category);
+        dest.writeInt(category);
         dest.writeString(photo);
         dest.writeTypedList(linesOfResearch);
+        dest.writeByte((byte) (state ? 1 : 0));
     }
 
 
@@ -207,7 +220,7 @@ public abstract class User implements Parcelable {
      *
      * @return El valor del atributo category
      */
-    public String getCategory() {
+    public int getCategory() {
         return category;
     }
 
@@ -216,7 +229,7 @@ public abstract class User implements Parcelable {
      *
      * @param category Valor a ser asignado al atributo category
      */
-    public void setCategory(String category) {
+    public void setCategory(int category) {
         this.category = category;
     }
 
@@ -236,5 +249,23 @@ public abstract class User implements Parcelable {
      */
     public void setPhoto(String photo) {
         this.photo = photo;
+    }
+
+    /**
+     * Método que permite obtener el valor del atributo state
+     *
+     * @return El valor del atributo state
+     */
+    public boolean isState() {
+        return state;
+    }
+
+    /**
+     * Método que permite asignar un valor al atributo state
+     *
+     * @param state Valor a ser asignado al atributo state
+     */
+    public void setState(boolean state) {
+        this.state = state;
     }
 }

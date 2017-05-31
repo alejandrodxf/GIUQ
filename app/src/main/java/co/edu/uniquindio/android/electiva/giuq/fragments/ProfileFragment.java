@@ -1,5 +1,6 @@
 package co.edu.uniquindio.android.electiva.giuq.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -14,6 +15,7 @@ import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
 import co.edu.uniquindio.android.electiva.giuq.activities.ProfileActivity;
 import co.edu.uniquindio.android.electiva.giuq.util.AdapterPagerFragment;
+import co.edu.uniquindio.android.electiva.giuq.vo.ResearchGroup;
 import co.edu.uniquindio.android.electiva.giuq.vo.Researcher;
 
 /**
@@ -39,8 +41,6 @@ public class ProfileFragment extends Fragment {
      * Atributo que representa una llave string posición
      */
     private static final String POSITION ="position";
-
-
 
     /**
      * Atributo que representa la posición del tab
@@ -100,25 +100,14 @@ public class ProfileFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         AdapterPagerFragment adapterPagerFragment = new AdapterPagerFragment(getChildFragmentManager());
-        Researcher researcher = getResearcher();
-        if(researcher!=null) {
-            String name= researcher.getName().toString();
-            String email= researcher.getEmail().toString();
-            String nationality = researcher.getNationality().toString();
-            String genre="";
-            String category = researcher.getCategory().toString();
-            String researchGroup = researcher.getResearchGroup().toString();
-            if(researcher.isGenre()){
-                genre=getResources().getString(R.string.male);
-            }else{
-                genre=getResources().getString(R.string.female);
-            }
-            adapterPagerFragment.addFragment(BasicInformationProfileFragment.newInstance(name,genre+" - "+nationality,researchGroup+" - "+category,email), getString(R.string.about));
-        }
-        adapterPagerFragment.addFragment(new Fragment(),getString(R.string.academic));
+        Researcher researcher =((ProfileActivity)getActivity()).getResearcher();
+        ResearchGroup researchGroup= ((ProfileActivity)getActivity()).getResearchGroup();
+        adapterPagerFragment.addFragment(InformationProfileFragment.newInstance(researcher,researchGroup),getString(R.string.about));
+        adapterPagerFragment.addFragment(SearchFragment.newInstance(),getString(R.string.search));
         adapterPagerFragment.addFragment(ListByFragment.newInstance(),getString(R.string.lines));
         adapterPagerFragment.setOnlyIcons(true);
         viewPager.setAdapter(adapterPagerFragment);
+        viewPager.setCurrentItem(position);
         tabMenu.setTabMode(TabLayout.MODE_FIXED);
         tabMenu.setTabGravity(TabLayout.GRAVITY_FILL);
         tabMenu.setupWithViewPager(viewPager);
@@ -139,7 +128,30 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    /**
+     * Método utilizado para obtener el investigador que esta usando la aplicación
+     * @return investigador
+     */
     public Researcher getResearcher(){
         return ((ProfileActivity)getActivity()).getResearcher();
+    }
+
+    /**
+     * Método utilizado para obtener el grupo de investigación que esta usando la aplicación
+     * @return grupo de investigación
+     */
+    public ResearchGroup getResearchGroup(){
+        return  ((ProfileActivity)getActivity()).getResearchGroup();
+    }
+
+    /**
+     * Método utilizado para obtener resultados de los fragmentos
+     * @param requestCode Código de solicitu
+     * @param resultCode Un código de resultado que puede ser RESULT_OK si la operación se realizó correctamente o RESULT_CANCELED si el usuario canceló la operación o esta falló por algún motivo.
+     * @param data  información del resultado.
+     */
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
     }
 }

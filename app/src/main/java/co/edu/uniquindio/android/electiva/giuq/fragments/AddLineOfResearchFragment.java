@@ -52,6 +52,7 @@ public class AddLineOfResearchFragment extends DialogFragment {
      * Atributo que representa el oyente del diálogo
      */
     private AddLineOfResearchListener listener;
+
     /**
      * Es obligatorio un constructor vacío para instanciar el fragmento
      */

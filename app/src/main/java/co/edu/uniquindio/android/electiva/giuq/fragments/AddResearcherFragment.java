@@ -1,31 +1,73 @@
 package co.edu.uniquindio.android.electiva.giuq.fragments;
 
 
+import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import co.edu.uniquindio.android.electiva.giuq.R;
+import co.edu.uniquindio.android.electiva.giuq.activities.NewResearchGroupActivity;
 
 /**
  * Fragmento utilizado para agregar investigadores a un grupo de investigación
+ * @author Francisco Alejandro Hoyos Rojas
+ * @version 1.0
  */
 public class AddResearcherFragment extends DialogFragment {
 
+    /**
+     * Atributo que representa el campo investigador
+     */
+    @BindView(R.id.autoCompleteTextViewResearcher)
+    protected AutoCompleteTextView autoCompleteTextViewResearcher;
+
+    /**
+     * Atributo que representa el botón agregar investigador
+     */
+    @BindView(R.id.buttonAddResearcher)
+    protected Button buttonAddResearcher;
 
     /**
      * Atributo que representa la imagen para cerrar el diálogo
      */
     @BindView(R.id.imageViewCloseAddResearcher)
     protected ImageView imageViewClose;
+
+    /**
+     * Atributo que representa la posición del investigador seleccionado
+     */
+    private int positionResearcher;
+
+    /**
+     * Atributo que representa el nombre del investigador seleccionado
+     */
+    private String nameSelection;
+
+    /**
+     * Atributo que representa la lista de nombres de los investigadores
+     */
+    private String [] names;
+    /**
+     * Atributo que representa el oyente del diálogo
+     */
+    private AddResearcherListener listener;
+
+    /**
+     * Atributo encargado de validar que si se halla seleccionado un investigador
+     */
+    private Boolean validateResearcher;
 
     /**
      * Es obligatorio un constructor vacío para instanciar el fragmento
@@ -41,6 +83,8 @@ public class AddResearcherFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        positionResearcher=0;
+        validateResearcher=false;
         setStyle(STYLE_NO_TITLE, 0);
     }
 
@@ -67,20 +111,96 @@ public class AddResearcherFragment extends DialogFragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        buttonAddResearcher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                searchPosition();
+                sendResearcherPosition();
+
+            }
+        });
         imageViewClose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dismiss();
             }
         });
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getContext(),R.layout.spinner_item,COUNTRIES );
-        AutoCompleteTextView textView = (AutoCompleteTextView) getView().findViewById(R.id.autoCompleteTextViewResearcher);
-        textView.setAdapter(adapter);
+        names =namesResearchers();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getContext(),R.layout.spinner_item,names);
+        autoCompleteTextViewResearcher.setAdapter(adapter);
+        autoCompleteTextViewResearcher.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View arg1, int pos, long id) {
+                nameSelection = (String) parent.getItemAtPosition(pos);
+                validateResearcher=true;
+            }
+        });
+    }
+
+    /**
+     * Método utilizado para obtener la posición del investigador seleccionad
+     */
+    public void searchPosition(){
+        if(nameSelection!=null) {
+            for (int i = 0; i < names.length; i++) {
+                if (nameSelection.equals(names[i])) {
+                    positionResearcher = i;
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * Método utilizado para obtener los nombres de los investigadores
+     * @return una lista de nombres de los investigadores
+     */
+    public String [] namesResearchers(){
+       return ((NewResearchGroupActivity)getActivity()).namesResearchers();
     }
 
 
+    /**
+     * Método utilizado para enviar la posición del investigador a la actividad
+     */
+    public void sendResearcherPosition() {
+        if (validateResearcher) {
+            listener.sendResearcherPosition(positionResearcher);
+            cleanDialog();
+        }
+    }
 
-    private static final String[] COUNTRIES = new String[] {
-            "Belgium", "France", "Italy", "Germany", "Spain","Space","Spain","Space","Spain","Space","Spain","Space","Spain","Space","Spain","Space","Spain","Space"
-    };
+    /**
+     * Método utilizado para limpiar los campos del diálogo
+     */
+    public void cleanDialog(){
+        autoCompleteTextViewResearcher.setText("");
+        validateResearcher=false;
+    }
+
+    /**
+     * Todas las actividades que contengan este fragmento deben implementar la interface.
+     */
+    public interface AddResearcherListener {
+        void sendResearcherPosition(int position);
+    }
+
+    /**
+     * Método que adjunta el fragmento en la actividad
+     *
+     * @param context contexto de la actividad
+     */
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Activity activity;
+        if (context instanceof Activity) {
+            activity = (Activity) context;
+            try {
+                listener = (AddResearcherListener) activity;
+            } catch (ClassCastException e) {
+                throw new ClassCastException(activity.toString() + " debe implementar la interfaz AddResearcherListener");
+            }
+        }
+    }
 }
