@@ -183,6 +183,14 @@ public class ControllerApplication extends Application {
         return names;
     }
 
+    public String [] namesResearchGroups(){
+        String [] names = new String [activeResearchGroups.size()];
+        for(int i=0; i<activeResearchGroups.size();i++){
+            names[i]= activeResearchGroups.get(i).getName()+"\n("+activeResearchGroups.get(i).getAcronym()+")";
+        }
+        return names;
+    }
+
     /**
      * Método utilizado para buscar por grupo de investigación, investigador, o por línea de investigación
      * @param nameResearcher nombre investigador

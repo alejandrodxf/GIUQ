@@ -26,6 +26,7 @@ import co.edu.uniquindio.android.electiva.giuq.util.AdapterPagerFragment;
 import co.edu.uniquindio.android.electiva.giuq.util.Validations;
 import co.edu.uniquindio.android.electiva.giuq.vo.AcademicTitle;
 import co.edu.uniquindio.android.electiva.giuq.vo.LineOfResearch;
+import co.edu.uniquindio.android.electiva.giuq.vo.ResearchGroup;
 import co.edu.uniquindio.android.electiva.giuq.vo.Researcher;
 
 /**
@@ -75,7 +76,7 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
     /**
      * Atributo que representa el grupo de investigación de un investigador
      */
-    private String researchGroup;
+    private ResearchGroup researchGroup;
 
     /**
      * Atributo que representa la url del CVLAC de un investigador
@@ -356,12 +357,15 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
      * @param password contraseña investigador
      */
     @Override
-    public void sendAboutResearcher(String name, boolean genre, int nationality, int category, String researchGroup, String urlCvlac, String email, String password) {
+    public void sendAboutResearcher(String name, boolean genre, int nationality, int category, int researchGroup, String urlCvlac, String email, String password) {
         this.name=name;
         this.genre= genre;
         this.nationality=nationality;
         this.category=category;
-        this.researchGroup=researchGroup;
+        if(researchGroup==-1){
+            this.researchGroup=null;
+        }else{
+        this.researchGroup=((ControllerApplication)getApplication()).getActiveResearchGroups().get(researchGroup);}
         this.urlCvlac=urlCvlac;
         this.email=email;
         this.password=password;
@@ -414,5 +418,13 @@ public class NewResearcherActivity extends AppCompatActivity implements View.OnC
     public void goToConnectionErrorDialog(){
         GeneralDialogFragment generalDialogFragment= GeneralDialogFragment.newInstance(getResources().getString(R.string.connection_error),getResources().getString(R.string.restart_application),"ERROR");
         generalDialogFragment.show(getSupportFragmentManager(),"");
+    }
+
+    /**
+     * Método encargado de obtener los nombres de los grupos de investigación activos
+     * @return lista de nombres de los grupos de investigación activos
+     */
+    public String[]namesResearchGroups(){
+        return  ((ControllerApplication)getApplication()).namesResearchGroups();
     }
 }

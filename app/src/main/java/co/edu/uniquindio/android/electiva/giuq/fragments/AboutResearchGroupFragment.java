@@ -202,7 +202,7 @@ public class AboutResearchGroupFragment extends Fragment {
             searchPosition();
             validateResearcherLeader=false;
         }else{
-            return false;
+            positionLeader=-1;
         }
         String urlCvlac = editTextUrlCvlac.getText().toString();
         String email= editTextEmail.getText().toString();

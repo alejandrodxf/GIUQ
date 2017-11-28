@@ -9,7 +9,9 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -31,12 +33,6 @@ public class AboutResearcherFragment extends Fragment {
      */
     @BindView(R.id.textInputLayoutFullNameResearcher)
     protected TextInputLayout textInputLayoutName;
-
-    /**
-     * Atributo que representa el campo research group
-     */
-    @BindView(R.id.textInputLayoutResearchGroupResearcher)
-    protected TextInputLayout textInputLayoutResearchGroup;
 
     /**
      * Atributo que representa el campo password
@@ -61,6 +57,27 @@ public class AboutResearcherFragment extends Fragment {
      */
     @BindView(R.id.editTextFullNameResearcher)
     protected EditText editTextName;
+
+
+    /**
+     * Atributo que representa el nombre de un grupo de investigación seleccionado
+     */
+    private String nameSelection;
+
+    /**
+     * Atributo que representa los nombres de los grupos de investigación activos
+     */
+    private String []names;
+
+    /**
+     * Atributo que representa la posición ddel grupo de investigación en la base de datos
+     */
+    private int positionResearchGroup;
+
+    /**
+     * Atributo encargado de validar que si se halla seleccionado grupo de investigación
+     */
+    private Boolean validateResearchGroup;
 
     /**
      * Atributo que representa el seleccionador de género
@@ -89,8 +106,8 @@ public class AboutResearcherFragment extends Fragment {
     /**
      * Atributo que representa el campo de texto research group
      */
-    @BindView(R.id.editTextResearchGroupResearcher)
-    protected EditText editTextResearchGroup;
+    @BindView(R.id.autoCompleteTextViewResearchGroupResearcher)
+    protected AutoCompleteTextView autoCompleteTextViewResearchGroupResearcher;
 
     /**
      * Atributo que representa el campo de texto email
@@ -135,6 +152,7 @@ public class AboutResearcherFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        validateResearchGroup=false;
 
     }
 
@@ -162,6 +180,16 @@ public class AboutResearcherFragment extends Fragment {
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        names=namesResearchGroups();
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this.getContext(),R.layout.spinner_item,names);
+        autoCompleteTextViewResearchGroupResearcher.setAdapter(adapter);
+        autoCompleteTextViewResearchGroupResearcher.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View arg1, int pos, long id) {
+                nameSelection = (String) parent.getItemAtPosition(pos);
+                validateResearchGroup=true;
+            }
+        });
         ArrayAdapter<CharSequence> adapterSpinnerNationality = ArrayAdapter.createFromResource(this.getContext(), R.array.nationality_array, R.layout.spinner_item);
         spinnerNationality.setAdapter(adapterSpinnerNationality);
         ArrayAdapter<CharSequence> adapterSpinnerCategory = ArrayAdapter.createFromResource(this.getContext(), R.array.category_researcher_array,R.layout.spinner_item);
@@ -178,17 +206,22 @@ public class AboutResearcherFragment extends Fragment {
         boolean genre=getGenre();
         int nationality =spinnerNationality.getSelectedItemPosition();
         int category = spinnerCategory.getSelectedItemPosition();
-        String researchGroup = editTextResearchGroup.getText().toString();
+        if(nameSelection!=null||validateResearchGroup) {
+            searchPosition();
+            validateResearchGroup=false;
+        }else{
+            positionResearchGroup=-1;
+        }
         String urlCvlac = editTextUrlCvlac.getText().toString();
         String email= editTextEmail.getText().toString();
         String password = editTextPassword.getText().toString();
         boolean validateName=validateFields(name,textInputLayoutName,getResources().getString(R.string.full_name));
-        boolean validateResearchGroup=validateFields(researchGroup,textInputLayoutResearchGroup,getResources().getString(R.string.research_group));
+
         boolean validateEmail=validateEmail(email);
         boolean validateUrlCvlac=validateUrlCvlac(urlCvlac);
         boolean validatePassword= validatePassword(password);
-        listener.sendAboutResearcher(name,genre,nationality,category,researchGroup,urlCvlac,email,password);
-        if(!validateName||!validateResearchGroup||!validateEmail||!validateUrlCvlac||!validatePassword)
+        listener.sendAboutResearcher(name,genre,nationality,category,positionResearchGroup,urlCvlac,email,password);
+        if(!validateName||!validateEmail||!validateUrlCvlac||!validatePassword)
         {
         return false;
         }else{
@@ -223,7 +256,7 @@ public class AboutResearcherFragment extends Fragment {
      * Todas las actividades que contengan este fragmento deben implementar la interface.
      */
     public interface AboutResearcherListener {
-        void sendAboutResearcher(String name,boolean genre,int nationality,int category,String researchGroup,String urlCvlac,String email,String password);
+        void sendAboutResearcher(String name,boolean genre,int nationality,int category,int researchGroup,String urlCvlac,String email,String password);
     }
 
     /**
@@ -306,6 +339,26 @@ public class AboutResearcherFragment extends Fragment {
             textInputLayoutEmail.setError(null);
         }
         return validate;
+    }
+
+    /**
+     * Método utilizado para obtener la posición del grupo de investigación seleccionado
+     */
+    public void searchPosition(){
+        for(int i=0; i<names.length;i++){
+            if(nameSelection.equals(names[i])){
+                positionResearchGroup=i;
+                break;
+            }
+        }
+    }
+
+    /**
+     * Método utilizado para obtener los nombres de los grupos de investigación
+     * @return una lista de nombres de los grupos de investigación
+     */
+    public String [] namesResearchGroups(){
+        return ((NewResearcherActivity)getActivity()).namesResearchGroups();
     }
 
 

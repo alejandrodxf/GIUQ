@@ -23,7 +23,7 @@ import java.util.ArrayList;
     /**
      * Atributo que representa el grupo de investigación al que pertenece un investigador
      */
-    private String researchGroup;
+    private ResearchGroup researchGroup;
     /**
      * Atributo que representa una lista de títulos obtenidos por un investigador
      */
@@ -48,7 +48,7 @@ import java.util.ArrayList;
      * @param researchGroup grupo de investigación del investigador
      * @param academicTitles titulos obtenidos por el investigador
      */
-    public Researcher(String name, String email, String password, String urlCVLAC, int category, String photo, ArrayList<LineOfResearch> linesOfResearch, boolean state, int nationality, String researchGroup, ArrayList<AcademicTitle> academicTitles,boolean genre) {
+    public Researcher(String name, String email, String password, String urlCVLAC, int category, String photo, ArrayList<LineOfResearch> linesOfResearch, boolean state, int nationality, ResearchGroup researchGroup, ArrayList<AcademicTitle> academicTitles,boolean genre) {
         super(name, email, password, urlCVLAC, category, photo, linesOfResearch,state);
         this.nationality = nationality;
         this.researchGroup = researchGroup;
@@ -63,7 +63,7 @@ import java.util.ArrayList;
     protected Researcher(Parcel in) {
         super(in);
         this.nationality = in.readInt();
-        this.researchGroup = in.readString();
+        this.researchGroup =  in.readParcelable(ResearchGroup.class.getClassLoader());
         this.academicTitles=in.createTypedArrayList(AcademicTitle.CREATOR);
         this.genre=in.readByte() != 0;
     }
@@ -104,7 +104,7 @@ import java.util.ArrayList;
     public void writeToParcel(Parcel dest, int flags) {
         super.writeToParcel(dest, flags);
         dest.writeInt(nationality);
-        dest.writeString(researchGroup);
+        dest.writeParcelable(researchGroup,flags);
         dest.writeTypedList(academicTitles);
         dest.writeByte((byte) (genre ? 1 : 0));
     }
@@ -165,7 +165,7 @@ import java.util.ArrayList;
      *
      * @return El valor del atributo researchGroup
      */
-    public String getResearchGroup() {
+    public ResearchGroup getResearchGroup() {
         return researchGroup;
     }
 
@@ -174,7 +174,7 @@ import java.util.ArrayList;
      *
      * @param researchGroup Valor a ser asignado al atributo researchGroup
      */
-    public void setResearchGroup(String researchGroup) {
+    public void setResearchGroup(ResearchGroup researchGroup) {
         this.researchGroup = researchGroup;
     }
 
